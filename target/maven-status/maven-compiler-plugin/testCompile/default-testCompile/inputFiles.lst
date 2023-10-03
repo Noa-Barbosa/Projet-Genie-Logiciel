@@ -1,2 +1,4 @@
-/home1/nb654417/NetBeansProjects/TPGL/Panier/src/test/java/fr/ufrsciencestech/panier/AppTest.java
-/home1/nb654417/NetBeansProjects/TPGL/Panier/src/test/java/fr/ufrsciencestech/panier/view/VueGSwingTest.java
+/home/thendis/Bureau/Universite/Master1/GenieLogiciel/Projet-Genie-Logiciel/src/test/java/fr/ufrsciencestech/panier/AppTest.java
+/home/thendis/Bureau/Universite/Master1/GenieLogiciel/Projet-Genie-Logiciel/src/test/java/fr/ufrsciencestech/panier/model/BananeTest.java
+/home/thendis/Bureau/Universite/Master1/GenieLogiciel/Projet-Genie-Logiciel/src/test/java/fr/ufrsciencestech/panier/model/SaladeFruitsTest.java
+/home/thendis/Bureau/Universite/Master1/GenieLogiciel/Projet-Genie-Logiciel/src/test/java/fr/ufrsciencestech/panier/view/VueGSwingTest.java
