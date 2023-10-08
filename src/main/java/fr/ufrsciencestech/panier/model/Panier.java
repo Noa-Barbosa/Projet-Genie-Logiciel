@@ -27,7 +27,7 @@ public class Panier extends Observable{
         String retour="";
         for(int i =0;i<fruits.size();i++){
             Fruit f = this.fruits.get(i);
-           retour =  f.toString();
+            retour +=  f.toString()+" ";
         }
         return retour;
     }

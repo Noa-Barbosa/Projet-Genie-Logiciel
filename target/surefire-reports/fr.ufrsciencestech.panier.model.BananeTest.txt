@@ -1,4 +1,32 @@
 -------------------------------------------------------------------------------
 Test set: fr.ufrsciencestech.panier.model.BananeTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.056 s - in fr.ufrsciencestech.panier.model.BananeTest
+Tests run: 7, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.047 s <<< FAILURE! - in fr.ufrsciencestech.panier.model.BananeTest
+testToString(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0.006 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
+testGetOrigine(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
+testIsSeedless(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
+testGetPrix(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
+testSetOrigine(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
+testEquals(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
+testSetPrix(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.5> but was:<0.6>
+	at fr.ufrsciencestech.panier.model.BananeTest.<init>(BananeTest.java:31)
+
