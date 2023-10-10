@@ -41,11 +41,33 @@ public class Panier extends Observable{
     }
 
     /**
-     * modificateur de la liste de fruits dans le panier 
-     * @param fruits liste contenant des fruits
+     * Remplace la liste de fruits si possible
+     * @param f
+     * @throws PanierTropPetitException 
      */
-    public void setFruits(ArrayList<Fruit> fruits) {
-      this.fruits=fruits;
+    public void setFruits(ArrayList<Fruit> f)throws PanierTropPetitException{
+        if(this.getContenanceMax() < f.size()){
+            throw new PanierTropPetitException();
+        }else{
+            this.fruits=f;
+        }
+    }
+    /**
+     * Ajout d'une suite de fruits
+     * @param fruits liste contenant des fruits
+     * @throws fr.ufrsciencestech.panier.model.PanierTropPetitException
+     */
+    public void ajoutFruits(ArrayList<Fruit> fruits) throws PanierTropPetitException{
+        //Si taille array <= espace restant;
+      if(fruits.size() <= this.contenanceMax-this.getFruits().size()){
+          ArrayList<Fruit> mesFruits=this.getFruits();
+          for(Fruit fruit:fruits)
+          {
+              mesFruits.add(fruit);
+          }
+      }else{
+          throw new PanierTropPetitException();
+      }
     }
 
     /**
@@ -126,6 +148,37 @@ public class Panier extends Observable{
         else{
             throw new PanierVideException();
         }
+    }
+
+    /**
+     * Retourne une sous catégorie de fruit
+     * ex : Si le fruit en parmetre est une orange, retourne un liste de toutes les oranges du panier.
+     * @param fruit le type de fruit
+     * @return Retourne une ArrayList des fruits de class fruit.
+     */
+    public ArrayList<Fruit> retrait(Fruit fruit){
+        ArrayList<Fruit> mesFruits= this.getFruits();
+        ArrayList<Fruit> ret=new ArrayList<>();
+        for(Fruit f:mesFruits){ //Créer la liste de retour
+            if(fruit.getClass() == f.getClass()){
+                ret.add(f);
+            }
+        }
+        for(Fruit f:ret){ //Retir les fruits du panier
+            this.fruits.remove(f);
+        }
+        return ret;
+    }
+    
+    /**
+     * Supprime et retourne un fruit precis
+     * @param index la position du fruit a récupérer et supprimer
+     * @return Le fruit à la position index
+     */
+    public Fruit retrait(int index){
+        Fruit ret = this.fruits.get(index);
+        this.fruits.remove(index);
+        return ret;
     }
 
      /**
