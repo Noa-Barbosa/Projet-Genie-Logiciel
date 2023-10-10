@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 public class SaladeFruitsTest {
     
     public SaladeFruitsTest() {
+        
     }
     
     @BeforeClass
@@ -43,7 +44,7 @@ public class SaladeFruitsTest {
     @Test
     public void testIsSeedless() {
         System.out.println("isSeedless");
-        SaladeFruits instance = new SaladeFruits();
+        SaladeFruits instance = new SaladeFruits(0,"Test");
         Fruit fruit = new Cerise();
         instance.ajoutFruit(fruit);
         boolean expResult = false;
@@ -57,11 +58,8 @@ public class SaladeFruitsTest {
     @Test
     public void testGetPrix() {
         System.out.println("getPrix");
-        SaladeFruits instance = new SaladeFruits();
-        Fruit fruit = new Orange();
-        instance.ajoutFruit(fruit);
-        instance.ajoutFruit(fruit);
-        double expResult = fruit.getPrix()*2;
+        SaladeFruits instance = new SaladeFruits(17,"Test");
+        double expResult = 17;
         double result = instance.getPrix();
         assertEquals(expResult, result, 0);
     }
@@ -72,11 +70,8 @@ public class SaladeFruitsTest {
     @Test
     public void testGetOrigine() {
         System.out.println("getOrigine");
-        SaladeFruits instance = new SaladeFruits();
-        Fruit fruit = new Orange();
-        instance.ajoutFruit(fruit);
-        instance.ajoutFruit(fruit);
-        String expResult = "Espagne, Espagne";
+        SaladeFruits instance = new SaladeFruits(0,"Test");
+        String expResult = "Test";
         String result = instance.getOrigine();
         assertEquals(expResult, result);
     }
@@ -87,8 +82,8 @@ public class SaladeFruitsTest {
     @Test
     public void testAjoutFruit() {
         System.out.println("ajoutFruit");
-        Fruit fruit = null;
-        SaladeFruits instance = new SaladeFruits();
+        Fruit fruit = new Orange();
+        SaladeFruits instance = new SaladeFruits(0,"Test");
         instance.ajoutFruit(fruit);
         ArrayList<Fruit> listeFruits=instance.getFruits();
         assertEquals(1,listeFruits.size());
@@ -101,7 +96,7 @@ public class SaladeFruitsTest {
     public void testRetirFruit() {
         System.out.println("retirFruit");
         Fruit fruit = new Orange();
-        SaladeFruits instance = new SaladeFruits();
+        SaladeFruits instance = new SaladeFruits(0,"Test");
         instance.ajoutFruit(fruit);
         instance.retirFruit(fruit);
         assertEquals(0,instance.getFruits().size());
@@ -113,7 +108,7 @@ public class SaladeFruitsTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        SaladeFruits instance = new SaladeFruits();
+        SaladeFruits instance = new SaladeFruits(0,"Test");
         Fruit fruit = new Cerise();
         Fruit fruit2 = new Orange();
         instance.ajoutFruit(fruit);

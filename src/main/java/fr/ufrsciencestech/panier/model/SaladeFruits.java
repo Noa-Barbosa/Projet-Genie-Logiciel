@@ -12,9 +12,13 @@ import java.util.*;
 public class SaladeFruits implements Fruit {
 
     private ArrayList<Fruit> listeFruits;
-    public SaladeFruits(){
+    private double prix;
+    private String origine;
+    public SaladeFruits(double prix, String origine){
         super();
         this.listeFruits = new ArrayList<>();
+        this.setPrix(prix);
+        this.setOrigine(origine);
     }
     
     /**
@@ -38,11 +42,7 @@ public class SaladeFruits implements Fruit {
      */
     @Override
     public double getPrix() {
-        double prix=0;
-        for(Fruit fruit:this.getFruits()){
-            prix+=fruit.getPrix();
-        }
-        return prix;
+        return this.prix;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -52,20 +52,18 @@ public class SaladeFruits implements Fruit {
      */
     @Override
     public String getOrigine() {
-        String origines="";
-        for(Fruit fruit:this.getFruits()){
-            origines+=fruit.getOrigine()+", ";
-        }
-        return origines.substring(0, origines.length()-2);
+        return this.origine;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
  
     public void ajoutFruit(Fruit fruit){
         this.getFruits().add(fruit);
+        this.setPrix(this.getPrix()+fruit.getPrix());
     }
     
     public void retirFruit(Fruit fruit){
         this.getFruits().remove(fruit);
+        this.setPrix(this.getPrix()-fruit.getPrix());
     }
     
     public ArrayList<Fruit> getFruits(){
@@ -91,11 +89,11 @@ public class SaladeFruits implements Fruit {
 
     @Override
     public void setPrix(double prix) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.prix=prix; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void setOrigine(String origine) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.origine=origine;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
