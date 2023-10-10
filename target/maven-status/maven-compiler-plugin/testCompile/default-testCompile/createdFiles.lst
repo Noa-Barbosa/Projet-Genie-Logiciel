@@ -1,4 +1,6 @@
 fr\ufrsciencestech\panier\AppTest.class
+fr\ufrsciencestech\panier\model\PanierTest.class
 fr\ufrsciencestech\panier\view\VueGSwingTest.class
+fr\ufrsciencestech\panier\model\FruitSimpleTest.class
 fr\ufrsciencestech\panier\model\BananeTest.class
 fr\ufrsciencestech\panier\model\SaladeFruitsTest.class

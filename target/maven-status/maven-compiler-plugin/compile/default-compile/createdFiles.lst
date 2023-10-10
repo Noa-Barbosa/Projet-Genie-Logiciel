@@ -1,8 +1,11 @@
 fr\ufrsciencestech\panier\model\SaladeFruits.class
+fr\ufrsciencestech\panier\view\VuePanier.class
 fr\ufrsciencestech\panier\view\VueG.class
 fr\ufrsciencestech\panier\model\Panier.class
 fr\ufrsciencestech\panier\view\VueGAWT$1.class
+fr\ufrsciencestech\panier\view\VuePanier$1.class
 fr\ufrsciencestech\panier\view\VueConsole.class
+fr\ufrsciencestech\panier\view\VuePanelFruit.class
 fr\ufrsciencestech\panier\model\Orange.class
 fr\ufrsciencestech\panier\controler\Controleur.class
 fr\ufrsciencestech\panier\model\Poire.class
