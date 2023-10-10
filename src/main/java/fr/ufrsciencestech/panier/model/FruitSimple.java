@@ -9,6 +9,8 @@ package fr.ufrsciencestech.panier.model;
  * @author vt718096
  */
 public abstract class FruitSimple {
+    private double prix;
+    private String origine;
     abstract double getPrix();
     abstract void setPrix(double prix);
     abstract String getOrigine();
