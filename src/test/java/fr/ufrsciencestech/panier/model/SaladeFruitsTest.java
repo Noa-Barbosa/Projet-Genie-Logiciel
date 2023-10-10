@@ -45,7 +45,7 @@ public class SaladeFruitsTest {
     public void testIsSeedless() {
         System.out.println("isSeedless");
         SaladeFruits instance = new SaladeFruits(0,"Test");
-        Fruit fruit = new Cerise();
+        FruitSimple fruit = new FruitSimple(1,"Maroc",TypeFruitSimple.Cerise);
         instance.ajoutFruit(fruit);
         boolean expResult = false;
         boolean result = instance.isSeedless();
@@ -82,7 +82,7 @@ public class SaladeFruitsTest {
     @Test
     public void testAjoutFruit() {
         System.out.println("ajoutFruit");
-        Fruit fruit = new Orange();
+        FruitSimple fruit = new FruitSimple(10,"France",TypeFruitSimple.Orange);
         SaladeFruits instance = new SaladeFruits(0,"Test");
         instance.ajoutFruit(fruit);
         ArrayList<Fruit> listeFruits=instance.getFruits();
@@ -95,7 +95,7 @@ public class SaladeFruitsTest {
     @Test
     public void testRetirFruit() {
         System.out.println("retirFruit");
-        Fruit fruit = new Orange();
+        FruitSimple fruit = new FruitSimple(10,"France",TypeFruitSimple.Orange);
         SaladeFruits instance = new SaladeFruits(0,"Test");
         instance.ajoutFruit(fruit);
         instance.retirFruit(fruit);
@@ -109,8 +109,8 @@ public class SaladeFruitsTest {
     public void testToString() {
         System.out.println("toString");
         SaladeFruits instance = new SaladeFruits(0,"Test");
-        Fruit fruit = new Cerise();
-        Fruit fruit2 = new Orange();
+        FruitSimple fruit = new FruitSimple(1,"Angleterre",TypeFruitSimple.Cerise);
+        FruitSimple fruit2 = new FruitSimple(10,"France",TypeFruitSimple.Orange);
         instance.ajoutFruit(fruit);
         instance.ajoutFruit(fruit2);
         String expResult = "Prix Total : "+instance.getPrix()+"\n";

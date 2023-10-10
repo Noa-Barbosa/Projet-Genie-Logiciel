@@ -5,6 +5,7 @@
  */
 package fr.ufrsciencestech.panier.model;
 
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -35,8 +36,8 @@ public class PanierTest {
     @Before
     public void setUp() {
         panier=new Panier(3);
-        f1=new Orange();
-        f2=new Banane();
+        f1=new FruitSimple(15,"Danemark",TypeFruitSimple.Orange);
+        f2=new FruitSimple(5,"Zimbabwe",TypeFruitSimple.Banane);
     }
     
     @After
