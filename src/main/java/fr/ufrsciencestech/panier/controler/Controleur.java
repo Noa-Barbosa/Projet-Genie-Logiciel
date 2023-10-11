@@ -5,8 +5,8 @@
 package fr.ufrsciencestech.panier.controler;
 
 import fr.ufrsciencestech.panier.model.Panier;
-import fr.ufrsciencestech.panier.model.PanierPleinException;
-import fr.ufrsciencestech.panier.model.PanierVideException;
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
+import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import fr.ufrsciencestech.panier.view.VueGSwing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

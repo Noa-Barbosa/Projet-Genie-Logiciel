@@ -5,6 +5,7 @@
  */
 package fr.ufrsciencestech.panier.model;
 
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -78,7 +79,7 @@ public class PanierTest {
         panierNonPlein.ajout(o1);
         panierNonPlein.ajout(o2);
 
-        
+       
     }
     
     @After

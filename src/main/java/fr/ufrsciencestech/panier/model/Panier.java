@@ -1,5 +1,8 @@
 package fr.ufrsciencestech.panier.model;
 
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
+import fr.ufrsciencestech.panier.model.exception.PanierTropPetitException;
+import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import java.util.*;
 /**
  *
@@ -245,8 +248,8 @@ public class Panier extends Observable{
         //ajoute ou enleve une orange du panier
         if(action == 1){
        
-            Orange o = new Orange(156,"Espagne");
-            this.ajout(o);
+            FruitSimple orange = new FruitSimple(156,"Espagne",TypeFruitSimple.Orange);
+            this.ajout(orange);
            
         }
         else{

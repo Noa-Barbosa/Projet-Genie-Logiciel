@@ -9,16 +9,14 @@ import java.util.*;
  *
  * @author thendis
  */
-public class SaladeFruits implements Fruit {
+public class SaladeFruits extends FruitAbstract {
 
     private ArrayList<Fruit> listeFruits;
-    private double prix;
-    private String origine;
     public SaladeFruits(double prix, String origine){
         super();
         this.listeFruits = new ArrayList<>();
-        this.setPrix(prix);
-        this.setOrigine(origine);
+        this.prix=prix;
+        this.origine=origine;
     }
     
     /**

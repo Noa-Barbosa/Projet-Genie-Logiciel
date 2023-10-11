@@ -6,14 +6,51 @@ package fr.ufrsciencestech.panier.model;
 
 /**
  *
- * @author vt718096
+ * @author noaba
  */
-public abstract class FruitSimple {
-    private double prix;
-    private String origine;
-    abstract double getPrix();
-    abstract void setPrix(double prix);
-    abstract String getOrigine();
-    abstract void setOrigine(String origine);
-    abstract boolean isSeedless() ;
+public class FruitSimple extends FruitAbstract{
+
+    private TypeFruitSimple typeFruit;
+    
+    public FruitSimple(double prix, String origine, TypeFruitSimple type){
+        this.prix=prix;
+        this.origine=origine;
+        this.typeFruit=type;
+    }
+    @Override
+    public double getPrix() {
+        return this.prix;
+    }
+
+    @Override
+    public void setPrix(double prix) {
+        this.prix=prix;
+    }
+
+    @Override
+    public String getOrigine() {
+        return this.origine;
+    }
+
+    @Override
+    public void setOrigine(String origine) {
+        this.origine=origine;
+    }
+
+    @Override
+    public boolean isSeedless(){
+        switch (typeFruit) {
+            case Orange : 
+                return false;
+            case Banane:
+                return true;
+            case Cerise:
+                return false;
+            case Poire:
+                return false;
+            default :
+                return true;
+        }
+    }
+    
 }
