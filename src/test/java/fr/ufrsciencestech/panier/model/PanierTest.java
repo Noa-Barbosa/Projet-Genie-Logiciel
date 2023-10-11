@@ -6,6 +6,8 @@
 package fr.ufrsciencestech.panier.model;
 
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
+import fr.ufrsciencestech.panier.model.exception.PanierTropPetitException;
+import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,12 +28,12 @@ public class PanierTest {
     private Panier panierPlein2;
     private Panier panierPlein3;
     private Panier panierNonPlein;
-    private Orange o;
-    private Orange o1;
-    private Orange o2;
-    private Poire P;
-    private Poire p1;
-    private Poire p2;
+    private FruitSimple o;
+    private FruitSimple o1;
+    private FruitSimple o2;
+    private FruitSimple P;
+    private FruitSimple p1;
+    private FruitSimple p2;
     
     
     public PanierTest() {
@@ -55,12 +57,12 @@ public class PanierTest {
         panierPlein3 = new Panier(3);
         panierNonPlein = new Panier(8);
         
-         o = new Orange(1,"espagna");
-         o1 = new Orange(2,"la rora");
-         o2 = new Orange(3,"ignesta");
-         P = new Poire(0.5,"uno");
-         p1 = new Poire(0.5,"dos");
-         p2 = new Poire(0.5,"tres");
+         o = new FruitSimple(1,"espagna",TypeFruitSimple.Orange);
+         o1 = new FruitSimple(2,"la rora",TypeFruitSimple.Orange);
+         o2 = new FruitSimple(3,"ignesta",TypeFruitSimple.Orange);
+         P = new FruitSimple(0.5,"uno",TypeFruitSimple.Poire);
+         p1 = new FruitSimple(0.5,"dos",TypeFruitSimple.Poire);
+         p2 = new FruitSimple(0.5,"tres",TypeFruitSimple.Poire);
         
         panier1_4.ajout(P);
         
