@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: fr.ufrsciencestech.panier.model.BananeTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.067 s <<< FAILURE! - in fr.ufrsciencestech.panier.model.BananeTest
+testToString(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0.011 s  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<[]> but was:<[Bananes de Maroc a 0.5 euros]>
+	at fr.ufrsciencestech.panier.model.BananeTest.testToString(BananeTest.java:110)
+
+testGetOrigine(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<[]> but was:<[Maroc]>
+	at fr.ufrsciencestech.panier.model.BananeTest.testGetOrigine(BananeTest.java:83)
+
+testIsSeedless(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: The test case is a prototype.
+	at fr.ufrsciencestech.panier.model.BananeTest.testIsSeedless(BananeTest.java:141)
+
+testGetPrix(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0.0> but was:<0.5>
+	at fr.ufrsciencestech.panier.model.BananeTest.testGetPrix(BananeTest.java:52)
+
+testSetOrigine(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: The test case is a prototype.
+	at fr.ufrsciencestech.panier.model.BananeTest.testSetOrigine(BananeTest.java:98)
+
+testEquals(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: The test case is a prototype.
+	at fr.ufrsciencestech.panier.model.BananeTest.testEquals(BananeTest.java:127)
+
+testSetPrix(fr.ufrsciencestech.panier.model.BananeTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: The test case is a prototype.
+	at fr.ufrsciencestech.panier.model.BananeTest.testSetPrix(BananeTest.java:71)
+

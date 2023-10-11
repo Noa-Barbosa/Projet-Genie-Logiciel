@@ -8,7 +8,7 @@ import fr.ufrsciencestech.panier.model.Fruit;
  *
  * @author roudet
  */
-public class Poire implements Fruit{
+public class Poire extends FruitSimple implements Fruit{
     private double prix;
     private String origine;
 	
