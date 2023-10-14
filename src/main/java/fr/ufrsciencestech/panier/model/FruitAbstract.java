@@ -25,5 +25,7 @@ public abstract class FruitAbstract implements Fruit{
     @Override
     public abstract void setTypeFruitSimple(TypeFruitSimple typeFruitSimple);
     @Override
+    public abstract boolean equals(Object o);
+    @Override
     public abstract boolean isSeedless();
 }

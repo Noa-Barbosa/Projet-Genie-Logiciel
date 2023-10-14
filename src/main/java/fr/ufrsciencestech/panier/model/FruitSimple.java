@@ -46,6 +46,20 @@ public class FruitSimple extends FruitAbstract{
     public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple){
         this.typeFruit = typeFruitSimple;
     }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass().equals(this.getClass())){
+            FruitSimple f = (FruitSimple) o;
+            
+            if(f.getTypeFruitSimple() == this.getTypeFruitSimple() &&
+                    f.getOrigine().equalsIgnoreCase(this.getOrigine()) &&
+                    f.getPrix() == this.getPrix()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public boolean isSeedless(){
