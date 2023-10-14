@@ -36,6 +36,16 @@ public class FruitSimple extends FruitAbstract{
     public void setOrigine(String origine) {
         this.origine=origine;
     }
+    
+    @Override
+    public TypeFruitSimple getTypeFruitSimple(){
+        return this.typeFruit;
+    }
+    
+    @Override
+    public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple){
+        this.typeFruit = typeFruitSimple;
+    }
 
     @Override
     public boolean isSeedless(){

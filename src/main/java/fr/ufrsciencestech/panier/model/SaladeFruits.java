@@ -12,15 +12,16 @@ import java.util.*;
 public class SaladeFruits extends FruitAbstract {
 
     private ArrayList<Fruit> listeFruits;
-    public SaladeFruits(double prix, String origine){
+    public SaladeFruits(double prix, String origine, TypeFruitSimple typeFruitSimple){
         super();
         this.listeFruits = new ArrayList<>();
         this.prix=prix;
         this.origine=origine;
+        this.typeFruit = typeFruitSimple;
     }
     
     /**
-     * Vérifie que les fruits de la salade son sans pepins
+     * Vérifie que les fruits de la salade sont sans pepins
      * @return false si l'un des fruits de la salade contient des pepins 
      */
     @Override
@@ -94,4 +95,15 @@ public class SaladeFruits extends FruitAbstract {
     public void setOrigine(String origine) {
         this.origine=origine;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    public TypeFruitSimple getTypeFruitSimple(){
+        return this.typeFruit;
+    }
+    
+    @Override
+    public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple){
+        this.typeFruit  = typeFruitSimple;
+    }
+    
 }

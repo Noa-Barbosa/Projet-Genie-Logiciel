@@ -35,6 +35,18 @@ public interface Produit {
     
     /**
      * 
+     * @return le type du produit
+     */
+    public TypeFruitSimple getTypeFruitSimple();
+    
+    /**
+     * Modifie le type du fruit
+     * @param typeFruitSimple
+     */
+    public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple);
+    
+    /**
+     * 
      * @param o 
      * @return vrai si l'objet en paramètre est égale a this
      */
