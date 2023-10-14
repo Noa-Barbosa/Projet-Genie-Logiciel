@@ -18,10 +18,19 @@ public class VuePanelFruit extends javax.swing.JPanel{
     /**
      * Creates new form VuePanelFruit
      */
-    public VuePanelFruit() {
+    public VuePanelFruit(Fruit f, int qte) {
         initComponents();
-        JLabel truc = new JLabel("TRUC");
-        this.add(truc);
+        this.f = f;
+        
+        initPanel(f, qte);
+    }
+    
+    void initPanel(Fruit f, int quantite){
+        //this.contFruit.setText();
+        this.contOrigine.setText(this.f.getOrigine());
+        this.contQuantite.setText(Integer.toString(quantite));
+        this.contPrixUnit.setText(this.f.getPrix() + "€");
+        this.contPrixTotal.setText(Double.toString(this.f.getPrix() * quantite));
     }
 
     /**
@@ -33,19 +42,64 @@ public class VuePanelFruit extends javax.swing.JPanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        labelFruit = new javax.swing.JLabel();
+        contFruit = new javax.swing.JLabel();
+        labelOrigine = new javax.swing.JLabel();
+        contOrigine = new javax.swing.JLabel();
+        labelQuantite = new javax.swing.JLabel();
+        contQuantite = new javax.swing.JLabel();
+        ajoutQteFruit = new javax.swing.JButton();
+        retireQteFruit = new javax.swing.JButton();
+        modifQteFruit = new javax.swing.JButton();
+        labelPrixUnit = new javax.swing.JLabel();
+        contPrixUnit = new javax.swing.JLabel();
+        labelPrixTotal = new javax.swing.JLabel();
+        contPrixTotal = new javax.swing.JLabel();
+
+        labelFruit.setText("Fruit : ");
+        add(labelFruit);
+        add(contFruit);
+
+        labelOrigine.setText("Origine : ");
+        add(labelOrigine);
+        add(contOrigine);
+
+        labelQuantite.setText("Qte : ");
+        add(labelQuantite);
+        add(contQuantite);
+
+        ajoutQteFruit.setText("+");
+        add(ajoutQteFruit);
+
+        retireQteFruit.setText("-");
+        add(retireQteFruit);
+
+        modifQteFruit.setText("Edit");
+        add(modifQteFruit);
+
+        labelPrixUnit.setText("Prix unitaire : ");
+        add(labelPrixUnit);
+        add(contPrixUnit);
+
+        labelPrixTotal.setText("Prix total : ");
+        add(labelPrixTotal);
+        add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ajoutQteFruit;
+    private javax.swing.JLabel contFruit;
+    private javax.swing.JLabel contOrigine;
+    private javax.swing.JLabel contPrixTotal;
+    private javax.swing.JLabel contPrixUnit;
+    private javax.swing.JLabel contQuantite;
+    private javax.swing.JLabel labelFruit;
+    private javax.swing.JLabel labelOrigine;
+    private javax.swing.JLabel labelPrixTotal;
+    private javax.swing.JLabel labelPrixUnit;
+    private javax.swing.JLabel labelQuantite;
+    private javax.swing.JButton modifQteFruit;
+    private javax.swing.JButton retireQteFruit;
     // End of variables declaration//GEN-END:variables
 }
