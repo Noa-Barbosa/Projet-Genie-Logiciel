@@ -74,5 +74,10 @@ public class FruitSimple extends FruitAbstract{
                 return true;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Type : "+ this.typeProduit + "Prix : " + this.prix + " Origine : " +this.origine;   
+    }
     
 }

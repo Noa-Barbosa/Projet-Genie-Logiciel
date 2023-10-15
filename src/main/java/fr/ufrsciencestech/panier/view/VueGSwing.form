@@ -57,6 +57,8 @@
             <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="dernierFruitPanierLabel">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -38,12 +38,14 @@ public class Controleur implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){   //Invoked when an action occurs
         try {
-            if(e.getActionCommand().equals("+")){
-                FruitSimple fruit = new FruitSimple(5,"France",TypeProduit.Banane);
-                p.ajout(fruit);
-            }        
-            else{
-                p.retrait(); 
+            switch(e.getActionCommand()){
+                case("+"):
+                    FruitSimple fruit = new FruitSimple(5,"France",TypeProduit.Banane);
+                    p.ajout(fruit);
+                    break;
+                case("-"):
+                    p.retrait(); 
+                    break;
             }
         } 
         catch (PanierPleinException | PanierVideException ex) {

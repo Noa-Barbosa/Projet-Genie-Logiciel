@@ -247,7 +247,7 @@ public class Panier extends Observable{
      */
     private void notifyUpdate(){
         setChanged();                //marks this Observable object as having been changed; the hasChanged method will now return true
-        notifyObservers(this.getTaillePanier());   //if this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that this object has no longer changed 
+        notifyObservers(this);   //if this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that this object has no longer changed 
         clearChanged();
     }
 }
