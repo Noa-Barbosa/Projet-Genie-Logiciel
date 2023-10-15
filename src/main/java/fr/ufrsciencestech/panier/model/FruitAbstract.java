@@ -5,12 +5,23 @@
 package fr.ufrsciencestech.panier.model;
 
 /**
- * 
+ * Classe abstraite pour la partie fruit
  * @author vt718096
  */
 public abstract class FruitAbstract implements Fruit{
+    /**
+     * Prix du fruit
+     */
     protected double prix;
+    
+    /**
+     * Origine du fruit
+     */
     protected String origine;
+    
+    /**
+     * Type du fruit
+     */
     protected TypeProduit typeProduit;
     @Override
     public abstract double getPrix();

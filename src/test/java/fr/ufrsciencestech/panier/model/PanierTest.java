@@ -332,43 +332,26 @@ public class PanierTest {
     }
 
     /**
-     * Test of notifyUpdate method, of class Panier.
-     */
-    @Test
-    public void testNotifyUpdate() {
-        System.out.println("notifyUpdate");
-        Panier instance = null;
-        instance.notifyUpdate();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of update method, of class Panier.
      */
     @Test
-    public void testUpdate() throws Exception {
+    public void testNotifyUpdate() throws Exception {
         // Testez la méthode update() avec action 1 (ajout) sur un panier vide (panierVide4)
-    panierVide4.update(1); // Ajoutez une orange au panier vide
+        panierVide4.ajout(o1);
+    panierVide4.notifyUpdate(); // Ajoutez une orange au panier vide
     assertEquals(1, panierVide4.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange ajoutée)
 
     // Testez la méthode update() avec action 2 (retrait) sur un panier avec un fruit (panier1_4)
-    panier1_4.update(2); // Retirez le dernier fruit (la poire) du panier
+    panier1_4.retrait();
+    panier1_4.notifyUpdate(); // Retirez le dernier fruit (la poire) du panier
     assertEquals(0, panier1_4.getTaillePanier()); // Le panier doit être vide
 
     // Testez la méthode update() avec action 1 (ajout) sur un panier plein (panierPlein2)
     try {
-        panierPlein2.update(1); // Essayez d'ajouter une poire au panier plein
+        panierPlein2.ajout(o1);
+        panierPlein2.notifyUpdate(); // Essayez d'ajouter une poire au panier plein
         fail("Une PanierPleinException devrait être levée");
     } catch (PanierPleinException e) {
-        // L'exception a été levée, ce qui est attendu
-    }
-
-    // Testez la méthode update() avec une action invalide (autre que 1 ou 2) sur un panier avec des fruits (panierNonPlein)
-    try {
-        panierNonPlein.update(0); // Essayez d'exécuter une action invalide
-        fail("Une IllegalArgumentException devrait être levée");
-    } catch (IllegalArgumentException e) {
         // L'exception a été levée, ce qui est attendu
     }
     }

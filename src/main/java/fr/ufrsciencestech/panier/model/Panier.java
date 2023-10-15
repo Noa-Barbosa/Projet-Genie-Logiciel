@@ -5,12 +5,20 @@ import fr.ufrsciencestech.panier.model.exception.PanierTropPetitException;
 import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import java.util.*;
 /**
- *
+ * Classe de modele principal de l'application
+ * Le panier stocke l'ensemble des fruits de l'utilisateur et sert à faire des manipulations dessus
  * @author roudet
  */
 public class Panier extends Observable{
-    private ArrayList<Fruit> fruits;  //attribut pour stocker les fruits
-    private final int contenanceMax;        //nb maximum d'oranges que peut contenir le panier
+    /**
+     * Liste des fruits
+     */
+    private ArrayList<Fruit> fruits;
+    
+    /**
+     * Contenance maximum du panier
+     */
+    private final int contenanceMax;
 	
     /**
      * initialise un panier vide ayant une certaine contenance maximale (precisee en parametre)
@@ -53,6 +61,7 @@ public class Panier extends Observable{
             throw new PanierTropPetitException();
         }else{
             this.fruits=f;
+            notifyUpdate();
         }
     }
     /**
@@ -68,6 +77,7 @@ public class Panier extends Observable{
           {
               mesFruits.add(fruit);
           }
+          notifyUpdate();
       }else{
           throw new PanierTropPetitException();
       }
@@ -105,6 +115,7 @@ public class Panier extends Observable{
      */
     public void setFruit(int i, Fruit f){  
         this.fruits.set(i, f);
+        notifyUpdate();
     }
     
     /**
@@ -154,7 +165,7 @@ public class Panier extends Observable{
     }
 
     /**
-     * Retourne une sous catégorie de fruit
+     * Retourne une sous catégorie de fruit A MODIFIER POUR PRENDRE NE COMPTE L'ENUM
      * ex : Si le fruit en parmetre est une orange, retourne un liste de toutes les oranges du panier.
      * @param fruit le type de fruit
      * @return Retourne une ArrayList des fruits de class fruit.
@@ -181,6 +192,7 @@ public class Panier extends Observable{
     public Fruit retrait(int index){
         Fruit ret = this.fruits.get(index);
         this.fruits.remove(index);
+        notifyUpdate();
         return ret;
     }
 
@@ -206,6 +218,7 @@ public class Panier extends Observable{
                 this.fruits.remove(f);
             }
         }
+        notifyUpdate();
     }  
         
     /**
@@ -235,27 +248,6 @@ public class Panier extends Observable{
     public void notifyUpdate(){
         setChanged();                //marks this Observable object as having been changed; the hasChanged method will now return true
         notifyObservers(this.getTaillePanier());   //if this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that this object has no longer changed 
-    }
-    
-    /**
-     * Modifie le panier à partir d'une action
-     * @param action type d'action à réaliser (ex 1 correspond à l'ajout)
-     * @throws PanierPleinException exception si le panier est plein
-     * @throws PanierVideException exception si le panier est vide
-     */
-    public void update(int action) throws PanierPleinException, PanierVideException {
-        
-        //ajoute ou enleve une orange du panier
-        if(action == 1){
-       
-            FruitSimple orange = new FruitSimple(156,"Espagne",TypeProduit.Orange);
-            this.ajout(orange);
-           
-        }
-        else{
-            this.retrait();
-        }
-        
-        notifyUpdate();
+        clearChanged();
     }
 }

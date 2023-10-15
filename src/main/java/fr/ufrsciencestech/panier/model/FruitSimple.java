@@ -5,7 +5,7 @@
 package fr.ufrsciencestech.panier.model;
 
 /**
- *
+ * Un fruit basique : Orange,Cerise...
  * @author noaba
  */
 public class FruitSimple extends FruitAbstract{    
@@ -14,6 +14,7 @@ public class FruitSimple extends FruitAbstract{
         this.origine=origine;
         this.typeProduit=type;
     }
+    
     @Override
     public double getPrix() {
         return this.prix;

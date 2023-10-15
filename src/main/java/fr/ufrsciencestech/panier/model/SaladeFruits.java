@@ -6,12 +6,21 @@ package fr.ufrsciencestech.panier.model;
 
 import java.util.*;
 /**
- *
- * @author thendis,noaba
+ * Classe contenant une liste de fruit
+ * @author thendis
  */
 public class SaladeFruits extends FruitAbstract {
-
+    
+    /**
+     * Liste des fruits
+     */
     private ArrayList<Fruit> listeFruits;
+    
+    /**
+     * Constructeur avec parametre
+     * @param prix le prix
+     * @param origine la pays d'origine, de fabrication 
+     */
     public SaladeFruits(double prix, String origine){
         super();
         this.listeFruits = new ArrayList<>();
@@ -55,16 +64,28 @@ public class SaladeFruits extends FruitAbstract {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
  
+    /**
+     * Ajoute un fruit dans la salade
+     * @param fruit le fruit a ajoute
+     */
     public void ajoutFruit(Fruit fruit){
         this.getFruits().add(fruit);
         this.setPrix(this.getPrix()+fruit.getPrix());
     }
     
+    /**
+     * Retire un fruit de la salade
+     * @param fruit le fruit a retire
+     */
     public void retirFruit(Fruit fruit){
         this.getFruits().remove(fruit);
         this.setPrix(this.getPrix()-fruit.getPrix());
     }
     
+    /**
+     * 
+     * @return la liste des fruits de la salade
+     */
     public ArrayList<Fruit> getFruits(){
         return this.listeFruits;
     }
