@@ -8,14 +8,11 @@ package fr.ufrsciencestech.panier.model;
  *
  * @author noaba
  */
-public class FruitSimple extends FruitAbstract{
-
-    private TypeFruitSimple typeFruit;
-    
-    public FruitSimple(double prix, String origine, TypeFruitSimple type){
+public class FruitSimple extends FruitAbstract{    
+    public FruitSimple(double prix, String origine, TypeProduit type){
         this.prix=prix;
         this.origine=origine;
-        this.typeFruit=type;
+        this.typeProduit=type;
     }
     @Override
     public double getPrix() {
@@ -38,13 +35,13 @@ public class FruitSimple extends FruitAbstract{
     }
     
     @Override
-    public TypeFruitSimple getTypeFruitSimple(){
-        return this.typeFruit;
+    public TypeProduit getTypeProduit(){
+        return this.typeProduit;
     }
     
     @Override
-    public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple){
-        this.typeFruit = typeFruitSimple;
+    public void setTypeProduit(TypeProduit typeProduit){
+        this.typeProduit = typeProduit;
     }
     
     @Override
@@ -52,7 +49,7 @@ public class FruitSimple extends FruitAbstract{
         if(o.getClass().equals(this.getClass())){
             FruitSimple f = (FruitSimple) o;
             
-            if(f.getTypeFruitSimple() == this.getTypeFruitSimple() &&
+            if(f.getTypeProduit() == this.getTypeProduit() &&
                     f.getOrigine().equalsIgnoreCase(this.getOrigine()) &&
                     f.getPrix() == this.getPrix()){
                 return true;
@@ -63,7 +60,7 @@ public class FruitSimple extends FruitAbstract{
 
     @Override
     public boolean isSeedless(){
-        switch (typeFruit) {
+        switch (typeProduit) {
             case Orange : 
                 return false;
             case Banane:

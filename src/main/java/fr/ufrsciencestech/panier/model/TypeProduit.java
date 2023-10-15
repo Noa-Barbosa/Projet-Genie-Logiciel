@@ -5,11 +5,11 @@
 package fr.ufrsciencestech.panier.model;
 
 /**
- * Enumeration permettant d'avoir les types de fruit simple de l'appli
+ * Enumeration permettant d'avoir les types de produit de l'appli
  * @author noaba
  */
-public enum TypeFruitSimple {
+public enum TypeProduit {
     
-    Orange,Banane,Cerise,Poire
+    Orange,Banane,Cerise,Poire,SaladeFruits
     
 }

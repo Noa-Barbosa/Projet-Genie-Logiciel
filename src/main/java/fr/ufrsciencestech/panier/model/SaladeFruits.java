@@ -7,17 +7,17 @@ package fr.ufrsciencestech.panier.model;
 import java.util.*;
 /**
  *
- * @author thendis
+ * @author thendis,noaba
  */
 public class SaladeFruits extends FruitAbstract {
 
     private ArrayList<Fruit> listeFruits;
-    public SaladeFruits(double prix, String origine, TypeFruitSimple typeFruitSimple){
+    public SaladeFruits(double prix, String origine){
         super();
         this.listeFruits = new ArrayList<>();
         this.prix=prix;
         this.origine=origine;
-        this.typeFruit = typeFruitSimple;
+        this.typeProduit = TypeProduit.SaladeFruits;
     }
     
     /**
@@ -97,13 +97,13 @@ public class SaladeFruits extends FruitAbstract {
     }
     
     @Override
-    public TypeFruitSimple getTypeFruitSimple(){
-        return this.typeFruit;
+    public TypeProduit getTypeProduit(){
+        return this.typeProduit;
     }
     
     @Override
-    public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple){
-        this.typeFruit  = typeFruitSimple;
+    public void setTypeProduit(TypeProduit typeProduit){
+        this.typeProduit  = typeProduit;
     }
     
     @Override
@@ -111,7 +111,7 @@ public class SaladeFruits extends FruitAbstract {
         if(o.getClass().equals(this.getClass())){
             FruitSimple f = (FruitSimple) o;
             
-            if(f.getTypeFruitSimple() == this.getTypeFruitSimple() &&
+            if(f.getTypeProduit() == this.getTypeProduit() &&
                     f.getOrigine().equalsIgnoreCase(this.getOrigine()) &&
                     f.getPrix() == this.getPrix()){
                 return true;

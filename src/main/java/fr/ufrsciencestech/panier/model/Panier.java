@@ -248,7 +248,7 @@ public class Panier extends Observable{
         //ajoute ou enleve une orange du panier
         if(action == 1){
        
-            FruitSimple orange = new FruitSimple(156,"Espagne",TypeFruitSimple.Orange);
+            FruitSimple orange = new FruitSimple(156,"Espagne",TypeProduit.Orange);
             this.ajout(orange);
            
         }

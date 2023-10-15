@@ -11,7 +11,7 @@ package fr.ufrsciencestech.panier.model;
 public abstract class FruitAbstract implements Fruit{
     protected double prix;
     protected String origine;
-    protected TypeFruitSimple typeFruit;
+    protected TypeProduit typeProduit;
     @Override
     public abstract double getPrix();
     @Override
@@ -21,9 +21,9 @@ public abstract class FruitAbstract implements Fruit{
     @Override
     public abstract void setOrigine(String origine);
     @Override
-    public abstract TypeFruitSimple getTypeFruitSimple();
+    public abstract TypeProduit getTypeProduit();
     @Override
-    public abstract void setTypeFruitSimple(TypeFruitSimple typeFruitSimple);
+    public abstract void setTypeProduit(TypeProduit typeProduit);
     @Override
     public abstract boolean equals(Object o);
     @Override

@@ -57,12 +57,12 @@ public class PanierTest {
         panierPlein3 = new Panier(3);
         panierNonPlein = new Panier(8);
         
-         o = new FruitSimple(1,"espagna",TypeFruitSimple.Orange);
-         o1 = new FruitSimple(2,"la rora",TypeFruitSimple.Orange);
-         o2 = new FruitSimple(3,"ignesta",TypeFruitSimple.Orange);
-         P = new FruitSimple(0.5,"uno",TypeFruitSimple.Poire);
-         p1 = new FruitSimple(0.5,"dos",TypeFruitSimple.Poire);
-         p2 = new FruitSimple(0.5,"tres",TypeFruitSimple.Poire);
+         o = new FruitSimple(1,"espagna",TypeProduit.Orange);
+         o1 = new FruitSimple(2,"la rora",TypeProduit.Orange);
+         o2 = new FruitSimple(3,"ignesta",TypeProduit.Orange);
+         P = new FruitSimple(0.5,"uno",TypeProduit.Poire);
+         p1 = new FruitSimple(0.5,"dos",TypeProduit.Poire);
+         p2 = new FruitSimple(0.5,"tres",TypeProduit.Poire);
         
         panier1_4.ajout(P);
         

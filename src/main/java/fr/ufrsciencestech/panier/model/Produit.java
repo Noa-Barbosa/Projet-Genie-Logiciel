@@ -37,13 +37,13 @@ public interface Produit {
      * 
      * @return le type du produit
      */
-    public TypeFruitSimple getTypeFruitSimple();
+    public TypeProduit getTypeProduit();
     
     /**
-     * Modifie le type du fruit
-     * @param typeFruitSimple
+     * Modifie le type du produit
+     * @param typeProduit
      */
-    public void setTypeFruitSimple(TypeFruitSimple typeFruitSimple);
+    public void setTypeProduit(TypeProduit typeProduit);
     
     /**
      * 
