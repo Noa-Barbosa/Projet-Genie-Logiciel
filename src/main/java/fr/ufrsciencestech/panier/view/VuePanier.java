@@ -4,10 +4,11 @@
  */
 package fr.ufrsciencestech.panier.view;
 
-import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.awt.*;
  */
 public class VuePanier extends javax.swing.JFrame {
     Panier p;
-    DefaultListModel<JPanel> liste;
+    int nbElementsGridLayout;
     
     /**
      * Creates new form VuePanier
@@ -23,20 +24,50 @@ public class VuePanier extends javax.swing.JFrame {
     public VuePanier() {
         initComponents();
         this.setTitle("Panier");
-        this.setLayout(new FlowLayout());
-        this.liste = new DefaultListModel<>();
+        this.nbElementsGridLayout = 0;
         
-        initListe();
+        try{
+            this.p = new Panier(10);
+            this.p.ajout(new FruitSimple(1.0, "Espagne", TypeFruitSimple.Cerise));
+            this.p.ajout(new FruitSimple(1.0, "Espagne", TypeFruitSimple.Cerise));
+            this.p.ajout(new FruitSimple(1.0, "Espagne", TypeFruitSimple.Cerise));
+            this.p.ajout(new FruitSimple(1.5, "France", TypeFruitSimple.Cerise));
+            this.p.ajout(new FruitSimple(2.5, "France", TypeFruitSimple.Banane));
+            this.p.ajout(new FruitSimple(2.0, "Madagascar", TypeFruitSimple.Banane));
+            this.p.ajout(new FruitSimple(1.5, "France", TypeFruitSimple.Orange));
+        }catch(Exception e){
+            System.err.println(e);
+        }
         
-        JList<JPanel> jList = new JList<>(this.liste);
-        JScrollPane scrollPane = new JScrollPane(jList);
-        this.add(scrollPane);
+        remplirListe();
     }
     
-    void initListe(){
-        for(int i=0;i<5;i++){
-            this.liste.addElement(new VuePanelFruit());
+    void remplirListe(){
+        ArrayList<Fruit> fruitsAjoutes = new ArrayList<>();
+        for(Fruit fruit : this.p.getFruits()){
+            if(!layoutContientFruit(fruit, fruitsAjoutes)){
+                int quantite = compteQteFruits(fruit, this.p);
+                this.panelListeFruits.add(new VuePanelFruit(fruit, quantite));
+                fruitsAjoutes.add(fruit);
+            }
         }
+    }
+    
+    boolean layoutContientFruit(Fruit f, ArrayList<Fruit> fruits){
+        for(Fruit fruit : fruits){
+            if(f.equals(fruit)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    int compteQteFruits(Fruit f, Panier p){
+        int compteur = 0;
+        for(Fruit fruit : p.getFruits()){
+            if(fruit.equals(f)) compteur++;
+        }
+        return compteur;
     }
 
     /**
@@ -48,18 +79,17 @@ public class VuePanier extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelListeFruits = new javax.swing.JPanel();
+        boutonAjoutFruit = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(800, 600));
+
+        panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
+        getContentPane().add(panelListeFruits, java.awt.BorderLayout.CENTER);
+
+        boutonAjoutFruit.setText("Ajout fruit");
+        getContentPane().add(boutonAjoutFruit, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,5 +130,7 @@ public class VuePanier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boutonAjoutFruit;
+    private javax.swing.JPanel panelListeFruits;
     // End of variables declaration//GEN-END:variables
 }
