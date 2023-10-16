@@ -154,7 +154,7 @@ public class Panier extends Observable{
      * retire le dernier produit du panier si celui-ci n'est pas vide
      * @throws PanierVideException vérifie si le panier n'est pas vide
      */
-    public void retrait() throws PanierVideException{
+    public void retraitLast() throws PanierVideException{
         if(!this.estVide()){
             this.produits.remove(this.produits.size()-1);
             notifyUpdate();
@@ -170,7 +170,7 @@ public class Panier extends Observable{
      * @param fruit le type de fruit
      * @return Retourne une ArrayList des produits de class fruit.
      */
-    public ArrayList<Fruit> retrait(Fruit fruit){
+    public ArrayList<Fruit> retraitAllProduit(Fruit fruit){
         //ArrayList<Fruit> mesFruits= this.getFruits();
         ArrayList<Fruit> mesFruits= new ArrayList<>();
         ArrayList<Fruit> ret=new ArrayList<>();
@@ -182,6 +182,7 @@ public class Panier extends Observable{
         for(Fruit f:ret){ //Retir les produits du panier
             this.produits.remove(f);
         }
+        notifyUpdate();
         return ret;
     }
     
@@ -190,19 +191,16 @@ public class Panier extends Observable{
      * @param index la position du produit a récupérer et supprimer
      * @return Le produit à la position index
      */
-    public Produit retrait(int index){
+    public Produit retraitProduitAt(int index){
         Produit ret = this.produits.get(index);
         this.produits.remove(index);
         notifyUpdate();
         return ret;
     }
     
-    /**
-     * Supprime seulement une instance précise de Fruit placée en paramètre
-     * @param fruit 
-     */
-    public void retraitFruitSimple(Fruit fruit){
-        this.produits.remove(fruit);
+    public void retraitProduit(Produit p) {
+        this.produits.remove(p);
+        notifyUpdate();
     }
 
      /**

@@ -268,21 +268,21 @@ public class PanierTest {
     }
 
     /**
-     * Test of retrait method, of class Panier.
+     * Test of retraitLast method, of class Panier.
      */
     @Test
     public void testRetrait() throws Exception {
-        // Testez la méthode retrait() sur un panier avec un fruit (panier1_4)
-        panier1_4.retrait(); // Retirez la poire du panier
+        // Testez la méthode retraitLast() sur un panier avec un fruit (panier1_4)
+        panier1_4.retraitLast(); // Retirez la poire du panier
         assertEquals(0, panier1_4.getTaillePanier()); // Le panier doit être vide
 
-        // Testez la méthode retrait() sur un panier plein (panierPlein2)
-        panierPlein2.retrait(); // Retirez l'orange du panier
+        // Testez la méthode retraitLast() sur un panier plein (panierPlein2)
+        panierPlein2.retraitLast(); // Retirez l'orange du panier
         assertEquals(1, panierPlein2.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange o2)
 
-        // Testez la méthode retrait() sur un panier vide (panierVide0)
+        // Testez la méthode retraitLast() sur un panier vide (panierVide0)
         try {
-            panierVide0.retrait(); // Essayez de retirer un fruit d'un panier vide
+            panierVide0.retraitLast(); // Essayez de retirer un fruit d'un panier vide
             fail("Une PanierVideException devrait être levée");
         } catch (PanierVideException e) {
             // L'exception a été levée, ce qui est attendu

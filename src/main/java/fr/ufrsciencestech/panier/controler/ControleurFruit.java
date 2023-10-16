@@ -32,7 +32,7 @@ public class ControleurFruit extends ControleurAbstract {
                     p.ajout(fruit);
                     break;
                 case("-"):
-                    p.retrait(); 
+                    p.retraitLast(); 
                     break;
             }
         } 

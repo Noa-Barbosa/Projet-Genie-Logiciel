@@ -112,7 +112,7 @@ public class VuePanelFruit extends javax.swing.JPanel{
     private void retireQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retireQteFruitActionPerformed
         // TODO add your handling code here:
         try{
-            this.vp.p.retraitFruitSimple(this.f);
+            this.vp.p.retraitProduit(this.f);
             
             this.vp.remplirListe();
         }catch(Exception e){
