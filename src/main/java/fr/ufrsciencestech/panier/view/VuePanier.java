@@ -28,14 +28,14 @@ public class VuePanier extends javax.swing.JFrame {
         
         try{
             this.p = new Panier(10);
-            this.p.ajout(new FruitSimple(1.0, "Espagne", TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.0, "Espagne", TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.0, "Espagne", TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.5, "France", TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.5, "France", TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(2.5, "France", TypeProduit.Banane));
-            this.p.ajout(new FruitSimple(2.0, "Madagascar", TypeProduit.Banane));
-            this.p.ajout(new FruitSimple(1.5, "France", TypeProduit.Orange));
+            this.p.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.p.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.p.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.p.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.p.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.p.ajout(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
+            this.p.ajout(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
+            this.p.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
         }catch(Exception e){
             System.err.println(e);
         }

@@ -209,7 +209,7 @@ public class Panier extends Observable{
      * @return un double correspondant à la somme de la valeur des fruits
      */
     public double getPrix(){ 
-	int prix=0;
+	double prix=0;
         for(Fruit fruit : this.fruits){
             prix+= fruit.getPrix();
         }
