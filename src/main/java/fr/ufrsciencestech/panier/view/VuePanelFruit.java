@@ -27,10 +27,10 @@ public class VuePanelFruit extends javax.swing.JPanel{
     
     void initPanel(Fruit f, int quantite){
         //this.contFruit.setText();
-        this.contOrigine.setText(this.f.getOrigine());
-        this.contQuantite.setText(Integer.toString(quantite));
-        this.contPrixUnit.setText(this.f.getPrix() + "€");
-        this.contPrixTotal.setText(Double.toString(this.f.getPrix() * quantite));
+        this.contOrigine.setText(this.f.getOrigine() + " ");
+        this.contQuantite.setText(Integer.toString(quantite) + " ");
+        this.contPrixUnit.setText(this.f.getPrix() + "€ ");
+        this.contPrixTotal.setText(Double.toString(this.f.getPrix() * quantite) + "€ ");
     }
 
     /**
