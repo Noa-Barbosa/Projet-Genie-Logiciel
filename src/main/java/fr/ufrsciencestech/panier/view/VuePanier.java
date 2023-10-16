@@ -15,7 +15,7 @@ import java.util.*;
  * @author pt454976
  */
 public class VuePanier extends javax.swing.JFrame {
-    Panier p;
+    Panier mPanier;
     
     /**
      * Creates new form VuePanier
@@ -25,15 +25,15 @@ public class VuePanier extends javax.swing.JFrame {
         this.setTitle("Panier");
         
         try{
-            this.p = new Panier(10);
-            this.p.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.p.ajout(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
-            this.p.ajout(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
-            this.p.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
+            this.mPanier = new Panier(10);
+            this.mPanier.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.mPanier.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.mPanier.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.mPanier.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.mPanier.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.mPanier.ajout(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
+            this.mPanier.ajout(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
+            this.mPanier.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
         }catch(Exception e){
             System.err.println(e);
         }
@@ -48,13 +48,12 @@ public class VuePanier extends javax.swing.JFrame {
         this.panelListeFruits.revalidate();
         this.panelListeFruits.repaint();
         
-        ArrayList<Fruit> fruitsAjoutes = new ArrayList<>();
-        for(Produit produit : this.p.getProduits()){
-            Fruit fruit = (Fruit) produit;
-            if(!layoutContientFruit(fruit, fruitsAjoutes)){
-                int quantite = compteQteFruits(fruit, this.p);
-                this.panelListeFruits.add(new VuePanelFruit(fruit, this, quantite));
-                fruitsAjoutes.add(fruit);
+        ArrayList<Produit> produitsAjoutes = new ArrayList<>();
+        for(Produit produit : this.mPanier.getProduits()){
+            if(!layoutContientProduit(produit, produitsAjoutes)){
+                int quantite = compteQteFruits(produit, this.mPanier);
+                this.panelListeFruits.add(new VuePanelFruit(produit, this, quantite));
+                produitsAjoutes.add(produit);
                 prixTotalPanier += quantite * produit.getPrix();
                 
             }
@@ -63,19 +62,19 @@ public class VuePanier extends javax.swing.JFrame {
         this.contPrixTotalPanier.setText(Double.toString(prixTotalPanier) + "€ ");
     }
     
-    boolean layoutContientFruit(Fruit f, ArrayList<Fruit> fruits){
-        for(Fruit fruit : fruits){
-            if(f.equals(fruit)){
+    boolean layoutContientProduit(Produit prodTest, ArrayList<Produit> produits){
+        for(Produit produit : produits){
+            if(prodTest.equals(produit)){
                 return true;
             }
         }
         return false;
     }
     
-    int compteQteFruits(Fruit f, Panier p){
+    int compteQteFruits(Produit prodTest, Panier panier){
         int compteur = 0;
-        for(Produit produit : p.getProduits()){
-            if(produit.equals(f)) compteur++;
+        for(Produit produit : panier.getProduits()){
+            if(produit.equals(prodTest)) compteur++;
         }
         return compteur;
     }
