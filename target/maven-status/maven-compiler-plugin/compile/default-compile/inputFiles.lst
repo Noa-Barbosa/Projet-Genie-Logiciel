@@ -1,3 +1,4 @@
+C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\controler\ControleurAbstract.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\model\TypeProduit.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\Main.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\view\VueConsole.java
@@ -15,6 +16,7 @@ C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\TestUtils.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\view\VueG.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\model\exception\PanierPleinException.java
+C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\controler\ControleurFruit.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\model\exception\PanierTropPetitException.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\model\Fruit.java
 C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\src\main\java\fr\ufrsciencestech\panier\view\VueGAWT.java

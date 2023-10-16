@@ -5,7 +5,6 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
-import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.Panier;
 import java.util.Observable;
 import javax.swing.JButton;
