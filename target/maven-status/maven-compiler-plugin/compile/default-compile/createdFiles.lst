@@ -11,6 +11,7 @@ fr\ufrsciencestech\panier\view\VueGAWT.class
 fr\ufrsciencestech\panier\controler\ControleurAbstract.class
 fr\ufrsciencestech\panier\model\FruitAbstract.class
 fr\ufrsciencestech\panier\TestUtils.class
+fr\ufrsciencestech\panier\view\VuePanelFruit$1.class
 fr\ufrsciencestech\panier\controler\ControleurFruit.class
 fr\ufrsciencestech\panier\model\Fruit.class
 fr\ufrsciencestech\panier\view\VuePanier.class
@@ -24,3 +25,4 @@ fr\ufrsciencestech\panier\Main$1.class
 fr\ufrsciencestech\panier\Main.class
 fr\ufrsciencestech\panier\model\Produit.class
 fr\ufrsciencestech\panier\model\exception\PanierVideException.class
+fr\ufrsciencestech\panier\view\VuePanelFruit$2.class

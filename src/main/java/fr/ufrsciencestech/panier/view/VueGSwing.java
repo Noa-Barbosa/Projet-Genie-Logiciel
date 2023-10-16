@@ -93,7 +93,7 @@ public class VueGSwing extends javax.swing.JFrame implements VueG {
         Panier p = (Panier)o;
         this.nbFruits.setText(((Integer) p.getTaillePanier()).toString());
         if(p.getTaillePanier()!=0){
-            this.dernierFruitPanierLabel.setText(p.getFruit(p.getTaillePanier()-1).toString());
+            this.dernierFruitPanierLabel.setText(p.getProduit(p.getTaillePanier()-1).toString());
         }
         else{
             this.dernierFruitPanierLabel.setText("vide");

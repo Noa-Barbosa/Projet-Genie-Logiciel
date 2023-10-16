@@ -49,12 +49,13 @@ public class VuePanier extends javax.swing.JFrame {
         this.panelListeFruits.repaint();
         
         ArrayList<Fruit> fruitsAjoutes = new ArrayList<>();
-        for(Fruit fruit : this.p.getFruits()){
+        for(Produit produit : this.p.getProduits()){
+            Fruit fruit = (Fruit) produit;
             if(!layoutContientFruit(fruit, fruitsAjoutes)){
                 int quantite = compteQteFruits(fruit, this.p);
                 this.panelListeFruits.add(new VuePanelFruit(fruit, this, quantite));
                 fruitsAjoutes.add(fruit);
-                prixTotalPanier += quantite * fruit.getPrix();
+                prixTotalPanier += quantite * produit.getPrix();
                 
             }
         }
@@ -73,8 +74,8 @@ public class VuePanier extends javax.swing.JFrame {
     
     int compteQteFruits(Fruit f, Panier p){
         int compteur = 0;
-        for(Fruit fruit : p.getFruits()){
-            if(fruit.equals(f)) compteur++;
+        for(Produit produit : p.getProduits()){
+            if(produit.equals(f)) compteur++;
         }
         return compteur;
     }
