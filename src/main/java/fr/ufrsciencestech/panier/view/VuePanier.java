@@ -16,7 +16,6 @@ import java.util.*;
  */
 public class VuePanier extends javax.swing.JFrame {
     Panier p;
-    int nbElementsGridLayout;
     
     /**
      * Creates new form VuePanier
@@ -24,7 +23,6 @@ public class VuePanier extends javax.swing.JFrame {
     public VuePanier() {
         initComponents();
         this.setTitle("Panier");
-        this.nbElementsGridLayout = 0;
         
         try{
             this.p = new Panier(10);
@@ -46,13 +44,18 @@ public class VuePanier extends javax.swing.JFrame {
     void remplirListe(){
         double prixTotalPanier = 0;
         
+        this.panelListeFruits.removeAll();
+        this.panelListeFruits.revalidate();
+        this.panelListeFruits.repaint();
+        
         ArrayList<Fruit> fruitsAjoutes = new ArrayList<>();
         for(Fruit fruit : this.p.getFruits()){
             if(!layoutContientFruit(fruit, fruitsAjoutes)){
                 int quantite = compteQteFruits(fruit, this.p);
-                this.panelListeFruits.add(new VuePanelFruit(fruit, quantite));
+                this.panelListeFruits.add(new VuePanelFruit(fruit, this, quantite));
                 fruitsAjoutes.add(fruit);
                 prixTotalPanier += quantite * fruit.getPrix();
+                
             }
         }
         
