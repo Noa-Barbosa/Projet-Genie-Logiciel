@@ -17,7 +17,7 @@ public abstract class FruitAbstract implements Fruit{
     /**
      * Origine du fruit
      */
-    protected String origine;
+    protected OrigineProduit origine;
     
     /**
      * Type du fruit
@@ -28,9 +28,9 @@ public abstract class FruitAbstract implements Fruit{
     @Override
     public abstract void setPrix(double prix);
     @Override
-    public abstract String getOrigine();
+    public abstract OrigineProduit getOrigine();
     @Override
-    public abstract void setOrigine(String origine);
+    public abstract void setOrigine(OrigineProduit origine);
     @Override
     public abstract TypeProduit getTypeProduit();
     @Override

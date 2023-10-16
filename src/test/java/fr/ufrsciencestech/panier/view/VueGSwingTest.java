@@ -7,6 +7,7 @@ package fr.ufrsciencestech.panier.view;
 import fr.ufrsciencestech.panier.TestUtils;
 import fr.ufrsciencestech.panier.controler.Controleur;
 import fr.ufrsciencestech.panier.model.FruitSimple;
+import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import fr.ufrsciencestech.panier.model.TypeProduit;
@@ -67,7 +68,7 @@ public class VueGSwingTest {
         
         //si on oublie d'ajouter la vue comme observateur du modele, elle ne se met pas à jour correctement
         assertEquals(vueg.getAffiche().getText(), "0");
-        FruitSimple o = new FruitSimple(10,"Canada",TypeProduit.Orange);
+        FruitSimple o = new FruitSimple(10,OrigineProduit.France,TypeProduit.Orange);
         p.ajout(o);
         
         assertEquals(vueg.getAffiche().getText(), "1");

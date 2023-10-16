@@ -21,7 +21,7 @@ public class SaladeFruits extends FruitAbstract {
      * @param prix le prix
      * @param origine la pays d'origine, de fabrication 
      */
-    public SaladeFruits(double prix, String origine){
+    public SaladeFruits(double prix, OrigineProduit origine){
         super();
         this.listeFruits = new ArrayList<>();
         this.prix=prix;
@@ -59,7 +59,7 @@ public class SaladeFruits extends FruitAbstract {
      * @return Un String de toutes les origines des fruits de la salade. Sous la forme "origine, origine, origine" 
      */
     @Override
-    public String getOrigine() {
+    public OrigineProduit getOrigine() {
         return this.origine;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -113,7 +113,7 @@ public class SaladeFruits extends FruitAbstract {
     }
 
     @Override
-    public void setOrigine(String origine) {
+    public void setOrigine(OrigineProduit origine) {
         this.origine=origine;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
@@ -133,7 +133,7 @@ public class SaladeFruits extends FruitAbstract {
             FruitSimple f = (FruitSimple) o;
             
             if(f.getTypeProduit() == this.getTypeProduit() &&
-                    f.getOrigine().equalsIgnoreCase(this.getOrigine()) &&
+                    f.getOrigine() == this.getOrigine() &&
                     f.getPrix() == this.getPrix()){
                 return true;
             }

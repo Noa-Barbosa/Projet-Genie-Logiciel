@@ -25,13 +25,13 @@ public interface Produit {
      * 
      * @return l'origine du produit
      */
-    public String getOrigine();   
+    public OrigineProduit getOrigine();   
     
     /***
      * Modifie l'origine d'un produit
      * @param origine l'origine a modifie
      */
-    public void setOrigine(String origine);
+    public void setOrigine(OrigineProduit origine);
     
     /**
      * 

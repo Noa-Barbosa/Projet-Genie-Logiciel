@@ -9,7 +9,7 @@ package fr.ufrsciencestech.panier.model;
  * @author noaba
  */
 public class FruitSimple extends FruitAbstract{    
-    public FruitSimple(double prix, String origine, TypeProduit type){
+    public FruitSimple(double prix, OrigineProduit origine, TypeProduit type){
         this.prix=prix;
         this.origine=origine;
         this.typeProduit=type;
@@ -26,12 +26,12 @@ public class FruitSimple extends FruitAbstract{
     }
 
     @Override
-    public String getOrigine() {
+    public OrigineProduit getOrigine() {
         return this.origine;
     }
 
     @Override
-    public void setOrigine(String origine) {
+    public void setOrigine(OrigineProduit origine) {
         this.origine=origine;
     }
     
@@ -51,7 +51,7 @@ public class FruitSimple extends FruitAbstract{
             FruitSimple f = (FruitSimple) o;
             
             if(f.getTypeProduit() == this.getTypeProduit() &&
-                    f.getOrigine().equalsIgnoreCase(this.getOrigine()) &&
+                    f.getOrigine() == this.getOrigine() &&
                     f.getPrix() == this.getPrix()){
                 return true;
             }
