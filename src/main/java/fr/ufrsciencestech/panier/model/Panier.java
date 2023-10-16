@@ -195,6 +195,14 @@ public class Panier extends Observable{
         notifyUpdate();
         return ret;
     }
+    
+    /**
+     * Supprime seulement une instance précise de Fruit placée en paramètre
+     * @param fruit 
+     */
+    public void retraitFruitSimple(Fruit fruit){
+        this.fruits.remove(fruit);
+    }
 
      /**
      * calcule le prix du panier par addition des prix de tous les fruits contenus dedans
