@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="fr.ufrsciencestech.panier.AppTest" time="0.057" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="fr.ufrsciencestech.panier.AppTest" time="0.047" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\noaba\AppData\Local\Temp\surefire9667351775116353331\surefirebooter11183341130868110624.jar C:\Users\noaba\AppData\Local\Temp\surefire9667351775116353331 2023-10-16T12-01-40_980-jvmRun1 surefire17117899355213213386tmp surefire_014986270169946084655tmp"/>
+    <property name="sun.java.command" value="C:\Users\noaba\AppData\Local\Temp\surefire6966952236847306892\surefirebooter1577907534826562585.jar C:\Users\noaba\AppData\Local\Temp\surefire6966952236847306892 2023-10-16T15-49-25_069-jvmRun1 surefire12902998701007094103tmp surefire_012292596774412569753tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\target\test-classes;C:\Users\noaba\Documents\NetBeansProjects\Projet-Genie-Logiciel\target\classes;C:\Users\noaba\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\noaba\.m2\repository\org\springframework\spring-context\2.0.5\spring-context-2.0.5.jar;C:\Users\noaba\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\noaba\.m2\repository\commons-logging\commons-logging\1.1\commons-logging-1.1.jar;C:\Users\noaba\.m2\repository\log4j\log4j\1.2.12\log4j-1.2.12.jar;C:\Users\noaba\.m2\repository\logkit\logkit\1.0.1\logkit-1.0.1.jar;C:\Users\noaba\.m2\repository\avalon-framework\avalon-framework\4.1.3\avalon-framework-4.1.3.jar;C:\Users\noaba\.m2\repository\javax\servlet\servlet-api\2.3\servlet-api-2.3.jar;C:\Users\noaba\.m2\repository\org\springframework\spring-beans\2.0.5\spring-beans-2.0.5.jar;C:\Users\noaba\.m2\repository\org\springframework\spring-core\2.0.5\spring-core-2.0.5.jar;C:\Users\noaba\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\noaba\AppData\Local\Temp\surefire9667351775116353331\surefirebooter11183341130868110624.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\noaba\AppData\Local\Temp\surefire6966952236847306892\surefirebooter1577907534826562585.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.8+9-LTS-211"/>
@@ -57,5 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="fr.ufrsciencestech.panier.AppTest" time="0.003"/>
+  <testcase name="shouldAnswerWithTrue" classname="fr.ufrsciencestech.panier.AppTest" time="0.002"/>
 </testsuite>

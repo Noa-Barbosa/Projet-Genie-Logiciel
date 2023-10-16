@@ -8,8 +8,10 @@ fr\ufrsciencestech\panier\view\VueGSwing.class
 fr\ufrsciencestech\panier\model\FruitSimple.class
 fr\ufrsciencestech\panier\model\FruitSimple$1.class
 fr\ufrsciencestech\panier\view\VueGAWT.class
+fr\ufrsciencestech\panier\controler\ControleurAbstract.class
 fr\ufrsciencestech\panier\model\FruitAbstract.class
 fr\ufrsciencestech\panier\TestUtils.class
+fr\ufrsciencestech\panier\controler\ControleurFruit.class
 fr\ufrsciencestech\panier\model\Fruit.class
 fr\ufrsciencestech\panier\view\VuePanier.class
 fr\ufrsciencestech\panier\view\VueG.class

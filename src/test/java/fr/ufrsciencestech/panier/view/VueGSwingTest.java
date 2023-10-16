@@ -5,7 +5,7 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.TestUtils;
-import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
  */
 public class VueGSwingTest {
     private static VueGSwing vueg;
-    private Controleur c;
+    private ControleurFruit c;
     private Panier p;
     
     public VueGSwingTest() {
@@ -46,7 +46,7 @@ public class VueGSwingTest {
     public void setUp() {
         vueg = new VueGSwing();
         p = new Panier(5);
-        c = new Controleur();
+        c = new ControleurFruit();
         
         c.setModele(p);
         c.setVue(vueg);
