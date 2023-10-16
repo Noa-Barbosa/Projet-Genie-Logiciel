@@ -7,7 +7,7 @@ package fr.ufrsciencestech.panier.view;
 import javax.swing.*;
 import java.awt.*;
 
-import fr.ufrsciencestech.panier.model.Fruit;
+import fr.ufrsciencestech.panier.model.*;
 
 /**
  *
@@ -15,12 +15,14 @@ import fr.ufrsciencestech.panier.model.Fruit;
  */
 public class VuePanelFruit extends javax.swing.JPanel{
     Fruit f;
+    VuePanier vp;
     /**
      * Creates new form VuePanelFruit
      */
-    public VuePanelFruit(Fruit f, int qte) {
+    public VuePanelFruit(Fruit f, VuePanier vp, int qte) {
         initComponents();
         this.f = f;
+        this.vp = vp;
         
         initPanel(f, qte);
     }
@@ -69,9 +71,19 @@ public class VuePanelFruit extends javax.swing.JPanel{
         add(contQuantite);
 
         ajoutQteFruit.setText("+");
+        ajoutQteFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutQteFruitActionPerformed(evt);
+            }
+        });
         add(ajoutQteFruit);
 
         retireQteFruit.setText("-");
+        retireQteFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retireQteFruitActionPerformed(evt);
+            }
+        });
         add(retireQteFruit);
 
         modifQteFruit.setText("Edit");
@@ -85,6 +97,28 @@ public class VuePanelFruit extends javax.swing.JPanel{
         add(labelPrixTotal);
         add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
+        // TODO add your handling code here:
+        try{
+            this.vp.p.ajout(this.f);
+            
+            this.vp.remplirListe();
+        }catch(Exception e){
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_ajoutQteFruitActionPerformed
+
+    private void retireQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retireQteFruitActionPerformed
+        // TODO add your handling code here:
+        try{
+            this.vp.p.retraitFruitSimple(this.f);
+            
+            this.vp.remplirListe();
+        }catch(Exception e){
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_retireQteFruitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
