@@ -38,15 +38,23 @@
         <Property name="rows" type="int" value="0"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JButton" name="boutonAjoutFruit">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ajout fruit"/>
-      </Properties>
+    <Container class="javax.swing.JPanel" name="panelPrixTotalPanier">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="South"/>
         </Constraint>
       </Constraints>
-    </Component>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="labelPrixTotalPanier">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Prix total du panier : "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="contPrixTotalPanier">
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

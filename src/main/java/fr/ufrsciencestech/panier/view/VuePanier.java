@@ -32,6 +32,7 @@ public class VuePanier extends javax.swing.JFrame {
             this.p.ajout(new FruitSimple(1.0, "Espagne", TypeProduit.Cerise));
             this.p.ajout(new FruitSimple(1.0, "Espagne", TypeProduit.Cerise));
             this.p.ajout(new FruitSimple(1.5, "France", TypeProduit.Cerise));
+            this.p.ajout(new FruitSimple(1.5, "France", TypeProduit.Cerise));
             this.p.ajout(new FruitSimple(2.5, "France", TypeProduit.Banane));
             this.p.ajout(new FruitSimple(2.0, "Madagascar", TypeProduit.Banane));
             this.p.ajout(new FruitSimple(1.5, "France", TypeProduit.Orange));
@@ -43,14 +44,19 @@ public class VuePanier extends javax.swing.JFrame {
     }
     
     void remplirListe(){
+        double prixTotalPanier = 0;
+        
         ArrayList<Fruit> fruitsAjoutes = new ArrayList<>();
         for(Fruit fruit : this.p.getFruits()){
             if(!layoutContientFruit(fruit, fruitsAjoutes)){
                 int quantite = compteQteFruits(fruit, this.p);
                 this.panelListeFruits.add(new VuePanelFruit(fruit, quantite));
                 fruitsAjoutes.add(fruit);
+                prixTotalPanier += quantite * fruit.getPrix();
             }
         }
+        
+        this.contPrixTotalPanier.setText(Double.toString(prixTotalPanier) + "€ ");
     }
     
     boolean layoutContientFruit(Fruit f, ArrayList<Fruit> fruits){
@@ -80,7 +86,9 @@ public class VuePanier extends javax.swing.JFrame {
     private void initComponents() {
 
         panelListeFruits = new javax.swing.JPanel();
-        boutonAjoutFruit = new javax.swing.JButton();
+        panelPrixTotalPanier = new javax.swing.JPanel();
+        labelPrixTotalPanier = new javax.swing.JLabel();
+        contPrixTotalPanier = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));
@@ -88,8 +96,11 @@ public class VuePanier extends javax.swing.JFrame {
         panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
         getContentPane().add(panelListeFruits, java.awt.BorderLayout.CENTER);
 
-        boutonAjoutFruit.setText("Ajout fruit");
-        getContentPane().add(boutonAjoutFruit, java.awt.BorderLayout.SOUTH);
+        labelPrixTotalPanier.setText("Prix total du panier : ");
+        panelPrixTotalPanier.add(labelPrixTotalPanier);
+        panelPrixTotalPanier.add(contPrixTotalPanier);
+
+        getContentPane().add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -130,7 +141,9 @@ public class VuePanier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton boutonAjoutFruit;
+    private javax.swing.JLabel contPrixTotalPanier;
+    private javax.swing.JLabel labelPrixTotalPanier;
     private javax.swing.JPanel panelListeFruits;
+    private javax.swing.JPanel panelPrixTotalPanier;
     // End of variables declaration//GEN-END:variables
 }
