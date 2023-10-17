@@ -181,8 +181,8 @@ public class PanierTest {
     assertEquals(P, panier1_4.getFruit(0)); // Le premier élément du panier doit être la poire P
 
     // Testez la méthode getFruit() sur un panier plein (panierPlein2)
-    assertEquals(P, panierPlein2.getFruit(0)); // Le premier élément du panier doit être la poire P
-    assertEquals(o, panierPlein2.getFruit(1)); // Le deuxième élément du panier doit être l'orange o
+    assertEquals(o, panierPlein2.getFruit(0)); // Le premier élément du panier doit être la poire P
+    assertEquals(P, panierPlein2.getFruit(1)); // Le deuxième élément du panier doit être l'orange o
 
     // Testez la méthode getFruit() sur un index invalide (panierPlein1)
     assertNull(panierPlein1.getFruit(1)); // L'index 1 est invalide, la méthode doit renvoyer null
@@ -369,6 +369,7 @@ public class PanierTest {
         // L'exception a été levée, ce qui est attendu
     }
     }
+    
     
 }
 
