@@ -28,20 +28,6 @@ public class Panier extends Observable{
 	this.contenanceMax = contenanceMax;
         this.produits = new ArrayList<>(contenanceMax);
     }
-
-    /**
-     * affichage de ce qui est contenu dans le panier  
-     * @return liste des produits presents
-     */
-    @Override
-    public String toString() {
-        String retour="";
-        for(int i =0;i<produits.size();i++){
-            Produit p = this.produits.get(i);
-            retour +=  p.toString()+" ";
-        }
-        return retour;
-    }
     
     /**
      * accesseur de la liste de produits dans le panier
@@ -64,41 +50,7 @@ public class Panier extends Observable{
             notifyUpdate();
         }
     }
-    /**
-     * Ajout d'une suite de produits
-     * @param produits liste contenant des produits
-     * @throws fr.ufrsciencestech.panier.model.exception.PanierTropPetitException
-     */
-    public void ajoutProduits(ArrayList<Produit> produits) throws PanierTropPetitException{
-        //Si taille array <= espace restant;
-      if(produits.size() <= this.contenanceMax-this.getProduits().size()){
-          ArrayList<Produit> mesProduits=this.getProduits();
-          for(Produit produit:produits)
-          {
-              mesProduits.add(produit);
-          }
-          notifyUpdate();
-      }else{
-          throw new PanierTropPetitException();
-      }
-    }
-
-    /**
-     * accesseur retournant la taille allouee pour l'attibut produits
-     * @return taille du panier de produits
-     */
-    public int getTaillePanier(){
-        return produits.size();
-    }
     
-    /**
-     * accesseur de la taille du panier
-     * @return la taille du panier
-     */
-    public int getContenanceMax(){
-	return contenanceMax;
-    }
-
     /**
      * accesseur retournant le produit contenu dans le panier a l'emplacement n°i ou null s'il n'y a rien a cet emplacement
      * @param i emplacement du produit dans la liste
@@ -116,6 +68,34 @@ public class Panier extends Observable{
     public void setProduit(int i, Produit p){  
         this.produits.set(i, p);
         notifyUpdate();
+    }
+    
+    /**
+     * accesseur retournant la taille allouee pour l'attibut produits
+     * @return taille du panier de produits
+     */
+    public int getTaillePanier(){
+        return produits.size();
+    }
+    
+    /**
+     * accesseur de la taille du panier
+     * @return la taille du panier
+     */
+    public int getContenanceMax(){
+	return contenanceMax;
+    }
+    
+    /**
+     * calcule le prix du panier par addition des prix de tous les produits contenus dedans
+     * @return un double correspondant à la somme de la valeur des produits
+     */
+    public double getPrix(){ 
+	double prix=0;
+        for(Produit produit : this.produits){
+            prix+= produit.getPrix();
+        }
+        return prix;
     }
     
     /**
@@ -140,7 +120,7 @@ public class Panier extends Observable{
      * @param o Objet de type Produit
      * @throws PanierPleinException vérifie si le panier est plein
      */
-    public void ajout(Produit o) throws PanierPleinException{  
+    public void ajoutProduit(Produit o) throws PanierPleinException{  
        if(!this.estPlein()){
             this.produits.add(o);
             notifyUpdate();
@@ -149,12 +129,49 @@ public class Panier extends Observable{
         throw new PanierPleinException();
        }
     }
-
+    
+    /**
+     * Ajout d'une suite de produits
+     * @param produits liste contenant des produits
+     * @throws fr.ufrsciencestech.panier.model.exception.PanierTropPetitException
+     */
+    public void ajoutProduits(ArrayList<Produit> produits) throws PanierTropPetitException{
+        //Si taille array <= espace restant;
+      if(produits.size() <= this.contenanceMax-this.getProduits().size()){
+          ArrayList<Produit> mesProduits=this.getProduits();
+          for(Produit produit:produits)
+          {
+              mesProduits.add(produit);
+          }
+          notifyUpdate();
+      }else{
+          throw new PanierTropPetitException();
+      }
+    }
+    
+    public void retraitProduit(Produit p) {
+        this.produits.remove(p);
+        notifyUpdate();
+    }
+    
+    /**
+    * Supprime et retourne un produit precis
+    * @param index la position du produit a récupérer et supprimer
+    * @return Le produit à la position index
+    */
+    public Produit retraitProduitAt(int index){
+        Produit ret = this.produits.get(index);
+        this.produits.remove(index);
+        notifyUpdate();
+        return ret;
+    }
+    
+    
      /**
      * retire le dernier produit du panier si celui-ci n'est pas vide
      * @throws PanierVideException vérifie si le panier n'est pas vide
      */
-    public void retraitLast() throws PanierVideException{
+    public void retraitLastProduit() throws PanierVideException{
         if(!this.estVide()){
             this.produits.remove(this.produits.size()-1);
             notifyUpdate();
@@ -165,54 +182,22 @@ public class Panier extends Observable{
     }
 
     /**
-     * Retourne une sous catégorie de fruit A MODIFIER POUR PRENDRE NE COMPTE L'ENUM
-     * ex : Si le fruit en parmetre est une orange, retourne un liste de toutes les oranges du panier.
-     * @param fruit le type de fruit
-     * @return Retourne une ArrayList des produits de class fruit.
+     * Supprime tout les produits d'un meme type du Panier
+     * @param type le type de produit
      */
-    public ArrayList<Fruit> retraitAllProduit(Fruit fruit){
+    public void retraitAllProduitsByType(TypeProduit type){
         //ArrayList<Fruit> mesFruits= this.getFruits();
-        ArrayList<Fruit> mesFruits= new ArrayList<>();
-        ArrayList<Fruit> ret=new ArrayList<>();
-        for(Fruit f:mesFruits){ //Créer la liste de retour
-            if(fruit.getClass() == f.getClass()){
-                ret.add(f);
+        ArrayList<Produit> mesProduits= this.getProduits();
+        ArrayList<Produit> produitsAEnlever=new ArrayList<>();
+        for(Produit p:mesProduits){ 
+            if(p.getTypeProduit().equals(type)){
+                produitsAEnlever.add(p);
             }
         }
-        for(Fruit f:ret){ //Retir les produits du panier
-            this.produits.remove(f);
+        for(Produit p:produitsAEnlever){ //Retir les produits du panier
+            this.produits.remove(p);
         }
         notifyUpdate();
-        return ret;
-    }
-    
-    /**
-     * Supprime et retourne un produit precis
-     * @param index la position du produit a récupérer et supprimer
-     * @return Le produit à la position index
-     */
-    public Produit retraitProduitAt(int index){
-        Produit ret = this.produits.get(index);
-        this.produits.remove(index);
-        notifyUpdate();
-        return ret;
-    }
-    
-    public void retraitProduit(Produit p) {
-        this.produits.remove(p);
-        notifyUpdate();
-    }
-
-     /**
-     * calcule le prix du panier par addition des prix de tous les produits contenus dedans
-     * @return un double correspondant à la somme de la valeur des produits
-     */
-    public double getPrix(){ 
-	double prix=0;
-        for(Produit produit : this.produits){
-            prix+= produit.getPrix();
-        }
-        return prix;
     }
     
     /**
@@ -250,6 +235,20 @@ public class Panier extends Observable{
         else{
             return false;
         }
+    }
+    
+    /**
+     * affichage de ce qui est contenu dans le panier  
+     * @return liste des produits presents
+     */
+    @Override
+    public String toString() {
+        String retour="";
+        for(int i =0;i<produits.size();i++){
+            Produit p = this.produits.get(i);
+            retour +=  p.toString()+" ";
+        }
+        return retour;
     }
     
     /**

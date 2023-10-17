@@ -14,25 +14,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * ControleurFruit de l'application
+ * Controleur de la partie fruit de l'application
  * @author nb654417
  */
 public class ControleurFruit extends ControleurAbstract {
-    /**
-     * Ecoute les evenements de la vue, creer les objets modeles si necessaire : fruit,salade..
-     * fait les actions sur le modele en lui passant les objets si necessaire
-     * @param e l'evenement declenche
-     */
     @Override
     public void actionPerformed(ActionEvent e){   //Invoked when an action occurs
         try {
             switch(e.getActionCommand()){
                 case("+"):
                     FruitSimple fruit = new FruitSimple(5,OrigineProduit.France,TypeProduit.Banane);
-                    p.ajout(fruit);
+                    p.ajoutProduit(fruit);
                     break;
                 case("-"):
-                    p.retraitLast(); 
+                    p.retraitLastProduit(); 
                     break;
             }
         } 
