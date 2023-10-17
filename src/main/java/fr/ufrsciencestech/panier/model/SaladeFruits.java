@@ -6,23 +6,31 @@ package fr.ufrsciencestech.panier.model;
 
 import java.util.*;
 /**
- *
+ * Classe contenant une liste de fruit
  * @author thendis
  */
-public class SaladeFruits implements Fruit {
-
+public class SaladeFruits extends FruitAbstract {
+    
+    /**
+     * Liste des fruits
+     */
     private ArrayList<Fruit> listeFruits;
-    private double prix;
-    private String origine;
-    public SaladeFruits(double prix, String origine){
+    
+    /**
+     * Constructeur avec parametre
+     * @param prix le prix
+     * @param origine la pays d'origine, de fabrication 
+     */
+    public SaladeFruits(double prix, OrigineProduit origine){
         super();
         this.listeFruits = new ArrayList<>();
-        this.setPrix(prix);
-        this.setOrigine(origine);
+        this.prix=prix;
+        this.origine=origine;
+        this.typeProduit = TypeProduit.SaladeFruits;
     }
     
     /**
-     * Vérifie que les fruits de la salade son sans pepins
+     * Vérifie que les fruits de la salade sont sans pepins
      * @return false si l'un des fruits de la salade contient des pepins 
      */
     @Override
@@ -51,21 +59,33 @@ public class SaladeFruits implements Fruit {
      * @return Un String de toutes les origines des fruits de la salade. Sous la forme "origine, origine, origine" 
      */
     @Override
-    public String getOrigine() {
+    public OrigineProduit getOrigine() {
         return this.origine;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
  
+    /**
+     * Ajoute un fruit dans la salade
+     * @param fruit le fruit a ajoute
+     */
     public void ajoutFruit(Fruit fruit){
         this.getFruits().add(fruit);
         this.setPrix(this.getPrix()+fruit.getPrix());
     }
     
+    /**
+     * Retire un fruit de la salade
+     * @param fruit le fruit a retire
+     */
     public void retirFruit(Fruit fruit){
         this.getFruits().remove(fruit);
         this.setPrix(this.getPrix()-fruit.getPrix());
     }
     
+    /**
+     * 
+     * @return la liste des fruits de la salade
+     */
     public ArrayList<Fruit> getFruits(){
         return this.listeFruits;
     }
@@ -93,7 +113,32 @@ public class SaladeFruits implements Fruit {
     }
 
     @Override
-    public void setOrigine(String origine) {
+    public void setOrigine(OrigineProduit origine) {
         this.origine=origine;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    public TypeProduit getTypeProduit(){
+        return this.typeProduit;
+    }
+    
+    @Override
+    public void setTypeProduit(TypeProduit typeProduit){
+        this.typeProduit  = typeProduit;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass().equals(this.getClass())){
+            FruitSimple f = (FruitSimple) o;
+            
+            if(f.getTypeProduit() == this.getTypeProduit() &&
+                    f.getOrigine() == this.getOrigine() &&
+                    f.getPrix() == this.getPrix()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

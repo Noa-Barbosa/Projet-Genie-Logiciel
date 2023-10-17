@@ -4,10 +4,11 @@
  */
 package fr.ufrsciencestech.panier.view;
 
-import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  *
@@ -15,7 +16,6 @@ import java.awt.*;
  */
 public class VuePanier extends javax.swing.JFrame {
     Panier p;
-    DefaultListModel<JPanel> liste;
     
     /**
      * Creates new form VuePanier
@@ -23,20 +23,61 @@ public class VuePanier extends javax.swing.JFrame {
     public VuePanier() {
         initComponents();
         this.setTitle("Panier");
-        this.setLayout(new FlowLayout());
-        this.liste = new DefaultListModel<>();
         
-        initListe();
+        try{
+            this.p = new Panier(10);
+            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.p.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
+            this.p.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
+            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
+        }catch(Exception e){
+            System.err.println(e);
+        }
         
-        JList<JPanel> jList = new JList<>(this.liste);
-        JScrollPane scrollPane = new JScrollPane(jList);
-        this.add(scrollPane);
+        remplirListe();
     }
     
-    void initListe(){
-        for(int i=0;i<5;i++){
-            this.liste.addElement(new VuePanelFruit());
+    void remplirListe(){
+        double prixTotalPanier = 0;
+        
+        this.panelListeFruits.removeAll();
+        this.panelListeFruits.revalidate();
+        this.panelListeFruits.repaint();
+        
+        ArrayList<Fruit> fruitsAjoutes = new ArrayList<>();
+        for(Produit produit : this.p.getProduits()){
+            Fruit fruit = (Fruit) produit;
+            if(!layoutContientFruit(fruit, fruitsAjoutes)){
+                int quantite = compteQteFruits(fruit, this.p);
+                this.panelListeFruits.add(new VuePanelFruit(fruit, this, quantite));
+                fruitsAjoutes.add(fruit);
+                prixTotalPanier += quantite * produit.getPrix();
+                
+            }
         }
+        
+        this.contPrixTotalPanier.setText(Double.toString(prixTotalPanier) + "€ ");
+    }
+    
+    boolean layoutContientFruit(Fruit f, ArrayList<Fruit> fruits){
+        for(Fruit fruit : fruits){
+            if(f.equals(fruit)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    int compteQteFruits(Fruit f, Panier p){
+        int compteur = 0;
+        for(Produit produit : p.getProduits()){
+            if(produit.equals(f)) compteur++;
+        }
+        return compteur;
     }
 
     /**
@@ -48,18 +89,22 @@ public class VuePanier extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelListeFruits = new javax.swing.JPanel();
+        panelPrixTotalPanier = new javax.swing.JPanel();
+        labelPrixTotalPanier = new javax.swing.JLabel();
+        contPrixTotalPanier = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(800, 600));
+
+        panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
+        getContentPane().add(panelListeFruits, java.awt.BorderLayout.CENTER);
+
+        labelPrixTotalPanier.setText("Prix total du panier : ");
+        panelPrixTotalPanier.add(labelPrixTotalPanier);
+        panelPrixTotalPanier.add(contPrixTotalPanier);
+
+        getContentPane().add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,5 +145,9 @@ public class VuePanier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel contPrixTotalPanier;
+    private javax.swing.JLabel labelPrixTotalPanier;
+    private javax.swing.JPanel panelListeFruits;
+    private javax.swing.JPanel panelPrixTotalPanier;
     // End of variables declaration//GEN-END:variables
 }

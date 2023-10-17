@@ -5,10 +5,10 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!-- ===== Déclaration des références ===== -->
     <bean id="VueG" class="fr.ufrsciencestech.panier.view.VueGSwing"></bean>
-    <bean id="Controleur" class="fr.ufrsciencestech.panier.controler.Controleur"></bean>
+    <bean id="ControleurFruit" class="fr.ufrsciencestech.panier.controler.ControleurFruit"></bean>
     <!-- ===== Utilisation des références ===== -->
     <bean id="MVC" class="fr.ufrsciencestech.panier.Main">
         <property name="vueg" ref="VueG"/>
-        <property name="controleur" ref="Controleur"/>
+        <property name="controleur" ref="ControleurFruit"/>
     </bean>
 </beans>

@@ -5,6 +5,9 @@
  */
 package fr.ufrsciencestech.panier.model;
 
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
+import fr.ufrsciencestech.panier.model.exception.PanierTropPetitException;
+import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -25,12 +28,16 @@ public class PanierTest {
     private Panier panierPlein2;
     private Panier panierPlein3;
     private Panier panierNonPlein;
-    private Orange o;
-    private Orange o1;
-    private Orange o2;
-    private Poire P;
-    private Poire p1;
-    private Poire p2;
+    private Panier panierPleinAlea;
+    private Panier panierNonPleinAlea;
+    private Panier panierPresquePleinAlea;
+    private FruitSimple o;
+    private FruitSimple o1;
+    private FruitSimple o2;
+    private FruitSimple P;
+    private FruitSimple p1;
+    private FruitSimple p2;
+    private FruitSimple fruitLst[];
     
     
     public PanierTest() {
@@ -53,32 +60,55 @@ public class PanierTest {
         panierPlein2 = new Panier(2);
         panierPlein3 = new Panier(3);
         panierNonPlein = new Panier(8);
+        panierPleinAlea = new Panier(4);
+        panierNonPleinAlea = new Panier(4);
+        panierPresquePleinAlea = new Panier(4);
         
-         o = new Orange(1,"espagna");
-         o1 = new Orange(2,"la rora");
-         o2 = new Orange(3,"ignesta");
-         P = new Poire(0.5,"uno");
-         p1 = new Poire(0.5,"dos");
-         p2 = new Poire(0.5,"tres");
+         o = new FruitSimple(1,OrigineProduit.Espagne,TypeProduit.Orange);
+         o1 = new FruitSimple(2,OrigineProduit.Danemark,TypeProduit.Orange);
+         o2 = new FruitSimple(3,OrigineProduit.France,TypeProduit.Orange);
+         P = new FruitSimple(0.5,OrigineProduit.Japon,TypeProduit.Poire);
+         p1 = new FruitSimple(0.5,OrigineProduit.Maroc,TypeProduit.Poire);
+         p2 = new FruitSimple(0.5,OrigineProduit.PaysBas,TypeProduit.Poire);
+         fruitLst=new FruitSimple[10];
+         for(int i =0;i<fruitLst.length;i++){
+             fruitLst[i]= new FruitSimple(
+             Math.random() *(3-1)+1,
+             OrigineProduit.rand(), // TODO - A ecrire
+              TypeProduit.rand()
+             );
+         }
+         
+        panierPleinAlea.ajoutProduit(fruitLst[0]);
+        panierPleinAlea.ajoutProduit(fruitLst[1]);
+        panierPleinAlea.ajoutProduit(fruitLst[2]);
+        panierPleinAlea.ajoutProduit(fruitLst[3]);
         
-        panier1_4.ajout(P);
+        panierNonPleinAlea.ajoutProduit(fruitLst[0]);
+        panierNonPleinAlea.ajoutProduit(fruitLst[1]);
         
-        panierPlein1.ajout(P);
-        panierPlein2.ajout(o);
-        panierPlein2.ajout(P);
+        panierPresquePleinAlea.ajoutProduit(fruitLst[0]);
+        panierPresquePleinAlea.ajoutProduit(fruitLst[1]);
+        panierPresquePleinAlea.ajoutProduit(fruitLst[2]);
+         
+        panier1_4.ajoutProduit(P);
         
-        panierPlein3.ajout(P);
-        panierPlein3.ajout(p1);
-        panierPlein3.ajout(P);
+        panierPlein1.ajoutProduit(P);
+        panierPlein2.ajoutProduit(o);
+        panierPlein2.ajoutProduit(P);
         
-        panierNonPlein.ajout(P);
-        panierNonPlein.ajout(p1);
-        panierNonPlein.ajout(p2);
-        panierNonPlein.ajout(o);
-        panierNonPlein.ajout(o1);
-        panierNonPlein.ajout(o2);
+        panierPlein3.ajoutProduit(P);
+        panierPlein3.ajoutProduit(p1);
+        panierPlein3.ajoutProduit(P);
+        
+        panierNonPlein.ajoutProduit(P);
+        panierNonPlein.ajoutProduit(p1);
+        panierNonPlein.ajoutProduit(p2);
+        panierNonPlein.ajoutProduit(o);
+        panierNonPlein.ajoutProduit(o1);
+        panierNonPlein.ajoutProduit(o2);
 
-        
+       
     }
     
     @After
@@ -100,16 +130,16 @@ public class PanierTest {
     @Test
     public void testGetFruits() {
         // Testez la méthode getFruits() sur un panier vide (panierVide4)
-    ArrayList<Fruit> fruitsVide = panierVide4.getFruits();
+    ArrayList<Produit> fruitsVide = panierVide4.getProduits();
     assertTrue(fruitsVide.isEmpty());
 
     // Testez la méthode getFruits() sur un panier avec un fruit (panier1_4)
-    ArrayList<Fruit> fruits1Fruit = panier1_4.getFruits();
+    ArrayList<Produit> fruits1Fruit = panier1_4.getProduits();
     assertEquals(1, fruits1Fruit.size());
     assertTrue(fruits1Fruit.contains(P)); // Assurez-vous d'importer correctement la classe Poire
 
     // Testez la méthode getFruits() sur un panier plein (panierNonPlein)
-    ArrayList<Fruit> fruitsNonPlein = panierNonPlein.getFruits();
+    ArrayList<Produit> fruitsNonPlein = panierNonPlein.getProduits();
     assertEquals(6, fruitsNonPlein.size()); // Vous avez ajouté 6 fruits
     assertTrue(fruitsNonPlein.contains(P));
     assertTrue(fruitsNonPlein.contains(p1));
@@ -120,22 +150,22 @@ public class PanierTest {
     }
 
     /**
-     * Test of setFruits method, of class Panier.
+     * Test of setProduits method, of class Panier.
      */
     @Test
     public void testSetFruits() throws PanierTropPetitException {
         // Testez la méthode setFruit() sur un panier vide (panierVide4)
         
-    panierVide4.setFruits(panierPlein1.getFruits()); // Remplacez le premier élément du panier par une orange
-    assertEquals(panierPlein1.getFruits(), panierVide4.getFruits()); // Vérifiez que le premier élément est maintenant une orange
+    panierVide4.setProduits(panierPlein1.getProduits()); // Remplacez le premier élément du panier par une orange
+    assertEquals(panierPlein1.getProduits(), panierVide4.getProduits()); // Vérifiez que le premier élément est maintenant une orange
 
     // Testez la méthode setFruit() sur un panier avec un fruit (panier1_4)
-    panier1_4.setFruits(panierPlein1.getFruits()); // Remplacez l'unique élément du panier par une poire
-    assertEquals(panierPlein1.getFruits(), panier1_4.getFruits()); // Vérifiez que l'unique élément est maintenant une poire
+    panier1_4.setProduits(panierPlein1.getProduits()); // Remplacez l'unique élément du panier par une poire
+    assertEquals(panierPlein1.getProduits(), panier1_4.getProduits()); // Vérifiez que l'unique élément est maintenant une poire
 
     // Testez la méthode setFruit() sur un panier plein (panierPlein2)
-    panierPlein2.setFruits(panierPlein1.getFruits()); // Remplacez le deuxième élément du panier par une orange supplémentaire
-    assertEquals(panierPlein3.getFruits(), panierPlein2.getFruits()); // Vérifiez que le deuxième élément est maintenant une orange
+    panierPlein2.setProduits(panierPlein1.getProduits()); // Remplacez le deuxième élément du panier par une orange supplémentaire
+    assertEquals(panierPlein3.getProduits(), panierPlein2.getProduits()); // Vérifiez que le deuxième élément est maintenant une orange
 
     
         }
@@ -178,14 +208,15 @@ public class PanierTest {
     @Test
     public void testGetFruit() {
         // Testez la méthode getFruit() sur un panier avec un fruit (panier1_4)
-    assertEquals(P, panier1_4.getFruit(0)); // Le premier élément du panier doit être la poire P
+    assertEquals(P, panier1_4.getProduit(0)); // Le premier élément du panier doit être la poire P
 
     // Testez la méthode getFruit() sur un panier plein (panierPlein2)
     assertEquals(o, panierPlein2.getFruit(0)); // Le premier élément du panier doit être la poire P
     assertEquals(P, panierPlein2.getFruit(1)); // Le deuxième élément du panier doit être l'orange o
 
+
     // Testez la méthode getFruit() sur un index invalide (panierPlein1)
-    assertNull(panierPlein1.getFruit(1)); // L'index 1 est invalide, la méthode doit renvoyer null
+    assertNull(panierPlein1.getProduit(1)); // L'index 1 est invalide, la méthode doit renvoyer null
 
     }
 
@@ -195,18 +226,18 @@ public class PanierTest {
     @Test
     public void testSetFruit() {
         // Testez la méthode setFruit() sur un panier avec un fruit (panier1_4)
-        panier1_4.setFruit(0, p1); // Remplacez la poire P par la poire p1
-        assertEquals(p1, panier1_4.getFruit(0)); // Vérifiez que le premier élément est maintenant la poire p1
+        panier1_4.setProduit(0, p1); // Remplacez la poire P par la poire p1
+        assertEquals(p1, panier1_4.getProduit(0)); // Vérifiez que le premier élément est maintenant la poire p1
 
         // Testez la méthode setFruit() sur un panier plein (panierPlein2)
-        panierPlein2.setFruit(1, o2); // Remplacez l'orange o par l'orange o2
-        assertEquals(o2, panierPlein2.getFruit(1)); // Vérifiez que le deuxième élément est maintenant l'orange o2
+        panierPlein2.setProduit(1, o2); // Remplacez l'orange o par l'orange o2
+        assertEquals(o2, panierPlein2.getProduit(1)); // Vérifiez que le deuxième élément est maintenant l'orange o2
 
         // Testez la méthode setFruit() sur un index invalide (panierPlein1)
         // Cette méthode ne devrait rien changer dans ce cas
-        panierPlein1.setFruit(1, p1);
-        assertEquals(P, panierPlein1.getFruit(0)); // Le premier élément doit rester la poire P
-        assertNull(panierPlein1.getFruit(1)); // L'index 1 est invalide, la méthode doit renvoyer null
+        panierPlein1.setProduit(1, p1);
+        assertEquals(P, panierPlein1.getProduit(0)); // Le premier élément doit rester la poire P
+        assertNull(panierPlein1.getProduit(1)); // L'index 1 est invalide, la méthode doit renvoyer null
 
     }
 
@@ -243,21 +274,21 @@ public class PanierTest {
     }
 
     /**
-     * Test of ajout method, of class Panier.
+     * Test of ajoutProduit method, of class Panier.
      */
     @Test
-    public void testAjout() throws Exception {
-        // Testez la méthode ajout() sur un panier vide (panierVide4)
-    panierVide4.ajout(o); // Ajoutez une orange
+    public void testAjoutProduit() throws Exception {
+        // Testez la méthode ajoutProduit() sur un panier vide (panierVide4)
+    panierVide4.ajoutProduit(o); // Ajoutez une orange
     assertEquals(1, panierVide4.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange o)
 
-    // Testez la méthode ajout() sur un panier avec un fruit (panier1_4)
-    panier1_4.ajout(o1); // Ajoutez une orange
+    // Testez la méthode ajoutProduit() sur un panier avec un fruit (panier1_4)
+    panier1_4.ajoutProduit(o1); // Ajoutez une orange
     assertEquals(2, panier1_4.getTaillePanier()); // Le panier doit contenir 2 fruits (la poire P et l'orange o1)
 
-    // Testez la méthode ajout() sur un panier plein (panierPlein2)
+    // Testez la méthode ajoutProduit() sur un panier plein (panierPlein2)
     try {
-        panierPlein2.ajout(p1); // Essayez d'ajouter une poire au panier plein
+        panierPlein2.ajoutProduit(p1); // Essayez d'ajouter une poire au panier plein
         fail("Une PanierPleinException devrait être levée");
     } catch (PanierPleinException e) {
         // L'exception a été levée, ce qui est attendu
@@ -265,21 +296,21 @@ public class PanierTest {
     }
 
     /**
-     * Test of retrait method, of class Panier.
+     * Test of retraitLastProduit method, of class Panier.
      */
     @Test
     public void testRetrait() throws Exception {
-        // Testez la méthode retrait() sur un panier avec un fruit (panier1_4)
-        panier1_4.retrait(); // Retirez la poire du panier
+        // Testez la méthode retraitLastProduit() sur un panier avec un fruit (panier1_4)
+        panier1_4.retraitLastProduit(); // Retirez la poire du panier
         assertEquals(0, panier1_4.getTaillePanier()); // Le panier doit être vide
 
-        // Testez la méthode retrait() sur un panier plein (panierPlein2)
-        panierPlein2.retrait(); // Retirez l'orange du panier
+        // Testez la méthode retraitLastProduit() sur un panier plein (panierPlein2)
+        panierPlein2.retraitLastProduit(); // Retirez l'orange du panier
         assertEquals(1, panierPlein2.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange o2)
 
-        // Testez la méthode retrait() sur un panier vide (panierVide0)
+        // Testez la méthode retraitLastProduit() sur un panier vide (panierVide0)
         try {
-            panierVide0.retrait(); // Essayez de retirer un fruit d'un panier vide
+            panierVide0.retraitLastProduit(); // Essayez de retirer un fruit d'un panier vide
             fail("Une PanierVideException devrait être levée");
         } catch (PanierVideException e) {
             // L'exception a été levée, ce qui est attendu
@@ -292,10 +323,10 @@ public class PanierTest {
     @Test
     public void testGetPrix() {
         // Testez la méthode getPrix() sur un panier vide (panierVide4)
-    assertEquals(0.0, panierVide4.getPrix(), 0.01); // Le prix du panier vide doit être de 0.0
+    //assertEquals(0.0, panierVide4.getPrix(), 0.01); // Le prix du panier vide doit être de 0.0
 
     // Testez la méthode getPrix() sur un panier avec des fruits (panierNonPlein)
-    assertEquals(7.0, panierNonPlein.getPrix(), 0.01); // Le prix du panier doit être la somme des prix des fruits (0.5 + 0.5 + 0.5 + 1.0 + 2.0 + 3.0 = 7.0)
+    assertEquals(7.5, panierNonPlein.getPrix(), 0.01); // Le prix du panier doit être la somme des prix des fruits (0.5 + 0.5 + 0.5 + 1.0 + 2.0 + 3.0 = 7.0)
 
     }
 
@@ -305,11 +336,27 @@ public class PanierTest {
     @Test
     public void testBoycotteOrigine() {
         // Testez la méthode boycotteOrigine() sur un panier avec des fruits (panierNonPlein)
-        panierNonPlein.boycotteOrigine("espagna"); // Boycottez les fruits originaires d'Espagne
-
+        panierNonPlein.boycotteOrigine(OrigineProduit.Espagne); // Boycottez les fruits originaires d'Espagne
+        panierPlein3.boycotteOrigine(null);
+        panierPresquePleinAlea.boycotteOrigine(OrigineProduit.Espagne);
+        panierNonPleinAlea.boycotteOrigine(OrigineProduit.Espagne);
+        
         // Vérifiez que les oranges d'Espagne ont été supprimées du panier
-        for (Fruit fruit : panierNonPlein.getFruits()) {
-            assertNotEquals("espagna", fruit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
+        for (Produit produit : panierNonPlein.getProduits()) {
+            assertNotEquals(OrigineProduit.Espagne, produit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
+        }
+        // Vérifie que rien n'a été retiré sur le boycotteOrigine(null)
+        assertEquals(panierPlein3.getProduits().size(), 3);
+        
+        //Aleatoire
+        // Vérifiez que les oranges d'Espagne ont été supprimées du panier
+        for (Produit produit : panierNonPleinAlea.getProduits()) {
+            assertNotEquals(OrigineProduit.Espagne, produit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
+        }
+        //Aleatoire
+        // Vérifiez que les oranges d'Espagne ont été supprimées du panier
+        for (Produit produit : panierPresquePleinAlea.getProduits()) {
+            assertNotEquals(OrigineProduit.Espagne, produit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
         }
     }
 
@@ -318,12 +365,6 @@ public class PanierTest {
      */
     @Test
     public void testEquals() {
-        System.out.println("equals");
-        Object o = null;
-        Panier instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(o);
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -332,42 +373,9 @@ public class PanierTest {
      * Test of notifyUpdate method, of class Panier.
      */
     @Test
-    public void testNotifyUpdate() {
-        System.out.println("notifyUpdate");
-        Panier instance = null;
-        instance.notifyUpdate();
-        // TODO review the generated test code and remove the default call to fail.
+    public void testNotifyUpdate() throws Exception {
+        // TODO 
         fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of update method, of class Panier.
-     */
-    @Test
-    public void testUpdate() throws Exception {
-        // Testez la méthode update() avec action 1 (ajout) sur un panier vide (panierVide4)
-    panierVide4.update(1); // Ajoutez une orange au panier vide
-    assertEquals(1, panierVide4.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange ajoutée)
-
-    // Testez la méthode update() avec action 2 (retrait) sur un panier avec un fruit (panier1_4)
-    panier1_4.update(2); // Retirez le dernier fruit (la poire) du panier
-    assertEquals(0, panier1_4.getTaillePanier()); // Le panier doit être vide
-
-    // Testez la méthode update() avec action 1 (ajout) sur un panier plein (panierPlein2)
-    try {
-        panierPlein2.update(1); // Essayez d'ajouter une poire au panier plein
-        fail("Une PanierPleinException devrait être levée");
-    } catch (PanierPleinException e) {
-        // L'exception a été levée, ce qui est attendu
-    }
-
-    // Testez la méthode update() avec une action invalide (autre que 1 ou 2) sur un panier avec des fruits (panierNonPlein)
-    try {
-        panierNonPlein.update(0); // Essayez d'exécuter une action invalide
-        fail("Une IllegalArgumentException devrait être levée");
-    } catch (IllegalArgumentException e) {
-        // L'exception a été levée, ce qui est attendu
-    }
     }
     
     

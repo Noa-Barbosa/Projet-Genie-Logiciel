@@ -1,6 +1,6 @@
 package fr.ufrsciencestech.panier;
 
-import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.view.VueConsole;
 import fr.ufrsciencestech.panier.view.VueG;
@@ -15,13 +15,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main 
 {
     private VueG vueg;
-    private Controleur controleur;
+    private ControleurFruit controleur;
 
-    public Controleur getControleur() {
+    public ControleurFruit getControleur() {
         return controleur;
     }
 
-    public void setControleur(Controleur controleur) {
+    public void setControleur(ControleurFruit controleur) {
         this.controleur = controleur;
     }
     
@@ -63,7 +63,7 @@ public class Main
             public void run() {
                 ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
                 Main testMVC = (Main)context.getBean("MVC");
-                testMVC.setControleur( (Controleur)context.getBean("Controleur") );  //SpringIoC
+                testMVC.setControleur((ControleurFruit)context.getBean("ControleurFruit") );  //SpringIoC
                 testMVC.setVueg( (VueGSwing)context.getBean("VueG") );   //SpringIoC
                 Panier p = new Panier(5);
                 VueConsole vuec = new VueConsole();

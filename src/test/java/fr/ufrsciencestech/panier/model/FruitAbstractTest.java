@@ -12,14 +12,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Classe qui teste la classe FruitAbstract
+ * On factorise les tests qui sont tout le temps identique pour chaque type de fruit
  * @author vt718096
  */
-abstract public class FruitSimpleTest {
-    abstract FruitSimple createFruit(double prix,String origine);
-    abstract FruitSimple createFruitNull();
+abstract public class FruitAbstractTest {
+    abstract FruitAbstract createFruit(double prix,OrigineProduit origine, TypeProduit type);
+    abstract FruitAbstract createFruitNull();
     
-    public FruitSimpleTest() {
+    public FruitAbstractTest() {
     }
     
     @BeforeClass
@@ -39,66 +40,65 @@ abstract public class FruitSimpleTest {
     }
 
     /**
-     * Test of getPrix method, of class FruitSimple.
+     * Test of getPrix method, of class FruitAbstract.
      */
     @Test
     public void testGetPrix() {
         System.out.println("getPrix");
-        FruitSimple instance = createFruit(0.6,"France");
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
         double expResult = 0.6;
         double result = instance.getPrix();
         assertEquals(expResult, result, 0);
     }
 
     /**
-     * Test of setPrix method, of class FruitSimple.
+     * Test of setPrix method, of class FruitAbstract.
      */
     @Test
     public void testSetPrix() {
         System.out.println("setPrix");
         double prix = 0.0;
-        FruitSimple instance = createFruit(0.6,"France");
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
         instance.setPrix(prix);
         assertEquals(prix, instance.getPrix(), 0);
         
         System.out.println("setPrix");
         double prix1 = 0.8;
-        FruitSimple instance1 = createFruitNull();
+        FruitAbstract instance1 = createFruitNull();
         instance.setPrix(prix1);
         assertEquals(prix1, instance1.getPrix(), 0);
     }
 
     /**
-     * Test of getOrigine method, of class FruitSimple.
+     * Test of getOrigine method, of class FruitAbstract.
      */
     @Test
     public void testGetOrigine() {
         System.out.println("getOrigine");
-        FruitSimple instance = createFruit(0.6,"France");
-        String expResult = "France";
-        String result = instance.getOrigine();
-        assertEquals(expResult, result);
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
+        OrigineProduit result = instance.getOrigine();
+        assertEquals(OrigineProduit.France, result);
     }
 
     /**
-     * Test of setOrigine method, of class FruitSimple.
+     * Test of setOrigine method, of class FruitAbstract.
      */
     @Test
     public void testSetOrigine() {
         System.out.println("setOrigine");
-        String origine = "Danemark";
-        FruitSimple instance = createFruit(0.6,"France");
+        OrigineProduit origine = OrigineProduit.Danemark;
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
         instance.setOrigine(origine);
-        assertEquals(origine,instance.getOrigine(),0);
+        assertEquals(origine,instance.getOrigine());
     }
 
     /**
-     * Test of isSeedless method, of class FruitSimple.
+     * Test of isSeedless method, of class FruitAbstract.
      */
     @Test
     public void testIsSeedless() {
         System.out.println("isSeedless");
-        FruitSimple instance = createFruit(0.6,"France");
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
         boolean expResult = false;
         boolean result = instance.isSeedless();
         assertEquals(expResult, result);

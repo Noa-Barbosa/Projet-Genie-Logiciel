@@ -1,44 +1,37 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package fr.ufrsciencestech.panier.controler;
 
 import fr.ufrsciencestech.panier.model.Panier;
-import fr.ufrsciencestech.panier.model.PanierPleinException;
-import fr.ufrsciencestech.panier.model.PanierVideException;
-import fr.ufrsciencestech.panier.view.VueGSwing;
+import fr.ufrsciencestech.panier.view.VueG;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author nb654417
+ * Interface des controleurs de l'application
+ * @author noaba
  */
-public class Controleur implements ActionListener {
-    private Panier p;
-    private VueGSwing vg;
+public interface Controleur extends ActionListener{
     
+    /**
+     * Ecoute les evenements de la vue, creer les objets modeles si necessaire : fruit,salade..
+     * fait les actions sur le modele en lui passant les objets si necessaire
+     * @param e l'evenement declenche
+     */
     @Override
-    public void actionPerformed(ActionEvent e){   //Invoked when an action occurs
-        try {
-            if(e.getActionCommand().equals("+")){
-                p.update(1);
-            }        
-            else{
-                p.update(-1); 
-            }
-        } 
-        catch (PanierPleinException | PanierVideException ex) {
-            Logger.getLogger(Controleur.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void setModele(Panier p){
-        this.p = p;
-    }
-    public void setVue(VueGSwing vg){
-        this.vg = vg;
-    }
+    public void actionPerformed(ActionEvent e);
+    
+    /**
+     * Mutateur de la vue
+     * @param vg n'importe quelle vue
+     */
+    public void setVue(VueG vg);
+    
+    /**
+     * Mutateur du modele
+     * @param p le panier
+     */
+    public void setModele(Panier p);
 }

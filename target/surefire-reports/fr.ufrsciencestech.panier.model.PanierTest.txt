@@ -29,4 +29,3 @@ java.lang.AssertionError: Une IllegalArgumentException devrait être levée
 testSetFruit(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.003 s  <<< ERROR!
 java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1
 	at fr.ufrsciencestech.panier.model.PanierTest.testSetFruit(PanierTest.java:207)
-

@@ -5,10 +5,12 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.TestUtils;
-import fr.ufrsciencestech.panier.controler.Controleur;
-import fr.ufrsciencestech.panier.model.Orange;
+import fr.ufrsciencestech.panier.controler.ControleurFruit;
+import fr.ufrsciencestech.panier.model.FruitSimple;
+import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
-import fr.ufrsciencestech.panier.model.PanierPleinException;
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
+import fr.ufrsciencestech.panier.model.TypeProduit;
 import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,7 +28,7 @@ import static org.junit.Assert.*;
  */
 public class VueGSwingTest {
     private static VueGSwing vueg;
-    private Controleur c;
+    private ControleurFruit c;
     private Panier p;
     
     public VueGSwingTest() {
@@ -44,7 +46,7 @@ public class VueGSwingTest {
     public void setUp() {
         vueg = new VueGSwing();
         p = new Panier(5);
-        c = new Controleur();
+        c = new ControleurFruit();
         
         c.setModele(p);
         c.setVue(vueg);
@@ -66,8 +68,8 @@ public class VueGSwingTest {
         
         //si on oublie d'ajouter la vue comme observateur du modele, elle ne se met pas à jour correctement
         assertEquals(vueg.getAffiche().getText(), "0");
-        Orange o = new Orange(10,"Canada");
-        p.ajout(o);
+        FruitSimple o = new FruitSimple(10,OrigineProduit.France,TypeProduit.Orange);
+        p.ajoutProduit(o);
         
         assertEquals(vueg.getAffiche().getText(), "1");
         

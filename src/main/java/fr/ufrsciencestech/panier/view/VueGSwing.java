@@ -5,6 +5,7 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.model.Panier;
 import java.util.Observable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -40,6 +41,7 @@ public class VueGSwing extends javax.swing.JFrame implements VueG {
         plusButton = new javax.swing.JButton();
         nbFruits = new javax.swing.JLabel();
         minusButton = new javax.swing.JButton();
+        dernierFruitPanierLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Panier");
@@ -55,6 +57,7 @@ public class VueGSwing extends javax.swing.JFrame implements VueG {
 
         minusButton.setText("-");
         mainPanel.add(minusButton);
+        mainPanel.add(dernierFruitPanierLabel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,6 +75,7 @@ public class VueGSwing extends javax.swing.JFrame implements VueG {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dernierFruitPanierLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton minusButton;
     private javax.swing.JLabel nbFruits;
@@ -86,7 +90,14 @@ public class VueGSwing extends javax.swing.JFrame implements VueG {
     
     @Override
     public void update(Observable m, Object o){     //This method is called whenever the observed object is changed
-        this.nbFruits.setText(((Integer) o).toString());
+        Panier p = (Panier)o;
+        this.nbFruits.setText(((Integer) p.getTaillePanier()).toString());
+        if(p.getTaillePanier()!=0){
+            this.dernierFruitPanierLabel.setText(p.getProduit(p.getTaillePanier()-1).toString());
+        }
+        else{
+            this.dernierFruitPanierLabel.setText("vide");
+        }
     }
 
     /**

@@ -1,13 +1,24 @@
 package fr.ufrsciencestech.panier.model;
 
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
+import fr.ufrsciencestech.panier.model.exception.PanierTropPetitException;
+import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import java.util.*;
 /**
- *
+ * Classe de modele principal de l'application
+ Le panier stocke l'ensemble des produits de l'utilisateur et sert à faire des manipulations dessus
  * @author roudet
  */
 public class Panier extends Observable{
-    private ArrayList<Fruit> fruits;  //attribut pour stocker les fruits
-    private final int contenanceMax;        //nb maximum d'oranges que peut contenir le panier
+    /**
+     * Liste des produits du panier
+     */
+    private ArrayList<Produit> produits;
+    
+    /**
+     * Contenance maximum du panier
+     */
+    private final int contenanceMax;
 	
     /**
      * initialise un panier vide ayant une certaine contenance maximale (precisee en parametre)
@@ -15,67 +26,56 @@ public class Panier extends Observable{
      */
     public Panier(int contenanceMax){
 	this.contenanceMax = contenanceMax;
-        this.fruits = new ArrayList<>(contenanceMax);
-    }
-
-    /**
-     * affichage de ce qui est contenu dans le panier  
-     * @return liste des fruits presents
-     */
-    @Override
-    public String toString() {
-        String retour="";
-        for(int i =0;i<fruits.size();i++){
-            Fruit f = this.fruits.get(i);
-            retour +=  f.toString()+" ";
-        }
-        return retour;
+        this.produits = new ArrayList<>(contenanceMax);
     }
     
     /**
-     * accesseur de la liste de fruits dans le panier
-     * @return la listes des fruits 
+     * accesseur de la liste de produits dans le panier
+     * @return la listes des produits 
      */
-    public ArrayList<Fruit> getFruits() {
-       return fruits;
+    public ArrayList<Produit> getProduits() {
+       return produits;
     }
 
     /**
-     * Remplace la liste de fruits si possible
-     * @param f
+     * Remplace la liste de produits si possible
+     * @param p
      * @throws PanierTropPetitException 
      */
-    public void setFruits(ArrayList<Fruit> f)throws PanierTropPetitException{
-        if(this.getContenanceMax() < f.size()){
+    public void setProduits(ArrayList<Produit> p)throws PanierTropPetitException{
+        if(this.getContenanceMax() < p.size()){
             throw new PanierTropPetitException();
         }else{
-            this.fruits=f;
+            this.produits=p;
+            notifyUpdate();
         }
     }
+    
     /**
-     * Ajout d'une suite de fruits
-     * @param fruits liste contenant des fruits
-     * @throws fr.ufrsciencestech.panier.model.PanierTropPetitException
+     * accesseur retournant le produit contenu dans le panier a l'emplacement n°i ou null s'il n'y a rien a cet emplacement
+     * @param i emplacement du produit dans la liste
+     * @return retourne un objet de type Produit
      */
-    public void ajoutFruits(ArrayList<Fruit> fruits) throws PanierTropPetitException{
-        //Si taille array <= espace restant;
-      if(fruits.size() <= this.contenanceMax-this.getFruits().size()){
-          ArrayList<Fruit> mesFruits=this.getFruits();
-          for(Fruit fruit:fruits)
-          {
-              mesFruits.add(fruit);
-          }
-      }else{
-          throw new PanierTropPetitException();
-      }
+    public Produit getProduit(int i){
+	return this.produits.get(i);
     }
-
+    
     /**
-     * accesseur retournant la taille allouee pour l'attibut fruits
-     * @return taille du panier de fruits
+     * modificateur du produit contenu dans le panier a l'emplacement n°i par f (s'il y a bien deja un produit a cet emplacement, ne rien faire sinon)
+     * @param i index de l'emplacement futur du produit dans la liste
+     * @param p L'objet Produit à ajouter dans la liste
+     */
+    public void setProduit(int i, Produit p){  
+        this.produits.set(i, p);
+        notifyUpdate();
+    }
+    
+    /**
+     * accesseur retournant la taille allouee pour l'attibut produits
+     * @return taille du panier de produits
      */
     public int getTaillePanier(){
-        return fruits.size();
+        return produits.size();
     }
     
     /**
@@ -85,23 +85,17 @@ public class Panier extends Observable{
     public int getContenanceMax(){
 	return contenanceMax;
     }
-
-    /**
-     * accesseur retournant le fruit contenu dans le panier a l'emplacement n°i ou null s'il n'y a rien a cet emplacement
-     * @param i emplacement du fruit dans la liste
-     * @return retourne un objet de type Fruit
-     */
-    public Fruit getFruit(int i){
-	return this.fruits.get(i);
-    }
     
     /**
-     * modificateur du fruit contenu dans le panier a l'emplacement n°i par f (s'il y a bien deja un fruit a cet emplacement, ne rien faire sinon)
-     * @param i index de l'emplacement futur du fruit dans la liste
-     * @param f L'objet Fruit à ajouter dans la liste
+     * calcule le prix du panier par addition des prix de tous les produits contenus dedans
+     * @return un double correspondant à la somme de la valeur des produits
      */
-    public void setFruit(int i, Fruit f){  
-        this.fruits.set(i, f);
+    public double getPrix(){ 
+	double prix=0;
+        for(Produit produit : this.produits){
+            prix+= produit.getPrix();
+        }
+        return prix;
     }
     
     /**
@@ -109,7 +103,7 @@ public class Panier extends Observable{
      * @return vrai si la liste est vide sinon faux
      */
     public boolean estVide(){  
-	return this.fruits.isEmpty();
+	return this.produits.isEmpty();
     }
     
     /**
@@ -117,32 +111,69 @@ public class Panier extends Observable{
      * @return un booleen, vrai si la liste pleinne et sinon faux
      */
     public boolean estPlein(){
-	return this.fruits.size() == this.contenanceMax;
+	return this.produits.size() == this.contenanceMax;
     }
 
     
     /**
-     * ajoute le fruit o a la fin du panier si celui-ci n'est pas plein
-     * @param o Objet de type Fruit
+     * ajoute le produit o a la fin du panier si celui-ci n'est pas plein
+     * @param o Objet de type Produit
      * @throws PanierPleinException vérifie si le panier est plein
      */
-    public void ajout(Fruit o) throws PanierPleinException{  
+    public void ajoutProduit(Produit o) throws PanierPleinException{  
        if(!this.estPlein()){
-            this.fruits.add(o);
+            this.produits.add(o);
             notifyUpdate();
        }
        else{
         throw new PanierPleinException();
        }
     }
-
+    
+    /**
+     * Ajout d'une suite de produits
+     * @param produits liste contenant des produits
+     * @throws fr.ufrsciencestech.panier.model.exception.PanierTropPetitException
+     */
+    public void ajoutProduits(ArrayList<Produit> produits) throws PanierTropPetitException{
+        //Si taille array <= espace restant;
+      if(produits.size() <= this.contenanceMax-this.getProduits().size()){
+          ArrayList<Produit> mesProduits=this.getProduits();
+          for(Produit produit:produits)
+          {
+              mesProduits.add(produit);
+          }
+          notifyUpdate();
+      }else{
+          throw new PanierTropPetitException();
+      }
+    }
+    
+    public void retraitProduit(Produit p) {
+        this.produits.remove(p);
+        notifyUpdate();
+    }
+    
+    /**
+    * Supprime et retourne un produit precis
+    * @param index la position du produit a récupérer et supprimer
+    * @return Le produit à la position index
+    */
+    public Produit retraitProduitAt(int index){
+        Produit ret = this.produits.get(index);
+        this.produits.remove(index);
+        notifyUpdate();
+        return ret;
+    }
+    
+    
      /**
-     * retire le dernier fruit du panier si celui-ci n'est pas vide
+     * retire le dernier produit du panier si celui-ci n'est pas vide
      * @throws PanierVideException vérifie si le panier n'est pas vide
      */
-    public void retrait() throws PanierVideException{
+    public void retraitLastProduit() throws PanierVideException{
         if(!this.estVide()){
-            this.fruits.remove(this.fruits.size()-1);
+            this.produits.remove(this.produits.size()-1);
             notifyUpdate();
         }
         else{
@@ -151,62 +182,42 @@ public class Panier extends Observable{
     }
 
     /**
-     * Retourne une sous catégorie de fruit
-     * ex : Si le fruit en parmetre est une orange, retourne un liste de toutes les oranges du panier.
-     * @param fruit le type de fruit
-     * @return Retourne une ArrayList des fruits de class fruit.
+     * Supprime tout les produits d'un meme type du Panier
+     * @param type le type de produit
      */
-    public ArrayList<Fruit> retrait(Fruit fruit){
-        ArrayList<Fruit> mesFruits= this.getFruits();
-        ArrayList<Fruit> ret=new ArrayList<>();
-        for(Fruit f:mesFruits){ //Créer la liste de retour
-            if(fruit.getClass() == f.getClass()){
-                ret.add(f);
+    public void retraitAllProduitsByType(TypeProduit type){
+        //ArrayList<Fruit> mesFruits= this.getFruits();
+        ArrayList<Produit> mesProduits= this.getProduits();
+        ArrayList<Produit> produitsAEnlever=new ArrayList<>();
+        for(Produit p:mesProduits){ 
+            if(p.getTypeProduit().equals(type)){
+                produitsAEnlever.add(p);
             }
         }
-        for(Fruit f:ret){ //Retir les fruits du panier
-            this.fruits.remove(f);
+        for(Produit p:produitsAEnlever){ //Retir les produits du panier
+            this.produits.remove(p);
         }
-        return ret;
+        notifyUpdate();
     }
     
     /**
-     * Supprime et retourne un fruit precis
-     * @param index la position du fruit a récupérer et supprimer
-     * @return Le fruit à la position index
+     * supprime du panier tous les produits provenant du pays origine
+     * @param origine une chaine de charactere correspondant à l'origine des produits visés
      */
-    public Fruit retrait(int index){
-        Fruit ret = this.fruits.get(index);
-        this.fruits.remove(index);
-        return ret;
-    }
-
-     /**
-     * calcule le prix du panier par addition des prix de tous les fruits contenus dedans
-     * @return un double correspondant à la somme de la valeur des fruits
-     */
-    public double getPrix(){ 
-	int prix=0;
-        for(Fruit fruit : this.fruits){
-            prix+= fruit.getPrix();
-        }
-        return prix;
-    }
-    
-    /**
-     * supprime du panier tous les fruits provenant du pays origine
-     * @param origine une chaine de charactere correspondant à l'origine des fruits visés
-     */
-    public void boycotteOrigine(String origine){  
-	for (Fruit f : fruits) {
-            if (f.getOrigine().equals(origine)){
-                this.fruits.remove(f);
+    public void boycotteOrigine(OrigineProduit origine){
+        ArrayList<Produit> produitsAEnlever = new ArrayList<>();
+	for (Produit p : this.produits) {
+            if (p.getOrigine().equals(origine)){
+                produitsAEnlever.add(p);
             }
         }
+        this.produits.removeAll(produitsAEnlever);
+        
+        notifyUpdate();
     }  
         
     /**
-     * predicat pour tester si 2 paniers sont equivalents : s'ils contiennent exactement les memes fruits
+     * predicat pour tester si 2 paniers sont equivalents : s'ils contiennent exactement les memes produits
      * @param o Objet de type Panier
      * @return un booleen vrai si les paniers sont identiques sinon faux
      */   
@@ -218,7 +229,7 @@ public class Panier extends Observable{
                 return false;
             }
             else{
-                return this.fruits.equals(p.getFruits());
+                return this.produits.equals(p.getProduits());
             }
         }
         else{
@@ -227,32 +238,25 @@ public class Panier extends Observable{
     }
     
     /**
-     * Observe la taille du panier
+     * affichage de ce qui est contenu dans le panier  
+     * @return liste des produits presents
      */
-    public void notifyUpdate(){
-        setChanged();                //marks this Observable object as having been changed; the hasChanged method will now return true
-        notifyObservers(this.getTaillePanier());   //if this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that this object has no longer changed 
+    @Override
+    public String toString() {
+        String retour="";
+        for(int i =0;i<produits.size();i++){
+            Produit p = this.produits.get(i);
+            retour +=  p.toString()+" ";
+        }
+        return retour;
     }
     
     /**
-     * Modifie le panier à partir d'une action
-     * @param action type d'action à réaliser (ex 1 correspond à l'ajout)
-     * @throws PanierPleinException exception si le panier est plein
-     * @throws PanierVideException exception si le panier est vide
+     * Observe la taille du panier
      */
-    public void update(int action) throws PanierPleinException, PanierVideException {
-        
-        //ajoute ou enleve une orange du panier
-        if(action == 1){
-       
-            Orange o = new Orange(156,"Espagne");
-            this.ajout(o);
-           
-        }
-        else{
-            this.retrait();
-        }
-        
-        notifyUpdate();
+    private void notifyUpdate(){
+        setChanged();                //marks this Observable object as having been changed; the hasChanged method will now return true
+        notifyObservers(this);   //if this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that this object has no longer changed 
+        clearChanged();
     }
 }
