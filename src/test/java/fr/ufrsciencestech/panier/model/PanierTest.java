@@ -28,12 +28,16 @@ public class PanierTest {
     private Panier panierPlein2;
     private Panier panierPlein3;
     private Panier panierNonPlein;
+    private Panier panierPleinAlea;
+    private Panier panierNonPleinAlea;
+    private Panier panierPresquePleinAlea;
     private FruitSimple o;
     private FruitSimple o1;
     private FruitSimple o2;
     private FruitSimple P;
     private FruitSimple p1;
     private FruitSimple p2;
+    private FruitSimple fruitLst[];
     
     
     public PanierTest() {
@@ -56,6 +60,9 @@ public class PanierTest {
         panierPlein2 = new Panier(2);
         panierPlein3 = new Panier(3);
         panierNonPlein = new Panier(8);
+        panierPleinAlea = new Panier(4);
+        panierNonPleinAlea = new Panier(4);
+        panierPresquePleinAlea = new Panier(4);
         
          o = new FruitSimple(1,OrigineProduit.Espagne,TypeProduit.Orange);
          o1 = new FruitSimple(2,OrigineProduit.Danemark,TypeProduit.Orange);
@@ -63,7 +70,27 @@ public class PanierTest {
          P = new FruitSimple(0.5,OrigineProduit.Japon,TypeProduit.Poire);
          p1 = new FruitSimple(0.5,OrigineProduit.Maroc,TypeProduit.Poire);
          p2 = new FruitSimple(0.5,OrigineProduit.PaysBas,TypeProduit.Poire);
+         fruitLst=new FruitSimple[10];
+         for(int i =0;i<fruitLst.length;i++){
+             fruitLst[i]= new FruitSimple(
+             Math.random() *(3-1)+1,
+             OrigineProduit.rand(), // TODO - A ecrire
+              TypeProduit.rand()
+             );
+         }
+         
+        panierPleinAlea.ajoutProduit(fruitLst[0]);
+        panierPleinAlea.ajoutProduit(fruitLst[1]);
+        panierPleinAlea.ajoutProduit(fruitLst[2]);
+        panierPleinAlea.ajoutProduit(fruitLst[3]);
         
+        panierNonPleinAlea.ajoutProduit(fruitLst[0]);
+        panierNonPleinAlea.ajoutProduit(fruitLst[1]);
+        
+        panierPresquePleinAlea.ajoutProduit(fruitLst[0]);
+        panierPresquePleinAlea.ajoutProduit(fruitLst[1]);
+        panierPresquePleinAlea.ajoutProduit(fruitLst[2]);
+         
         panier1_4.ajoutProduit(P);
         
         panierPlein1.ajoutProduit(P);
@@ -184,8 +211,9 @@ public class PanierTest {
     assertEquals(P, panier1_4.getProduit(0)); // Le premier élément du panier doit être la poire P
 
     // Testez la méthode getFruit() sur un panier plein (panierPlein2)
-    assertEquals(o, panierPlein2.getProduit(0)); // Le premier élément du panier doit être l'orange o
-    assertEquals(P, panierPlein2.getProduit(1)); // Le deuxième élément du panier doit être la poire 
+    assertEquals(o, panierPlein2.getFruit(0)); // Le premier élément du panier doit être la poire P
+    assertEquals(P, panierPlein2.getFruit(1)); // Le deuxième élément du panier doit être l'orange o
+
 
     // Testez la méthode getFruit() sur un index invalide (panierPlein1)
     assertNull(panierPlein1.getProduit(1)); // L'index 1 est invalide, la méthode doit renvoyer null
@@ -309,9 +337,25 @@ public class PanierTest {
     public void testBoycotteOrigine() {
         // Testez la méthode boycotteOrigine() sur un panier avec des fruits (panierNonPlein)
         panierNonPlein.boycotteOrigine(OrigineProduit.Espagne); // Boycottez les fruits originaires d'Espagne
-
+        panierPlein3.boycotteOrigine(null);
+        panierPresquePleinAlea.boycotteOrigine(OrigineProduit.Espagne);
+        panierNonPleinAlea.boycotteOrigine(OrigineProduit.Espagne);
+        
         // Vérifiez que les oranges d'Espagne ont été supprimées du panier
         for (Produit produit : panierNonPlein.getProduits()) {
+            assertNotEquals(OrigineProduit.Espagne, produit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
+        }
+        // Vérifie que rien n'a été retiré sur le boycotteOrigine(null)
+        assertEquals(panierPlein3.getProduits().size(), 3);
+        
+        //Aleatoire
+        // Vérifiez que les oranges d'Espagne ont été supprimées du panier
+        for (Produit produit : panierNonPleinAlea.getProduits()) {
+            assertNotEquals(OrigineProduit.Espagne, produit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
+        }
+        //Aleatoire
+        // Vérifiez que les oranges d'Espagne ont été supprimées du panier
+        for (Produit produit : panierPresquePleinAlea.getProduits()) {
             assertNotEquals(OrigineProduit.Espagne, produit.getOrigine()); // Aucun fruit ne devrait provenir d'Espagne
         }
     }
@@ -333,6 +377,7 @@ public class PanierTest {
         // TODO 
         fail("The test case is a prototype.");
     }
+    
     
 }
 

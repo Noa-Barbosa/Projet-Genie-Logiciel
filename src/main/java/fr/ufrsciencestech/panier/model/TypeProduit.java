@@ -10,6 +10,16 @@ package fr.ufrsciencestech.panier.model;
  */
 public enum TypeProduit {
     
-    Orange,Banane,Cerise,Poire,SaladeFruits
+    Orange,Banane,Cerise,Poire,SaladeFruits;
+    
+    /**
+     * 
+     * @return un type au hasard
+     * @author EMK
+     */
+    public static TypeProduit rand(){
+        TypeProduit vals[] = TypeProduit.values();
+        return vals[(int)Math.floor(Math.random()*vals.length)];
+    }
     
 }
