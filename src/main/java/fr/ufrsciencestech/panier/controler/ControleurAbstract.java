@@ -9,7 +9,7 @@ import fr.ufrsciencestech.panier.view.VueG;
 import java.awt.event.ActionEvent;
 
 /**
- *
+ * Classe abstraite definissant un controleur
  * @author noaba
  */
 public abstract class ControleurAbstract implements Controleur{
@@ -27,18 +27,12 @@ public abstract class ControleurAbstract implements Controleur{
     @Override
     public abstract void actionPerformed(ActionEvent e);
 
-    /**
-     * Change le modele 
-     * @param p le nouveau modele
-     */
+    @Override
     public void setModele(Panier p){
         this.p = p;
     }
     
-    /**
-     * Change la vue 
-     * @param vg la nouvelle vue
-     */
+    @Override
     public void setVue(VueG vg){
         this.vg = vg;
     }

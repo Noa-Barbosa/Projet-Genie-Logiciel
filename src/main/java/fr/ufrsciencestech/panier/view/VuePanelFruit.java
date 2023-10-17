@@ -101,7 +101,7 @@ public class VuePanelFruit extends javax.swing.JPanel{
     private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
         // TODO add your handling code here:
         try{
-            this.vp.p.ajout(this.f);
+            this.vp.p.ajoutProduit(this.f);
             
             this.vp.remplirListe();
         }catch(Exception e){

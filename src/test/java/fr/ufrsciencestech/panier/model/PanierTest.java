@@ -64,22 +64,22 @@ public class PanierTest {
          p1 = new FruitSimple(0.5,OrigineProduit.Maroc,TypeProduit.Poire);
          p2 = new FruitSimple(0.5,OrigineProduit.PaysBas,TypeProduit.Poire);
         
-        panier1_4.ajout(P);
+        panier1_4.ajoutProduit(P);
         
-        panierPlein1.ajout(P);
-        panierPlein2.ajout(o);
-        panierPlein2.ajout(P);
+        panierPlein1.ajoutProduit(P);
+        panierPlein2.ajoutProduit(o);
+        panierPlein2.ajoutProduit(P);
         
-        panierPlein3.ajout(P);
-        panierPlein3.ajout(p1);
-        panierPlein3.ajout(P);
+        panierPlein3.ajoutProduit(P);
+        panierPlein3.ajoutProduit(p1);
+        panierPlein3.ajoutProduit(P);
         
-        panierNonPlein.ajout(P);
-        panierNonPlein.ajout(p1);
-        panierNonPlein.ajout(p2);
-        panierNonPlein.ajout(o);
-        panierNonPlein.ajout(o1);
-        panierNonPlein.ajout(o2);
+        panierNonPlein.ajoutProduit(P);
+        panierNonPlein.ajoutProduit(p1);
+        panierNonPlein.ajoutProduit(p2);
+        panierNonPlein.ajoutProduit(o);
+        panierNonPlein.ajoutProduit(o1);
+        panierNonPlein.ajoutProduit(o2);
 
        
     }
@@ -246,21 +246,21 @@ public class PanierTest {
     }
 
     /**
-     * Test of ajout method, of class Panier.
+     * Test of ajoutProduit method, of class Panier.
      */
     @Test
-    public void testAjout() throws Exception {
-        // Testez la méthode ajout() sur un panier vide (panierVide4)
-    panierVide4.ajout(o); // Ajoutez une orange
+    public void testAjoutProduit() throws Exception {
+        // Testez la méthode ajoutProduit() sur un panier vide (panierVide4)
+    panierVide4.ajoutProduit(o); // Ajoutez une orange
     assertEquals(1, panierVide4.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange o)
 
-    // Testez la méthode ajout() sur un panier avec un fruit (panier1_4)
-    panier1_4.ajout(o1); // Ajoutez une orange
+    // Testez la méthode ajoutProduit() sur un panier avec un fruit (panier1_4)
+    panier1_4.ajoutProduit(o1); // Ajoutez une orange
     assertEquals(2, panier1_4.getTaillePanier()); // Le panier doit contenir 2 fruits (la poire P et l'orange o1)
 
-    // Testez la méthode ajout() sur un panier plein (panierPlein2)
+    // Testez la méthode ajoutProduit() sur un panier plein (panierPlein2)
     try {
-        panierPlein2.ajout(p1); // Essayez d'ajouter une poire au panier plein
+        panierPlein2.ajoutProduit(p1); // Essayez d'ajouter une poire au panier plein
         fail("Une PanierPleinException devrait être levée");
     } catch (PanierPleinException e) {
         // L'exception a été levée, ce qui est attendu
@@ -268,21 +268,21 @@ public class PanierTest {
     }
 
     /**
-     * Test of retraitLast method, of class Panier.
+     * Test of retraitLastProduit method, of class Panier.
      */
     @Test
     public void testRetrait() throws Exception {
-        // Testez la méthode retraitLast() sur un panier avec un fruit (panier1_4)
-        panier1_4.retraitLast(); // Retirez la poire du panier
+        // Testez la méthode retraitLastProduit() sur un panier avec un fruit (panier1_4)
+        panier1_4.retraitLastProduit(); // Retirez la poire du panier
         assertEquals(0, panier1_4.getTaillePanier()); // Le panier doit être vide
 
-        // Testez la méthode retraitLast() sur un panier plein (panierPlein2)
-        panierPlein2.retraitLast(); // Retirez l'orange du panier
+        // Testez la méthode retraitLastProduit() sur un panier plein (panierPlein2)
+        panierPlein2.retraitLastProduit(); // Retirez l'orange du panier
         assertEquals(1, panierPlein2.getTaillePanier()); // Le panier doit contenir 1 fruit (l'orange o2)
 
-        // Testez la méthode retraitLast() sur un panier vide (panierVide0)
+        // Testez la méthode retraitLastProduit() sur un panier vide (panierVide0)
         try {
-            panierVide0.retraitLast(); // Essayez de retirer un fruit d'un panier vide
+            panierVide0.retraitLastProduit(); // Essayez de retirer un fruit d'un panier vide
             fail("Une PanierVideException devrait être levée");
         } catch (PanierVideException e) {
             // L'exception a été levée, ce qui est attendu

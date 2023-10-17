@@ -69,7 +69,7 @@ public class VueGSwingTest {
         //si on oublie d'ajouter la vue comme observateur du modele, elle ne se met pas à jour correctement
         assertEquals(vueg.getAffiche().getText(), "0");
         FruitSimple o = new FruitSimple(10,OrigineProduit.France,TypeProduit.Orange);
-        p.ajout(o);
+        p.ajoutProduit(o);
         
         assertEquals(vueg.getAffiche().getText(), "1");
         
