@@ -1,4 +1,31 @@
 -------------------------------------------------------------------------------
 Test set: fr.ufrsciencestech.panier.model.PanierTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s - in fr.ufrsciencestech.panier.model.PanierTest
+Tests run: 16, Failures: 3, Errors: 4, Skipped: 0, Time elapsed: 0.089 s <<< FAILURE! - in fr.ufrsciencestech.panier.model.PanierTest
+testBoycotteOrigine(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.011 s  <<< ERROR!
+java.util.ConcurrentModificationException
+	at fr.ufrsciencestech.panier.model.PanierTest.testBoycotteOrigine(PanierTest.java:308)
+
+testNotifyUpdate(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "fr.ufrsciencestech.panier.model.Panier.notifyUpdate()" because "instance" is null
+	at fr.ufrsciencestech.panier.model.PanierTest.testNotifyUpdate(PanierTest.java:338)
+
+testGetPrix(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.002 s  <<< FAILURE!
+java.lang.AssertionError: expected:<7.0> but was:<6.0>
+	at fr.ufrsciencestech.panier.model.PanierTest.testGetPrix(PanierTest.java:298)
+
+testSetFruits(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<[Poire de uno a 0.5 euros, Poire de dos a 0.5 euros, Poire de uno a 0.5 euros]> but was:<[Poire de uno a 0.5 euros]>
+	at fr.ufrsciencestech.panier.model.PanierTest.testSetFruits(PanierTest.java:138)
+
+testEquals(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "fr.ufrsciencestech.panier.model.Panier.equals(Object)" because "instance" is null
+	at fr.ufrsciencestech.panier.model.PanierTest.testEquals(PanierTest.java:325)
+
+testUpdate(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: Une IllegalArgumentException devrait être levée
+	at fr.ufrsciencestech.panier.model.PanierTest.testUpdate(PanierTest.java:367)
+
+testSetFruit(fr.ufrsciencestech.panier.model.PanierTest)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at fr.ufrsciencestech.panier.model.PanierTest.testSetFruit(PanierTest.java:207)
