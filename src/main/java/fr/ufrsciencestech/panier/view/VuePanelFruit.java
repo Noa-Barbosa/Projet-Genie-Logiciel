@@ -14,25 +14,25 @@ import fr.ufrsciencestech.panier.model.*;
  * @author pt454976
  */
 public class VuePanelFruit extends javax.swing.JPanel{
-    Fruit f;
-    VuePanier vp;
+    Produit mProduit;
+    VuePanier mVP;
     /**
      * Creates new form VuePanelFruit
      */
-    public VuePanelFruit(Fruit f, VuePanier vp, int qte) {
+    public VuePanelFruit(Produit p, VuePanier vp, int qte) {
         initComponents();
-        this.f = f;
-        this.vp = vp;
+        this.mProduit = p;
+        this.mVP = vp;
         
-        initPanel(f, qte);
+        initPanel(this.mProduit, qte);
     }
     
-    void initPanel(Fruit f, int quantite){
+    void initPanel(Produit p, int quantite){
         //this.contFruit.setText();
-        this.contOrigine.setText(this.f.getOrigine() + " ");
+        this.contOrigine.setText(this.mProduit.getOrigine() + " ");
         this.contQuantite.setText(Integer.toString(quantite) + " ");
-        this.contPrixUnit.setText(this.f.getPrix() + "€ ");
-        this.contPrixTotal.setText(Double.toString(this.f.getPrix() * quantite) + "€ ");
+        this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
+        this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * quantite) + "€ ");
     }
 
     /**
@@ -101,9 +101,9 @@ public class VuePanelFruit extends javax.swing.JPanel{
     private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
         // TODO add your handling code here:
         try{
-            this.vp.p.ajoutProduit(this.f);
+            this.mVP.mPanier.ajout(this.mProduit);
             
-            this.vp.remplirListe();
+            this.mVP.remplirListe();
         }catch(Exception e){
             System.err.println(e);
         }
@@ -112,9 +112,9 @@ public class VuePanelFruit extends javax.swing.JPanel{
     private void retireQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retireQteFruitActionPerformed
         // TODO add your handling code here:
         try{
-            this.vp.p.retraitProduit(this.f);
+            this.mVP.mPanier.retraitProduit(this.mProduit);
             
-            this.vp.remplirListe();
+            this.mVP.remplirListe();
         }catch(Exception e){
             System.err.println(e);
         }
