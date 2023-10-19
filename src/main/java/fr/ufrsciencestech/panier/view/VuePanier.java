@@ -14,7 +14,7 @@ import java.util.*;
  *
  * @author pt454976
  */
-public class VuePanier extends javax.swing.JFrame {
+public class VuePanier extends javax.swing.JFrame implements Observer {
     Panier mPanier;
     
     /**
@@ -26,14 +26,14 @@ public class VuePanier extends javax.swing.JFrame {
         
         try{
             this.mPanier = new Panier(10);
-            this.mPanier.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajout(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.mPanier.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.mPanier.ajout(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
-            this.mPanier.ajout(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
-            this.mPanier.ajout(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
+            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+            this.mPanier.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
+            this.mPanier.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
+            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
         }catch(Exception e){
             System.err.println(e);
         }
@@ -149,4 +149,9 @@ public class VuePanier extends javax.swing.JFrame {
     private javax.swing.JPanel panelListeFruits;
     private javax.swing.JPanel panelPrixTotalPanier;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable m, Object o){
+        this.remplirListe();
+    }
 }
