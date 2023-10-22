@@ -37,7 +37,7 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
     }
     
     void initPanel(Produit p, int quantite){
-        //this.contFruit.setText();
+        this.contFruit.setText(this.mProduit.getTypeProduit().toString());
         this.contOrigine.setText(this.mProduit.getOrigine() + " ");
         this.contQuantite.setText(Integer.toString(quantite) + " ");
         this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
