@@ -7,13 +7,33 @@ package fr.ufrsciencestech.panier.model;
 
 /**
  *
- * @author Utilisateur
+ * @author Anthony
  */
 public class FruitFactory implements ProduitFactory{
 
     @Override
     public Produit creerProduit(double arg0, OrigineProduit arg1, TypeProduit arg2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Produit fs = null; 
+        switch(arg2){
+            case Orange:
+                fs = new FruitSimple(arg0, arg1, arg2);
+                break;
+            case Banane:
+                fs = new FruitSimple(arg0, arg1, arg2);
+                break;
+            case Cerise:
+                fs = new FruitSimple(arg0, arg1, arg2);
+                break;
+            case Poire:
+                fs = new FruitSimple(arg0, arg1, arg2);
+                break;
+            case SaladeFruits:
+                fs = new FruitSimple(arg0, arg1, arg2);
+                break;
+        }
+        return fs;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

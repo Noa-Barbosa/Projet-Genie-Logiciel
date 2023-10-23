@@ -211,8 +211,8 @@ public class PanierTest {
     assertEquals(P, panier1_4.getProduit(0)); // Le premier élément du panier doit être la poire P
 
     // Testez la méthode getFruit() sur un panier plein (panierPlein2)
-    assertEquals(o, panierPlein2.getFruit(0)); // Le premier élément du panier doit être la poire P
-    assertEquals(P, panierPlein2.getFruit(1)); // Le deuxième élément du panier doit être l'orange o
+    assertEquals(o, panierPlein2.getProduit(0)); // Le premier élément du panier doit être la poire P
+    assertEquals(P, panierPlein2.getProduit(1)); // Le deuxième élément du panier doit être l'orange o
 
 
     // Testez la méthode getFruit() sur un index invalide (panierPlein1)
