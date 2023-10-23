@@ -5,6 +5,7 @@ import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 import fr.ufrsciencestech.panier.model.TypeProduit;
 import fr.ufrsciencestech.panier.view.VueConsole;
 import fr.ufrsciencestech.panier.view.VueG;
@@ -79,14 +80,14 @@ public class Main
                 p.addObserver(vuec);         
                 testMVC.getVueg().addControleur(testMVC.getControleur());
                 try{
-                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-                    p.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
-                    p.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
-                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
+                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeFruitSimple.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeFruitSimple.Cerise));
+                    p.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeFruitSimple.Banane));
+                    p.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeFruitSimple.Banane));
+                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeFruitSimple.Orange));
                 }catch(Exception e){
                     System.err.println(e);
                 }

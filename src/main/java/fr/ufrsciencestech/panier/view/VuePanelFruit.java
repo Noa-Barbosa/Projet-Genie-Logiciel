@@ -26,11 +26,11 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
         this.mProduit = p;
         this.mVP = vp;
         
-        this.mVP.mPanier.addObserver(this);
+        this.mVP.getPanier().addObserver(this);
         
         ControleurFruit cf = new ControleurFruit();
         cf.setVue(this);
-        cf.setModele(this.mVP.mPanier);
+        cf.setModele(this.mVP.getPanier());
         this.addControleur(cf);
         
         initPanel(this.mProduit, qte);
@@ -127,5 +127,9 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
     @Override
     public void update(Observable m, Object o){
         this.mVP.remplirListe();
+    }
+
+    public Produit getProduit() {
+        return this.mProduit;    
     }
 }

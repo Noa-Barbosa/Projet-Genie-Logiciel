@@ -29,7 +29,7 @@ public class ControleurFruit extends ControleurAbstract {
         try {
             switch(e.getActionCommand()){
                 case("+"):
-                    FruitSimple fruit = new FruitSimple(5,OrigineProduit.France,TypeProduit.Banane);
+                    FruitSimple fruit = new FruitSimple(5,OrigineProduit.France,TypeFruitSimple.Banane);
                     SaladeFruits salade = new SaladeFruits(5,OrigineProduit.Danemark);
                     JusCerise jus = new JusCerise(6,OrigineProduit.Allemagne,fruit);
                     JusCerise jusJus = new JusCerise(5,OrigineProduit.Danemark,jus);
