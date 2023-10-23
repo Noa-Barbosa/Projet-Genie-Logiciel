@@ -64,18 +64,18 @@ public class PanierTest {
         panierNonPleinAlea = new Panier(4);
         panierPresquePleinAlea = new Panier(4);
         
-         o = new FruitSimple(1,OrigineProduit.Espagne,TypeProduit.Orange);
-         o1 = new FruitSimple(2,OrigineProduit.Danemark,TypeProduit.Orange);
-         o2 = new FruitSimple(3,OrigineProduit.France,TypeProduit.Orange);
-         P = new FruitSimple(0.5,OrigineProduit.Japon,TypeProduit.Poire);
-         p1 = new FruitSimple(0.5,OrigineProduit.Maroc,TypeProduit.Poire);
-         p2 = new FruitSimple(0.5,OrigineProduit.PaysBas,TypeProduit.Poire);
+         o = new FruitSimple(1,OrigineProduit.Espagne,TypeFruitSimple.Orange);
+         o1 = new FruitSimple(2,OrigineProduit.Danemark,TypeFruitSimple.Orange);
+         o2 = new FruitSimple(3,OrigineProduit.France,TypeFruitSimple.Orange);
+         P = new FruitSimple(0.5,OrigineProduit.Japon,TypeFruitSimple.Poire);
+         p1 = new FruitSimple(0.5,OrigineProduit.Maroc,TypeFruitSimple.Poire);
+         p2 = new FruitSimple(0.5,OrigineProduit.PaysBas,TypeFruitSimple.Poire);
          fruitLst=new FruitSimple[10];
          for(int i =0;i<fruitLst.length;i++){
              fruitLst[i]= new FruitSimple(
              Math.random() *(3-1)+1,
              OrigineProduit.rand(), // TODO - A ecrire
-              TypeProduit.rand()
+              TypeFruitSimple.rand()
              );
          }
          
