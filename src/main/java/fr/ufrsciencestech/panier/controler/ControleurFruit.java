@@ -7,8 +7,11 @@ package fr.ufrsciencestech.panier.controler;
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
+import fr.ufrsciencestech.panier.model.TypeProduit;
+import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import fr.ufrsciencestech.panier.model.exception.PanierVideException;
+import fr.ufrsciencestech.panier.view.VuePanelFruit;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +31,14 @@ public class ControleurFruit extends ControleurAbstract {
                     break;
                 case("-"):
                     p.retraitLastProduit(); 
+                    break;
+                case("ajoutQteFruitVuePanelFruit"):
+                    VuePanelFruit vpf1 = (VuePanelFruit) this.vg;
+                    this.p.ajoutProduit(vpf1.mProduit);
+                    break;
+                case("retireQteFruitVuePanelFruit"):
+                    VuePanelFruit vpf2 = (VuePanelFruit) this.vg;
+                    this.p.retraitProduit(vpf2.mProduit);
                     break;
             }
         } 

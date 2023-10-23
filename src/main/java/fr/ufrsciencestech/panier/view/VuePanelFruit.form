@@ -41,17 +41,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="+"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutQteFruitActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="retireQteFruit">
       <Properties>
         <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retireQteFruitActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="modifQteFruit">
       <Properties>

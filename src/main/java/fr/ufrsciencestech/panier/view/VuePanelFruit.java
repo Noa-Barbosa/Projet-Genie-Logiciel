@@ -6,33 +6,45 @@ package fr.ufrsciencestech.panier.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
 
+import fr.ufrsciencestech.panier.controler.*;
 import fr.ufrsciencestech.panier.model.*;
 
 /**
  *
  * @author pt454976
  */
-public class VuePanelFruit extends javax.swing.JPanel{
-    Fruit f;
-    VuePanier vp;
+public class VuePanelFruit extends javax.swing.JPanel implements VueG{
+    public Produit mProduit;
+    public VuePanier mVP;
     /**
      * Creates new form VuePanelFruit
      */
-    public VuePanelFruit(Fruit f, VuePanier vp, int qte) {
+    public VuePanelFruit(Produit p, VuePanier vp, int qte) {
         initComponents();
-        this.f = f;
-        this.vp = vp;
+        this.mProduit = p;
+        this.mVP = vp;
         
-        initPanel(f, qte);
+        this.mVP.mPanier.addObserver(this);
+        
+        ControleurFruit cf = new ControleurFruit();
+        cf.setVue(this);
+        cf.setModele(this.mVP.mPanier);
+        this.addControleur(cf);
+        
+        initPanel(this.mProduit, qte);
     }
     
-    void initPanel(Fruit f, int quantite){
-        //this.contFruit.setText();
-        this.contOrigine.setText(this.f.getOrigine() + " ");
+    void initPanel(Produit p, int quantite){
+        this.contFruit.setText(this.mProduit.getTypeProduit().toString());
+        this.contOrigine.setText(this.mProduit.getOrigine() + " ");
         this.contQuantite.setText(Integer.toString(quantite) + " ");
-        this.contPrixUnit.setText(this.f.getPrix() + "€ ");
-        this.contPrixTotal.setText(Double.toString(this.f.getPrix() * quantite) + "€ ");
+        this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
+        this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * quantite) + "€ ");
+        
+        this.ajoutQteFruit.setActionCommand("ajoutQteFruitVuePanelFruit");
+        this.retireQteFruit.setActionCommand("retireQteFruitVuePanelFruit");
     }
 
     /**
@@ -71,19 +83,9 @@ public class VuePanelFruit extends javax.swing.JPanel{
         add(contQuantite);
 
         ajoutQteFruit.setText("+");
-        ajoutQteFruit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutQteFruitActionPerformed(evt);
-            }
-        });
         add(ajoutQteFruit);
 
         retireQteFruit.setText("-");
-        retireQteFruit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retireQteFruitActionPerformed(evt);
-            }
-        });
         add(retireQteFruit);
 
         modifQteFruit.setText("Edit");
@@ -97,28 +99,6 @@ public class VuePanelFruit extends javax.swing.JPanel{
         add(labelPrixTotal);
         add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
-        // TODO add your handling code here:
-        try{
-            this.vp.p.ajoutProduit(this.f);
-            
-            this.vp.remplirListe();
-        }catch(Exception e){
-            System.err.println(e);
-        }
-    }//GEN-LAST:event_ajoutQteFruitActionPerformed
-
-    private void retireQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retireQteFruitActionPerformed
-        // TODO add your handling code here:
-        try{
-            this.vp.p.retraitProduit(this.f);
-            
-            this.vp.remplirListe();
-        }catch(Exception e){
-            System.err.println(e);
-        }
-    }//GEN-LAST:event_retireQteFruitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -136,4 +116,16 @@ public class VuePanelFruit extends javax.swing.JPanel{
     private javax.swing.JButton modifQteFruit;
     private javax.swing.JButton retireQteFruit;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public void addControleur(Controleur c){
+        this.ajoutQteFruit.addActionListener(c);
+        this.retireQteFruit.addActionListener(c);
+    }
+    
+    @Override
+    public void update(Observable m, Object o){
+        this.mVP.remplirListe();
+    }
 }
