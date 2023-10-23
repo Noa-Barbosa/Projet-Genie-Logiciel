@@ -4,6 +4,7 @@
  */
 package fr.ufrsciencestech.panier.controler;
 
+import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.Produit;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
@@ -40,4 +41,6 @@ public interface Controleur extends ActionListener{
     public void ajoutProduit(Produit p) throws PanierPleinException;
     
     public void retraitProduit(Produit p);
+    
+    public void boycotteOrigine(OrigineProduit o);
 }

@@ -62,4 +62,9 @@ public class ControleurFruit extends ControleurAbstract {
     public void retraitProduit(Produit p){
         this.p.retraitProduit(p);
     }
+
+    @Override
+    public void boycotteOrigine(OrigineProduit op) {
+        this.p.boycotteOrigine(op);
+    }
 }
