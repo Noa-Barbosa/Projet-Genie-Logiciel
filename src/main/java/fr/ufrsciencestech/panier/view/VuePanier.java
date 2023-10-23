@@ -26,14 +26,14 @@ public class VuePanier extends javax.swing.JFrame {
         
         try{
             this.p = new Panier(10);
-            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.p.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
-            this.p.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
-            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
+            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeFruitSimple.Cerise));
+            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeFruitSimple.Cerise));
+            this.p.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeFruitSimple.Banane));
+            this.p.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeFruitSimple.Banane));
+            this.p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeFruitSimple.Orange));
         }catch(Exception e){
             System.err.println(e);
         }
