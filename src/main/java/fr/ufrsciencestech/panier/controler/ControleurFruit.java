@@ -6,7 +6,7 @@ package fr.ufrsciencestech.panier.controler;
 
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
-import fr.ufrsciencestech.panier.model.TypeProduit;
+import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import java.awt.event.ActionEvent;
@@ -23,7 +23,7 @@ public class ControleurFruit extends ControleurAbstract {
         try {
             switch(e.getActionCommand()){
                 case("+"):
-                    FruitSimple fruit = new FruitSimple(5,OrigineProduit.France,TypeProduit.Banane);
+                    FruitSimple fruit = new FruitSimple(5,OrigineProduit.France,TypeFruitSimple.Banane);
                     p.ajoutProduit(fruit);
                     break;
                 case("-"):
