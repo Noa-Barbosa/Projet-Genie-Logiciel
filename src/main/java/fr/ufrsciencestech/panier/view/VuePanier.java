@@ -4,6 +4,8 @@
  */
 package fr.ufrsciencestech.panier.view;
 
+import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.*;
 
 import javax.swing.*;
@@ -14,31 +16,17 @@ import java.util.*;
  *
  * @author pt454976
  */
-public class VuePanier extends javax.swing.JFrame implements Observer {
-    Panier mPanier;
+public class VuePanier extends javax.swing.JFrame implements VueG {
+    private Panier mPanier;
+    private Controleur controleur;
     
     /**
      * Creates new form VuePanier
      */
     public VuePanier() {
         initComponents();
-        this.setTitle("Panier");
-        
-        try{
-            this.mPanier = new Panier(10);
-            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
-            this.mPanier.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
-            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
-        }catch(Exception e){
-            System.err.println(e);
-        }
-        
-        remplirListe();
+        this.setTitle("Panier");  
+        this.setVisible(true);
     }
     
     void remplirListe(){
@@ -52,7 +40,15 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
         for(Produit produit : this.mPanier.getProduits()){
             if(!layoutContientProduit(produit, produitsAjoutes)){
                 int quantite = compteQteFruits(produit, this.mPanier);
-                this.panelListeFruits.add(new VuePanelFruit(produit, this, quantite));
+                
+                VuePanelFruit vf = new VuePanelFruit(produit, this, quantite);
+                this.mPanier.addObserver(this);
+                Controleur c= new ControleurFruit();
+                c.setModele(this.mPanier);
+                c.setVue(vf);
+                vf.addControleur(c);
+                
+                this.panelListeFruits.add(vf);
                 produitsAjoutes.add(produit);
                 prixTotalPanier += quantite * produit.getPrix();
                 
@@ -90,6 +86,7 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
 
         panelListeFruits = new javax.swing.JPanel();
         panelPrixTotalPanier = new javax.swing.JPanel();
+        btnAjoutJusTest = new javax.swing.JButton();
         labelPrixTotalPanier = new javax.swing.JLabel();
         contPrixTotalPanier = new javax.swing.JLabel();
 
@@ -98,6 +95,14 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
 
         panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
         getContentPane().add(panelListeFruits, java.awt.BorderLayout.CENTER);
+
+        btnAjoutJusTest.setText("Ajout just (test)");
+        btnAjoutJusTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjoutJusTestActionPerformed(evt);
+            }
+        });
+        panelPrixTotalPanier.add(btnAjoutJusTest);
 
         labelPrixTotalPanier.setText("Prix total du panier : ");
         panelPrixTotalPanier.add(labelPrixTotalPanier);
@@ -108,42 +113,13 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnAjoutJusTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutJusTestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAjoutJusTestActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VuePanier().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAjoutJusTest;
     private javax.swing.JLabel contPrixTotalPanier;
     private javax.swing.JLabel labelPrixTotalPanier;
     private javax.swing.JPanel panelListeFruits;
@@ -152,6 +128,20 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable m, Object o){
+        this.mPanier= (Panier)o;
         this.remplirListe();
+    }
+
+    @Override
+    public void addControleur(Controleur c) {
+        this.controleur=c;
+    }
+    
+    public Panier getPanier() {
+        return mPanier;
+    }
+
+    public Controleur getControleur() {
+        return controleur;
     }
 }

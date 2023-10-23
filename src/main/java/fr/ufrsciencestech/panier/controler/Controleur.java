@@ -5,6 +5,8 @@
 package fr.ufrsciencestech.panier.controler;
 
 import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.Produit;
+import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import fr.ufrsciencestech.panier.view.VueG;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,4 +36,8 @@ public interface Controleur extends ActionListener{
      * @param p le panier
      */
     public void setModele(Panier p);
+    
+    public void ajoutProduit(Produit p) throws PanierPleinException;
+    
+    public void retraitProduit(Produit p);
 }

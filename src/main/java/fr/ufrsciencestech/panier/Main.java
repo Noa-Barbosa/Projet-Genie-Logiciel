@@ -1,10 +1,15 @@
 package fr.ufrsciencestech.panier;
 
+import fr.ufrsciencestech.panier.controler.Controleur;
 import fr.ufrsciencestech.panier.controler.ControleurFruit;
+import fr.ufrsciencestech.panier.model.FruitSimple;
+import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.TypeProduit;
 import fr.ufrsciencestech.panier.view.VueConsole;
 import fr.ufrsciencestech.panier.view.VueG;
 import fr.ufrsciencestech.panier.view.VueGSwing;
+import fr.ufrsciencestech.panier.view.VuePanier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,9 +20,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main 
 {
     private VueG vueg;
-    private ControleurFruit controleur;
+    private Controleur controleur;
 
-    public ControleurFruit getControleur() {
+    public Controleur getControleur() {
         return controleur;
     }
 
@@ -63,15 +68,28 @@ public class Main
             public void run() {
                 ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
                 Main testMVC = (Main)context.getBean("MVC");
-                testMVC.setControleur((ControleurFruit)context.getBean("ControleurFruit") );  //SpringIoC
-                testMVC.setVueg( (VueGSwing)context.getBean("VueG") );   //SpringIoC
-                Panier p = new Panier(5);
+                testMVC.setControleur((ControleurFruit)context.getBean("Controleur") );  //SpringIoC
+                testMVC.setVueg( (VuePanier)context.getBean("VueG") );   //SpringIoC
+                Panier p = new Panier(10);
+                
                 VueConsole vuec = new VueConsole();
 
                 testMVC.getControleur().setModele(p);                 
                 p.addObserver(testMVC.getVueg());        
                 p.addObserver(vuec);         
                 testMVC.getVueg().addControleur(testMVC.getControleur());
+                try{
+                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
+                    p.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
+                    p.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
+                    p.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
+                }catch(Exception e){
+                    System.err.println(e);
+                }
             }
         });
         /*Ecrire ici vos tests

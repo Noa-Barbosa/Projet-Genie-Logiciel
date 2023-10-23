@@ -7,6 +7,7 @@ package fr.ufrsciencestech.panier.controler;
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.JusCerise;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
+import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 import fr.ufrsciencestech.panier.model.TypeProduit;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.Produit;
