@@ -10,7 +10,7 @@ package fr.ufrsciencestech.panier.model;
  */
 public enum TypeProduit {
     
-    FruitSimple,SaladeFruits,JusCerise;
+    FruitSimple,SaladeFruits,JusCerise,JusBanane;
     
     /**
      * 
