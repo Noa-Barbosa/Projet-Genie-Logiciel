@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -38,7 +39,7 @@ public class PanierTest {
     private FruitSimple p1;
     private FruitSimple p2;
     private FruitSimple fruitLst[];
-    
+    private Panier mockPanier;
     
     public PanierTest() {
     }
@@ -63,6 +64,9 @@ public class PanierTest {
         panierPleinAlea = new Panier(4);
         panierNonPleinAlea = new Panier(4);
         panierPresquePleinAlea = new Panier(4);
+        mockPanier = mock(Panier.class);
+        
+        when(mockPanier.getContenanceMax()<mockPanier.getProduits().size()).thenReturn(false);
         
          o = new FruitSimple(1,OrigineProduit.Espagne,TypeProduit.Orange);
          o1 = new FruitSimple(2,OrigineProduit.Danemark,TypeProduit.Orange);
@@ -165,10 +169,9 @@ public class PanierTest {
 
     // Testez la méthode setFruit() sur un panier plein (panierPlein2)
     panierPlein2.setProduits(panierPlein1.getProduits()); // Remplacez le deuxième élément du panier par une orange supplémentaire
-    assertEquals(panierPlein3.getProduits(), panierPlein2.getProduits()); // Vérifiez que le deuxième élément est maintenant une orange
+    assertEquals(panierPlein1.getProduits(), panierPlein2.getProduits()); // Vérifiez que le deuxième élément est maintenant une orange
 
-    
-        }
+    }
 
     /**
      * Test of getTaillePanier method, of class Panier.
@@ -211,8 +214,8 @@ public class PanierTest {
     assertEquals(P, panier1_4.getProduit(0)); // Le premier élément du panier doit être la poire P
 
     // Testez la méthode getFruit() sur un panier plein (panierPlein2)
-    assertEquals(o, panierPlein2.getFruit(0)); // Le premier élément du panier doit être la poire P
-    assertEquals(P, panierPlein2.getFruit(1)); // Le deuxième élément du panier doit être l'orange o
+    assertEquals(o, panierPlein2.getProduit(0)); // Le premier élément du panier doit être la poire P
+    assertEquals(P, panierPlein2.getProduit(1)); // Le deuxième élément du panier doit être l'orange o
 
 
     // Testez la méthode getFruit() sur un index invalide (panierPlein1)
