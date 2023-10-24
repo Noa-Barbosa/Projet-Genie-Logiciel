@@ -18,7 +18,19 @@ import java.util.*;
  */
 public class VuePanier extends javax.swing.JFrame implements VueG {
     private Panier mPanier;
-    private Controleur controleur;
+    private Controleur mControleur;
+    
+    /*
+    * une vue doit avoir un controlleur, on appellera ses méthodes pour modifier le model
+    * le modèle (panier ou autre) doit être observé par une vue
+    * les évènements des boutons sont gérés dans la vue elle-même
+    *
+        this.mVP.getPanier().addObserver(this);    
+        ControleurFruit cf = new ControleurFruit();
+        cf.setVue(this);
+        cf.setModele(this.mVP.getPanier());
+        this.addControleur(cf);
+    */
     
     /**
      * Creates new form VuePanier
@@ -27,6 +39,15 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         initComponents();
         this.setTitle("Panier");  
         this.setVisible(true);
+    }
+    
+    public VuePanier(Controleur c, Panier p){
+        initComponents();
+        this.setTitle("Panier");
+        this.setVisible(true);
+        
+        this.mControleur= c;
+        this.mPanier= p;
     }
     
     void remplirListe(){
@@ -40,13 +61,8 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         for(Produit produit : this.mPanier.getProduits()){
             if(!layoutContientProduit(produit, produitsAjoutes)){
                 int quantite = compteQteFruits(produit, this.mPanier);
-                
+             
                 VuePanelFruit vf = new VuePanelFruit(produit, this, quantite);
-                this.mPanier.addObserver(this);
-                Controleur c= new ControleurFruit();
-                c.setModele(this.mPanier);
-                c.setVue(vf);
-                vf.addControleur(c);
                 
                 this.panelListeFruits.add(vf);
                 produitsAjoutes.add(produit);
@@ -134,7 +150,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
     @Override
     public void addControleur(Controleur c) {
-        this.controleur=c;
+        this.mControleur=c;
+    }
+    
+    public void setPanier(Panier p){
+        this.mPanier = p;
     }
     
     public Panier getPanier() {
@@ -142,6 +162,6 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
     }
 
     public Controleur getControleur() {
-        return controleur;
+        return mControleur;
     }
 }

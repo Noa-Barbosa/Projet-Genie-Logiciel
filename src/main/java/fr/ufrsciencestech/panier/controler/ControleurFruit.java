@@ -38,14 +38,6 @@ public class ControleurFruit extends ControleurAbstract {
                 case("-"):
                     p.retraitLastProduit(); 
                     break;
-                case("ajoutQteFruitVuePanelFruit"):
-                    VuePanelFruit vpf1 = (VuePanelFruit) this.vg;
-                    this.p.ajoutProduit(vpf1.getProduit());
-                    break;
-                case("retireQteFruitVuePanelFruit"):
-                    VuePanelFruit vpf2 = (VuePanelFruit) this.vg;
-                    this.p.retraitProduit(vpf2.getProduit());
-                    break;
             }
         } 
         catch (PanierPleinException | PanierVideException ex) {
