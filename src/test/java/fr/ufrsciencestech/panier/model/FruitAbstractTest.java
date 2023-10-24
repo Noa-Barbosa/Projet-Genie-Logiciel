@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author vt718096
  */
 abstract public class FruitAbstractTest {
-    abstract FruitAbstract createFruit(double prix,OrigineProduit origine, TypeProduit type);
+    abstract FruitAbstract createFruit(double prix,OrigineProduit origine, TypeFruitSimple type);
     abstract FruitAbstract createFruitNull();
     
     public FruitAbstractTest() {
@@ -45,7 +45,7 @@ abstract public class FruitAbstractTest {
     @Test
     public void testGetPrix() {
         System.out.println("getPrix");
-        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeFruitSimple.Orange);
         double expResult = 0.6;
         double result = instance.getPrix();
         assertEquals(expResult, result, 0);
@@ -58,7 +58,7 @@ abstract public class FruitAbstractTest {
     public void testSetPrix() {
         System.out.println("setPrix");
         double prix = 0.0;
-        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeFruitSimple.Orange);
         instance.setPrix(prix);
         assertEquals(prix, instance.getPrix(), 0);
         
@@ -75,7 +75,7 @@ abstract public class FruitAbstractTest {
     @Test
     public void testGetOrigine() {
         System.out.println("getOrigine");
-        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeFruitSimple.Orange);
         OrigineProduit result = instance.getOrigine();
         assertEquals(OrigineProduit.France, result);
     }
@@ -87,7 +87,7 @@ abstract public class FruitAbstractTest {
     public void testSetOrigine() {
         System.out.println("setOrigine");
         OrigineProduit origine = OrigineProduit.Danemark;
-        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeFruitSimple.Orange);
         instance.setOrigine(origine);
         assertEquals(origine,instance.getOrigine());
     }
@@ -98,7 +98,7 @@ abstract public class FruitAbstractTest {
     @Test
     public void testIsSeedless() {
         System.out.println("isSeedless");
-        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeProduit.Orange);
+        FruitAbstract instance = createFruit(0.6,OrigineProduit.France,TypeFruitSimple.Orange);
         boolean expResult = false;
         boolean result = instance.isSeedless();
         assertEquals(expResult, result);

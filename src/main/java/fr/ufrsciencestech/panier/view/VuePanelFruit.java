@@ -15,9 +15,9 @@ import fr.ufrsciencestech.panier.model.*;
  *
  * @author pt454976
  */
-public class VuePanelFruit extends javax.swing.JPanel implements VueG{
-    public Produit mProduit;
-    public VuePanier mVP;
+public class VuePanelFruit extends javax.swing.JPanel {
+    private Produit mProduit;
+    private VuePanier mVP;
     /**
      * Creates new form VuePanelFruit
      */
@@ -25,14 +25,7 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
         initComponents();
         this.mProduit = p;
         this.mVP = vp;
-        
-        this.mVP.mPanier.addObserver(this);
-        
-        ControleurFruit cf = new ControleurFruit();
-        cf.setVue(this);
-        cf.setModele(this.mVP.mPanier);
-        this.addControleur(cf);
-        
+       
         initPanel(this.mProduit, qte);
     }
     
@@ -43,8 +36,6 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
         this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
         this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * quantite) + "€ ");
         
-        this.ajoutQteFruit.setActionCommand("ajoutQteFruitVuePanelFruit");
-        this.retireQteFruit.setActionCommand("retireQteFruitVuePanelFruit");
     }
 
     /**
@@ -83,12 +74,27 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
         add(contQuantite);
 
         ajoutQteFruit.setText("+");
+        ajoutQteFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutQteFruitActionPerformed(evt);
+            }
+        });
         add(ajoutQteFruit);
 
         retireQteFruit.setText("-");
+        retireQteFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retireQteFruitActionPerformed(evt);
+            }
+        });
         add(retireQteFruit);
 
         modifQteFruit.setText("Edit");
+        modifQteFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifQteFruitActionPerformed(evt);
+            }
+        });
         add(modifQteFruit);
 
         labelPrixUnit.setText("Prix unitaire : ");
@@ -99,6 +105,28 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
         add(labelPrixTotal);
         add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
+        // TODO add your handling code here:
+        try{
+            this.mVP.getControleur().ajoutProduit(this.mProduit);
+        }catch (Exception e){
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_ajoutQteFruitActionPerformed
+
+    private void retireQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retireQteFruitActionPerformed
+        // TODO add your handling code here:
+        try{
+            this.mVP.getControleur().retraitProduit(this.mProduit);
+        }catch (Exception e){
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_retireQteFruitActionPerformed
+
+    private void modifQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifQteFruitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modifQteFruitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -118,14 +146,19 @@ public class VuePanelFruit extends javax.swing.JPanel implements VueG{
     // End of variables declaration//GEN-END:variables
 
 
-    @Override
-    public void addControleur(Controleur c){
-        this.ajoutQteFruit.addActionListener(c);
-        this.retireQteFruit.addActionListener(c);
+    public Produit getProduit() {
+        return this.mProduit;    
     }
     
-    @Override
-    public void update(Observable m, Object o){
-        this.mVP.remplirListe();
+    public VuePanier getVuePanier() {
+        return this.mVP;
+    }
+    
+    public void setmProduit(Produit mProduit) {
+        this.mProduit = mProduit;
+    }
+
+    public void setmVP(VuePanier mVP) {
+        this.mVP = mVP;
     }
 }

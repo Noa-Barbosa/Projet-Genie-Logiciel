@@ -8,11 +8,13 @@ package fr.ufrsciencestech.panier.model;
  * Un fruit basique : Orange,Cerise...
  * @author noaba
  */
-public class FruitSimple extends FruitAbstract{    
-    public FruitSimple(double prix, OrigineProduit origine, TypeProduit type){
+public class FruitSimple extends FruitAbstract{   
+    private TypeFruitSimple typeFruit;
+    public FruitSimple(double prix, OrigineProduit origine, TypeFruitSimple type){
         this.prix=prix;
         this.origine=origine;
-        this.typeProduit=type;
+        this.typeProduit=TypeProduit.FruitSimple;
+        this.typeFruit=type;
     }
     
     @Override
@@ -61,7 +63,7 @@ public class FruitSimple extends FruitAbstract{
 
     @Override
     public boolean isSeedless(){
-        switch (typeProduit) {
+        switch (typeFruit) {
             case Orange : 
                 return false;
             case Banane:

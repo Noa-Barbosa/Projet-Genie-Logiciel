@@ -4,11 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!-- ===== Déclaration des références ===== -->
-    <bean id="VueG" class="fr.ufrsciencestech.panier.view.VueGSwing"></bean>
-    <bean id="ControleurFruit" class="fr.ufrsciencestech.panier.controler.ControleurFruit"></bean>
+    <bean id="VueG" class="fr.ufrsciencestech.panier.view.VuePanier"></bean>
+    <bean id="Controleur" class="fr.ufrsciencestech.panier.controler.ControleurFruit"></bean>
     <!-- ===== Utilisation des références ===== -->
     <bean id="MVC" class="fr.ufrsciencestech.panier.Main">
         <property name="vueg" ref="VueG"/>
-        <property name="controleur" ref="ControleurFruit"/>
+        <property name="controleur" ref="Controleur"/>
     </bean>
 </beans>
