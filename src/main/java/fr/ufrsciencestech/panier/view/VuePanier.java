@@ -115,9 +115,8 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));
-        getContentPane().setLayout(new java.awt.GridLayout(1, 2));
 
-        panelVuePanier.setLayout(new java.awt.GridLayout(1, 2));
+        panelVuePanier.setLayout(new java.awt.BorderLayout());
 
         panelPanier.setLayout(new java.awt.BorderLayout());
 
@@ -130,33 +129,33 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         panelPanier.add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
 
-        panelVuePanier.add(panelPanier);
+        panelVuePanier.add(panelPanier, java.awt.BorderLayout.CENTER);
 
         panelBoutonsAjouts.setLayout(new java.awt.GridLayout(5, 1));
 
         jButtonAjouterFruit.setText("Ajouter fruit");
-        jButtonAjouterFruit.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButtonAjouterFruit.setPreferredSize(new java.awt.Dimension(125, 23));
         panelBoutonsAjouts.add(jButtonAjouterFruit);
 
         jButtonAjouterJus.setText("Ajouter jus");
-        jButtonAjouterJus.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButtonAjouterJus.setPreferredSize(new java.awt.Dimension(125, 23));
         panelBoutonsAjouts.add(jButtonAjouterJus);
 
         jButtonAjoutMacedoine.setText("Ajouter macédoine");
-        jButtonAjoutMacedoine.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButtonAjoutMacedoine.setPreferredSize(new java.awt.Dimension(125, 23));
         panelBoutonsAjouts.add(jButtonAjoutMacedoine);
 
         jButtonAjoutSalade.setText("Ajouter salade");
-        jButtonAjoutSalade.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButtonAjoutSalade.setPreferredSize(new java.awt.Dimension(125, 23));
         panelBoutonsAjouts.add(jButtonAjoutSalade);
 
         jButtonBoycotter.setText("Boycotter");
-        jButtonBoycotter.setPreferredSize(new java.awt.Dimension(50, 23));
+        jButtonBoycotter.setPreferredSize(new java.awt.Dimension(125, 23));
         panelBoutonsAjouts.add(jButtonBoycotter);
 
-        panelVuePanier.add(panelBoutonsAjouts);
+        panelVuePanier.add(panelBoutonsAjouts, java.awt.BorderLayout.EAST);
 
-        getContentPane().add(panelVuePanier);
+        getContentPane().add(panelVuePanier, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
