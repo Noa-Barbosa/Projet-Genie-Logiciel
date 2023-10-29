@@ -20,18 +20,6 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
     private Panier mPanier;
     private Controleur mControleur;
     
-    /*
-    * une vue doit avoir un controlleur, on appellera ses méthodes pour modifier le model
-    * le modèle (panier ou autre) doit être observé par une vue
-    * les évènements des boutons sont gérés dans la vue elle-même
-    *
-        this.mVP.getPanier().addObserver(this);    
-        ControleurFruit cf = new ControleurFruit();
-        cf.setVue(this);
-        cf.setModele(this.mVP.getPanier());
-        this.addControleur(cf);
-    */
-    
     /**
      * Creates new form VuePanier
      */
@@ -135,6 +123,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         jButtonAjouterFruit.setText("Ajouter fruit");
         jButtonAjouterFruit.setPreferredSize(new java.awt.Dimension(125, 23));
+        jButtonAjouterFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterFruitActionPerformed(evt);
+            }
+        });
         panelBoutonsAjouts.add(jButtonAjouterFruit);
 
         jButtonAjouterJus.setText("Ajouter jus");
@@ -159,6 +152,12 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAjouterFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterFruitActionPerformed
+        // TODO add your handling code here:
+        VueAjoutFruit vag = new VueAjoutFruit(this.getPanier(), this, this.getControleur());
+        vag.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterFruitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
