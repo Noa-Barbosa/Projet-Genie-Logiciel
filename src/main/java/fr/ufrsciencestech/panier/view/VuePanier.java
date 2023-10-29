@@ -100,46 +100,80 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelVuePanier = new javax.swing.JPanel();
+        panelPanier = new javax.swing.JPanel();
         panelListeFruits = new javax.swing.JPanel();
         panelPrixTotalPanier = new javax.swing.JPanel();
-        btnAjoutJusTest = new javax.swing.JButton();
         labelPrixTotalPanier = new javax.swing.JLabel();
         contPrixTotalPanier = new javax.swing.JLabel();
+        panelBoutonsAjouts = new javax.swing.JPanel();
+        jButtonAjouterFruit = new javax.swing.JButton();
+        jButtonAjouterJus = new javax.swing.JButton();
+        jButtonAjoutMacedoine = new javax.swing.JButton();
+        jButtonAjoutSalade = new javax.swing.JButton();
+        jButtonBoycotter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));
 
-        panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
-        getContentPane().add(panelListeFruits, java.awt.BorderLayout.CENTER);
+        panelVuePanier.setLayout(new java.awt.BorderLayout());
 
-        btnAjoutJusTest.setText("Ajout just (test)");
-        btnAjoutJusTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAjoutJusTestActionPerformed(evt);
-            }
-        });
-        panelPrixTotalPanier.add(btnAjoutJusTest);
+        panelPanier.setLayout(new java.awt.BorderLayout());
+
+        panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
+        panelPanier.add(panelListeFruits, java.awt.BorderLayout.CENTER);
 
         labelPrixTotalPanier.setText("Prix total du panier : ");
         panelPrixTotalPanier.add(labelPrixTotalPanier);
         panelPrixTotalPanier.add(contPrixTotalPanier);
 
-        getContentPane().add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
+        panelPanier.add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
+
+        panelVuePanier.add(panelPanier, java.awt.BorderLayout.CENTER);
+
+        panelBoutonsAjouts.setLayout(new java.awt.GridLayout(5, 1));
+
+        jButtonAjouterFruit.setText("Ajouter fruit");
+        jButtonAjouterFruit.setPreferredSize(new java.awt.Dimension(125, 23));
+        panelBoutonsAjouts.add(jButtonAjouterFruit);
+
+        jButtonAjouterJus.setText("Ajouter jus");
+        jButtonAjouterJus.setPreferredSize(new java.awt.Dimension(125, 23));
+        panelBoutonsAjouts.add(jButtonAjouterJus);
+
+        jButtonAjoutMacedoine.setText("Ajouter macédoine");
+        jButtonAjoutMacedoine.setPreferredSize(new java.awt.Dimension(125, 23));
+        panelBoutonsAjouts.add(jButtonAjoutMacedoine);
+
+        jButtonAjoutSalade.setText("Ajouter salade");
+        jButtonAjoutSalade.setPreferredSize(new java.awt.Dimension(125, 23));
+        panelBoutonsAjouts.add(jButtonAjoutSalade);
+
+        jButtonBoycotter.setText("Boycotter");
+        jButtonBoycotter.setPreferredSize(new java.awt.Dimension(125, 23));
+        panelBoutonsAjouts.add(jButtonBoycotter);
+
+        panelVuePanier.add(panelBoutonsAjouts, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(panelVuePanier, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAjoutJusTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutJusTestActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAjoutJusTestActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAjoutJusTest;
     private javax.swing.JLabel contPrixTotalPanier;
+    private javax.swing.JButton jButtonAjoutMacedoine;
+    private javax.swing.JButton jButtonAjoutSalade;
+    private javax.swing.JButton jButtonAjouterFruit;
+    private javax.swing.JButton jButtonAjouterJus;
+    private javax.swing.JButton jButtonBoycotter;
     private javax.swing.JLabel labelPrixTotalPanier;
+    private javax.swing.JPanel panelBoutonsAjouts;
     private javax.swing.JPanel panelListeFruits;
+    private javax.swing.JPanel panelPanier;
     private javax.swing.JPanel panelPrixTotalPanier;
+    private javax.swing.JPanel panelVuePanier;
     // End of variables declaration//GEN-END:variables
 
     @Override
