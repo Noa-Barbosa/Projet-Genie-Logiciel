@@ -33,7 +33,8 @@ public class VuePanelFruit extends javax.swing.JPanel {
     }
     
     void initPanel(Produit p){
-        this.contFruit.setText(this.mProduit.getTypeProduit().toString());
+        FruitSimple fruit = (FruitSimple)this.mProduit;
+        this.contFruit.setText(fruit.getTypeFruitSimple().toString());
         this.contOrigine.setText(this.mProduit.getOrigine() + " ");
         this.contQuantite.setText(Integer.toString(this.quantite) + " ");
         this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
