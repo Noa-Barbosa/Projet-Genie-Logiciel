@@ -54,9 +54,24 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         this.jComboBoxBoycotteOrigine.setModel(modelType);
     }
     
+    OrigineProduit getBoycotte(){
+        String selectedString = (String)this.jComboBoxBoycotteOrigine.getSelectedItem();
+        
+        if(selectedString.equals("Aucune")) return null;
+        else{
+            try{
+                return OrigineProduit.valueOf(selectedString);
+            }catch(IllegalArgumentException e){
+                System.err.println(e);
+                return null;
+            }
+        }
+    }
+    
     void remplirListe(){
         double prixTotalPanier = 0;
         
+        //retire tout les éléments du gridLayout
         this.panelListeFruits.removeAll();
         this.panelListeFruits.revalidate();
         this.panelListeFruits.repaint();
@@ -162,6 +177,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         jLabelOrigineBoycotte.setText("Origine a boycotter :");
         panelBoutonsAjouts.add(jLabelOrigineBoycotte);
 
+        jComboBoxBoycotteOrigine.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxBoycotteOrigineItemStateChanged(evt);
+            }
+        });
         panelBoutonsAjouts.add(jComboBoxBoycotteOrigine);
 
         panelVuePanier.add(panelBoutonsAjouts, java.awt.BorderLayout.EAST);
@@ -176,6 +196,16 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         VueAjoutFruit vag = new VueAjoutFruit(this.getPanier(), this, this.getControleur());
         vag.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterFruitActionPerformed
+
+    private void jComboBoxBoycotteOrigineItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineItemStateChanged
+        // TODO add your handling code here:
+        for(Produit prod : this.mPanier.getProduits()){
+            if(prod.getOrigine() == this.getBoycotte()){
+                this.mControleur.retraitProduit(prod);
+            }
+        }
+        this.remplirListe();
+    }//GEN-LAST:event_jComboBoxBoycotteOrigineItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

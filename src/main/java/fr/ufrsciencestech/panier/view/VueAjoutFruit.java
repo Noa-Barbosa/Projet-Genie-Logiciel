@@ -139,7 +139,7 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
 
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
         // TODO add your handling code here:
-        if(this.jTextFieldPrixValide()){
+        if(this.jTextFieldPrixValide() && this.mVP.getBoycotte()!=(OrigineProduit)this.jComboBoxOrigineFruitSimple.getSelectedItem()){
             try{
                 for(int i = 0; i < this.quantite; i++){
                     double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
@@ -155,7 +155,7 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
             this.dispose();
             this.pack();
         }else{
-            System.err.println("Vous devez renseigner le prix du fruit correctement !");
+            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors le fruit est boycotté !");
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
