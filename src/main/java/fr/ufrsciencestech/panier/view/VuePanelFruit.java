@@ -68,11 +68,11 @@ public class VuePanelFruit extends javax.swing.JPanel {
         add(labelFruit);
         add(contFruit);
 
-        labelOrigine.setText("Origine : ");
+        labelOrigine.setText("| Origine : ");
         add(labelOrigine);
         add(contOrigine);
 
-        labelQuantite.setText("Qte : ");
+        labelQuantite.setText("| Qte : ");
         add(labelQuantite);
         add(contQuantite);
 
@@ -104,7 +104,7 @@ public class VuePanelFruit extends javax.swing.JPanel {
         add(labelPrixUnit);
         add(contPrixUnit);
 
-        labelPrixTotal.setText("Prix total : ");
+        labelPrixTotal.setText("| Prix total : ");
         add(labelPrixTotal);
         add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
