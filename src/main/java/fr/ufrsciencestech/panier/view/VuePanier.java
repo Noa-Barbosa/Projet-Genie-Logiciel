@@ -27,6 +27,8 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         initComponents();
         this.setTitle("Panier");  
         this.setVisible(true);
+        
+        this.remplirBoycotteOrigine();
     }
     
     public VuePanier(Controleur c, Panier p){
@@ -36,6 +38,20 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         
         this.mControleur= c;
         this.mPanier= p;
+        this.remplirBoycotteOrigine();
+    }
+    
+    void remplirBoycotteOrigine(){
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add("Aucune");
+        for(OrigineProduit origine : OrigineProduit.values()){
+            lst.add(origine.toString());
+        }
+        DefaultComboBoxModel<String> modelType = new DefaultComboBoxModel<>();
+        for(String str : lst){
+            modelType.addElement(str);
+        }
+        this.jComboBoxBoycotteOrigine.setModel(modelType);
     }
     
     void remplirListe(){
@@ -99,7 +115,8 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         jButtonAjouterJus = new javax.swing.JButton();
         jButtonAjoutMacedoine = new javax.swing.JButton();
         jButtonAjoutSalade = new javax.swing.JButton();
-        jButtonBoycotter = new javax.swing.JButton();
+        jLabelOrigineBoycotte = new javax.swing.JLabel();
+        jComboBoxBoycotteOrigine = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 600));
@@ -119,7 +136,7 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         panelVuePanier.add(panelPanier, java.awt.BorderLayout.CENTER);
 
-        panelBoutonsAjouts.setLayout(new java.awt.GridLayout(5, 1));
+        panelBoutonsAjouts.setLayout(new java.awt.GridLayout(6, 1));
 
         jButtonAjouterFruit.setText("Ajouter fruit");
         jButtonAjouterFruit.setPreferredSize(new java.awt.Dimension(125, 23));
@@ -142,9 +159,10 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         jButtonAjoutSalade.setPreferredSize(new java.awt.Dimension(125, 23));
         panelBoutonsAjouts.add(jButtonAjoutSalade);
 
-        jButtonBoycotter.setText("Boycotter");
-        jButtonBoycotter.setPreferredSize(new java.awt.Dimension(125, 23));
-        panelBoutonsAjouts.add(jButtonBoycotter);
+        jLabelOrigineBoycotte.setText("Origine a boycotter :");
+        panelBoutonsAjouts.add(jLabelOrigineBoycotte);
+
+        panelBoutonsAjouts.add(jComboBoxBoycotteOrigine);
 
         panelVuePanier.add(panelBoutonsAjouts, java.awt.BorderLayout.EAST);
 
@@ -166,7 +184,8 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
     private javax.swing.JButton jButtonAjoutSalade;
     private javax.swing.JButton jButtonAjouterFruit;
     private javax.swing.JButton jButtonAjouterJus;
-    private javax.swing.JButton jButtonBoycotter;
+    private javax.swing.JComboBox<String> jComboBoxBoycotteOrigine;
+    private javax.swing.JLabel jLabelOrigineBoycotte;
     private javax.swing.JLabel labelPrixTotalPanier;
     private javax.swing.JPanel panelBoutonsAjouts;
     private javax.swing.JPanel panelListeFruits;
