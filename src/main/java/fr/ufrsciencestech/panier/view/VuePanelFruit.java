@@ -129,6 +129,8 @@ public class VuePanelFruit extends javax.swing.JPanel {
 
     private void modifQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifQteFruitActionPerformed
         // TODO add your handling code here:
+        VueModifFruit vmf = new VueModifFruit(this.mProduit, this.quantite);
+        vmf.setVisible(true);
     }//GEN-LAST:event_modifQteFruitActionPerformed
 
 
