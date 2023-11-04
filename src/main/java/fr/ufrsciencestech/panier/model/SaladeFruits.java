@@ -130,12 +130,11 @@ public class SaladeFruits extends FruitAbstract {
     @Override
     public boolean equals(Object o){
         if(o.getClass().equals(this.getClass())){
-            FruitSimple f = (FruitSimple) o;
-            
-            if(f.getTypeProduit() == this.getTypeProduit() &&
-                    f.getOrigine() == this.getOrigine() &&
-                    f.getPrix() == this.getPrix()){
-                return true;
+            SaladeFruits sf = (SaladeFruits) o;
+            if(sf.getOrigine() == this.getOrigine() && sf.getPrix() == this.getPrix() && sf.getTypeProduit() == this.getTypeProduit() ){
+                if(sf.getFruits().equals(this.getFruits())){
+                    return true;
+                }
             }
         }
         return false;
