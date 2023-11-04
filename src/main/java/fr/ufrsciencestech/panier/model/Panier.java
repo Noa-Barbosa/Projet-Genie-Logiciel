@@ -222,6 +222,22 @@ public class Panier extends Observable{
         
         notifyUpdate();
     }  
+    
+    /**
+     * Modifie le premier objet en paramètre par les attributs du deuxième objet en paramètre
+     * @param init
+     * @param modif 
+     */
+    public void produitModif(Produit init, Produit modif){           
+        for(Produit produit : this.getProduits()){
+            if(init.equals(produit)){
+                init.setOrigine(modif.getOrigine());
+                init.setPrix(modif.getPrix());
+                init.setTypeProduit(modif.getTypeProduit());
+            }
+        }
+        notifyUpdate();
+    }
         
     /**
      * predicat pour tester si 2 paniers sont equivalents : s'ils contiennent exactement les memes produits

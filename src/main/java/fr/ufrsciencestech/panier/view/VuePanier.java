@@ -81,7 +81,7 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
             if(!layoutContientProduit(produit, produitsAjoutes)){
                 int quantite = compteQteFruits(produit, this.mPanier);
              
-                VuePanelFruit vf = new VuePanelFruit(produit, this, quantite);
+                VuePanelFruit vf = new VuePanelFruit(produit, this, quantite, this.mControleur);
                 
                 this.panelListeFruits.add(vf);
                 produitsAjoutes.add(produit);
@@ -128,8 +128,7 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         panelBoutonsAjouts = new javax.swing.JPanel();
         jButtonAjouterFruit = new javax.swing.JButton();
         jButtonAjouterJus = new javax.swing.JButton();
-        jButtonAjoutMacedoine = new javax.swing.JButton();
-        jButtonAjoutSalade = new javax.swing.JButton();
+        jButtonAjoutSaladeMacedoine = new javax.swing.JButton();
         jLabelOrigineBoycotte = new javax.swing.JLabel();
         jComboBoxBoycotteOrigine = new javax.swing.JComboBox<>();
 
@@ -151,10 +150,10 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         panelVuePanier.add(panelPanier, java.awt.BorderLayout.CENTER);
 
-        panelBoutonsAjouts.setLayout(new java.awt.GridLayout(6, 1));
+        panelBoutonsAjouts.setLayout(new java.awt.GridLayout(5, 1));
 
         jButtonAjouterFruit.setText("Ajouter fruit");
-        jButtonAjouterFruit.setPreferredSize(new java.awt.Dimension(125, 23));
+        jButtonAjouterFruit.setPreferredSize(null);
         jButtonAjouterFruit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAjouterFruitActionPerformed(evt);
@@ -163,20 +162,18 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         panelBoutonsAjouts.add(jButtonAjouterFruit);
 
         jButtonAjouterJus.setText("Ajouter jus");
-        jButtonAjouterJus.setPreferredSize(new java.awt.Dimension(125, 23));
+        jButtonAjouterJus.setPreferredSize(null);
         panelBoutonsAjouts.add(jButtonAjouterJus);
 
-        jButtonAjoutMacedoine.setText("Ajouter macédoine");
-        jButtonAjoutMacedoine.setPreferredSize(new java.awt.Dimension(125, 23));
-        panelBoutonsAjouts.add(jButtonAjoutMacedoine);
-
-        jButtonAjoutSalade.setText("Ajouter salade");
-        jButtonAjoutSalade.setPreferredSize(new java.awt.Dimension(125, 23));
-        panelBoutonsAjouts.add(jButtonAjoutSalade);
+        jButtonAjoutSaladeMacedoine.setText("Ajouter salade/macédoine");
+        jButtonAjoutSaladeMacedoine.setPreferredSize(null);
+        panelBoutonsAjouts.add(jButtonAjoutSaladeMacedoine);
 
         jLabelOrigineBoycotte.setText("Origine a boycotter :");
+        jLabelOrigineBoycotte.setPreferredSize(null);
         panelBoutonsAjouts.add(jLabelOrigineBoycotte);
 
+        jComboBoxBoycotteOrigine.setPreferredSize(null);
         jComboBoxBoycotteOrigine.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxBoycotteOrigineItemStateChanged(evt);
@@ -199,19 +196,18 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
     private void jComboBoxBoycotteOrigineItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineItemStateChanged
         // TODO add your handling code here:
-        for(Produit prod : this.mPanier.getProduits()){
+        /*for(Produit prod : this.mPanier.getProduits()){
             if(prod.getOrigine() == this.getBoycotte()){
                 this.mControleur.retraitProduit(prod);
             }
         }
-        this.remplirListe();
+        this.remplirListe();*/
     }//GEN-LAST:event_jComboBoxBoycotteOrigineItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel contPrixTotalPanier;
-    private javax.swing.JButton jButtonAjoutMacedoine;
-    private javax.swing.JButton jButtonAjoutSalade;
+    private javax.swing.JButton jButtonAjoutSaladeMacedoine;
     private javax.swing.JButton jButtonAjouterFruit;
     private javax.swing.JButton jButtonAjouterJus;
     private javax.swing.JComboBox<String> jComboBoxBoycotteOrigine;

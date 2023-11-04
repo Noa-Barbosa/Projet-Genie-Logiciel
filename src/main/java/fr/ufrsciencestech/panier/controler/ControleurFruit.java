@@ -12,6 +12,7 @@ import fr.ufrsciencestech.panier.model.TypeProduit;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.Produit;
 import fr.ufrsciencestech.panier.model.SaladeFruits;
+import fr.ufrsciencestech.panier.model.FruitFactory;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import fr.ufrsciencestech.panier.view.VuePanelFruit;
@@ -24,6 +25,8 @@ import java.util.logging.Logger;
  * @author nb654417
  */
 public class ControleurFruit extends ControleurAbstract {
+    private FruitFactory mFruitFactory = new FruitFactory();
+    
     @Override
     public void actionPerformed(ActionEvent e){   //Invoked when an action occurs
         try {
@@ -58,5 +61,30 @@ public class ControleurFruit extends ControleurAbstract {
     @Override
     public void boycotteOrigine(OrigineProduit op) {
         this.p.boycotteOrigine(op);
+    }
+    
+    @Override
+    public void produitModif(Produit pInit, Produit pModif) {
+        for(Produit produit : this.p.getProduits()){
+            if(pInit.equals(produit)){
+                /*pInit.setOrigine(pModif.getOrigine());
+                pInit.setPrix(pModif.getPrix());
+                pInit.setTypeProduit(pModif.getTypeProduit());*/
+                try{
+                    this.p.retraitProduit(pInit);
+                    this.p.ajoutProduit(pModif);
+                }catch(Exception e){
+                    System.err.println(e);
+                }
+            }
+        }
+    }
+    
+    public void setFruitFactory(FruitFactory ff){
+        this.mFruitFactory = ff;
+    }
+    
+    public FruitFactory getFruitFactory(){
+        return this.mFruitFactory;
     }
 }
