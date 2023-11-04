@@ -115,7 +115,7 @@ public class PanierTest {
     public void tearDown() {
     }
 
-        @Test
+    @Test
     public void testToString()
     {
         
