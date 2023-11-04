@@ -18,6 +18,8 @@ import fr.ufrsciencestech.panier.model.*;
 public class VuePanelFruit extends javax.swing.JPanel {
     private Produit mProduit;
     private VuePanier mVP;
+    private int quantite;
+    
     /**
      * Creates new form VuePanelFruit
      */
@@ -25,17 +27,18 @@ public class VuePanelFruit extends javax.swing.JPanel {
         initComponents();
         this.mProduit = p;
         this.mVP = vp;
+        this.quantite = qte;
        
-        initPanel(this.mProduit, qte);
+        initPanel(this.mProduit);
     }
     
-    void initPanel(Produit p, int quantite){
-        this.contFruit.setText(this.mProduit.getTypeProduit().toString());
+    void initPanel(Produit p){
+        FruitSimple fruit = (FruitSimple)this.mProduit;
+        this.contFruit.setText(fruit.getTypeFruitSimple().toString());
         this.contOrigine.setText(this.mProduit.getOrigine() + " ");
-        this.contQuantite.setText(Integer.toString(quantite) + " ");
+        this.contQuantite.setText(Integer.toString(this.quantite) + " ");
         this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
-        this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * quantite) + "€ ");
-        
+        this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * this.quantite) + "€ ");   
     }
 
     /**
@@ -65,11 +68,11 @@ public class VuePanelFruit extends javax.swing.JPanel {
         add(labelFruit);
         add(contFruit);
 
-        labelOrigine.setText("Origine : ");
+        labelOrigine.setText("| Origine : ");
         add(labelOrigine);
         add(contOrigine);
 
-        labelQuantite.setText("Qte : ");
+        labelQuantite.setText("| Qte : ");
         add(labelQuantite);
         add(contQuantite);
 
@@ -101,7 +104,7 @@ public class VuePanelFruit extends javax.swing.JPanel {
         add(labelPrixUnit);
         add(contPrixUnit);
 
-        labelPrixTotal.setText("Prix total : ");
+        labelPrixTotal.setText("| Prix total : ");
         add(labelPrixTotal);
         add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
@@ -154,11 +157,19 @@ public class VuePanelFruit extends javax.swing.JPanel {
         return this.mVP;
     }
     
+    public int getQuantite(){
+        return this.quantite;
+    }
+    
     public void setmProduit(Produit mProduit) {
         this.mProduit = mProduit;
     }
 
     public void setmVP(VuePanier mVP) {
         this.mVP = mVP;
+    }
+    
+    public void setQuantite(int qte){
+        this.quantite = qte;
     }
 }

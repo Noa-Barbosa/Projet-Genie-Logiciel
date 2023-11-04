@@ -47,6 +47,14 @@ public class FruitSimple extends FruitAbstract{
         this.typeProduit = typeProduit;
     }
     
+    public TypeFruitSimple getTypeFruitSimple(){
+        return this.typeFruit;
+    }
+    
+    public void setTypeFruitSimple(TypeFruitSimple type){
+        this.typeFruit = type;  
+    }
+    
     @Override
     public boolean equals(Object o){
         if(o.getClass().equals(this.getClass())){

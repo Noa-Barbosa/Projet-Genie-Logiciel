@@ -26,17 +26,17 @@ public class FruitFactoryTest {
     }
 
     /**
-     * Test of creerProduit method, of class FruitFactory.
+     * Test of creerSaladeFruits method, of class FruitFactory.
      */
     @Test
     public void testCreerProduit() {
         //Test pour la création d'un objet depuis la factory
         double prix = 10;
-        TypeProduit tp = TypeProduit.Banane;
+        TypeFruitSimple tp = TypeFruitSimple.Banane;
         OrigineProduit op = OrigineProduit.France;
-        Produit pAttente = new FruitSimple(prix, op, tp);
-        Produit pResulat;
-        pResulat = ff.creerProduit(prix, op, tp);
+        FruitSimple pAttente = new FruitSimple(prix, op, tp);
+        FruitSimple pResulat;
+        pResulat = ff.creerFruitSimple(prix, op, tp);
         assertEquals(pResulat,pAttente);
         
     }

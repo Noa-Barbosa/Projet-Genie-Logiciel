@@ -5,35 +5,41 @@
  */
 package fr.ufrsciencestech.panier.model;
 
+import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Banane;
+import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Cerise;
+import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Orange;
+import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Poire;
+
 /**
  *
  * @author Anthony
  */
-public class FruitFactory implements ProduitFactory{
+public class FruitFactory{
 
-    @Override
-    public Produit creerProduit(double arg0, OrigineProduit arg1, TypeProduit arg2) {
+    public FruitSimple creerFruitSimple(double prix, OrigineProduit origine, TypeFruitSimple type){
+        FruitSimple fs = null; 
+        fs = new FruitSimple(prix,origine,type);
+        return fs;
+    }
+    
+    public SaladeFruits creerSaladeFruits(double prix, OrigineProduit origine) {
         
-        Produit fs = null; 
-        switch(arg2){
-            case Orange:
-                fs = new FruitSimple(arg0, arg1, arg2);
-                break;
-            case Banane:
-                fs = new FruitSimple(arg0, arg1, arg2);
-                break;
-            case Cerise:
-                fs = new FruitSimple(arg0, arg1, arg2);
-                break;
-            case Poire:
-                fs = new FruitSimple(arg0, arg1, arg2);
-                break;
-            case SaladeFruits:
-                fs = new FruitSimple(arg0, arg1, arg2);
-                break;
-        }
+        SaladeFruits fs = null; 
+        fs = new SaladeFruits(prix, origine);
         return fs;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public JusCerise creerJusCerise(double prix, OrigineProduit origine, Fruit fruit){
+        JusCerise fs = null; 
+        fs = new JusCerise(prix, origine,fruit);
+        return fs;
+    }
+    
+    public JusBanane creerJusBanane(double prix, OrigineProduit origine, Fruit fruit){
+        JusBanane fs = null; 
+        fs = new JusBanane(prix, origine,fruit);
+        return fs;
     }
     
 }

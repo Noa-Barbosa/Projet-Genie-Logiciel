@@ -25,14 +25,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelOrigine">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Origine : "/>
+        <Property name="text" type="java.lang.String" value="|&#xa0;Origine : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contOrigine">
     </Component>
     <Component class="javax.swing.JLabel" name="labelQuantite">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Qte : "/>
+        <Property name="text" type="java.lang.String" value="|&#xa0;Qte : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contQuantite">
@@ -70,7 +70,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPrixTotal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Prix total : "/>
+        <Property name="text" type="java.lang.String" value="|&#xa0;Prix total : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contPrixTotal">

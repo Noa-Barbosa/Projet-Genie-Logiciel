@@ -108,12 +108,19 @@ public class Panier extends Observable{
     
     /**
      * predicat indiquant que le panier est plein ( si la contenance est égale à la contenanceMax)
-     * @return un booleen, vrai si la liste pleinne et sinon faux
+     * @return un booleen, vrai si la liste pleine et sinon faux
      */
     public boolean estPlein(){
 	return this.produits.size() == this.contenanceMax;
     }
 
+    /**
+     * indique la quantité restante de produits que l'on peut mettre dans le panier
+     * @return un entier, la soustraction de la contenance max du panier avec sa taille
+     */
+    public int quantiteRestante(){
+        return this.getContenanceMax() - this.getTaillePanier();
+    }
     
     /**
      * ajoute le produit o a la fin du panier si celui-ci n'est pas plein
