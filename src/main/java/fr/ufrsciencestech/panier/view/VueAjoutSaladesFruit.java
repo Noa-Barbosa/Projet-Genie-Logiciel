@@ -43,9 +43,9 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
         this.jComboBoxOrigineSalade.setModel((ComboBoxModel) modelOrigineSalade);
     }
     
-    boolean jTextFieldPrixValide(){
+    boolean jTextFieldPrixValide(JTextField textField){
         try{
-            String text = this.jTextFieldPrixSalade.getText();
+            String text = textField.getText();
             double prix = Double.parseDouble(text);
             return true;
         }catch(Exception e){
@@ -133,12 +133,12 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
 
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
         // TODO add your handling code here:
-        if(this.jTextFieldPrixValide()){
+        double prixJus = Double.parseDouble(this.jTextFieldPrixSalade.getText());
+        OrigineProduit origineJus = (OrigineProduit) this.jComboBoxOrigineSalade.getSelectedItem();
+        SaladeFruits salade = new SaladeFruits(prixJus,origineJus);
+        
+        if(this.jTextFieldPrixValide(this.jTextFieldPrixSalade) && this.mVP.getBoycotte() != origineJus){
             try{
-                
-                double prixJus = Double.parseDouble(this.jTextFieldPrixSalade.getText());
-                OrigineProduit origineJus = (OrigineProduit) this.jComboBoxOrigineSalade.getSelectedItem();
-                SaladeFruits salade = new SaladeFruits(prixJus,origineJus);
                 
                 for(FruitSimple fruit : fruits){
                     salade.ajoutFruit(fruit);
@@ -157,7 +157,7 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
             this.dispose();
             this.pack();
         }else{
-            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors le fruit est boycotté !");
+            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors le produit est boycotté !");
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
@@ -185,7 +185,7 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
         };
 
         int option = JOptionPane.showConfirmDialog(null, message, "Ajout fruit", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
+        if (option == JOptionPane.OK_OPTION && this.jTextFieldPrixValide(prixFruitTextField) && this.mVP.getBoycotte() != (OrigineProduit) origineFruitComboBox.getSelectedItem()) {
             TypeFruitSimple typeFruit = (TypeFruitSimple) typeFruitSimpleComboBox.getSelectedItem();
             OrigineProduit origineProduit = (OrigineProduit) origineFruitComboBox.getSelectedItem();
             double prix = Double.parseDouble(prixFruitTextField.getText());
@@ -200,7 +200,9 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
                 chaineFruit+=fruit.toString()+"\n";
             }
             this.jTextArea1.setText(chaineFruit);
-        } 
+        } else{
+            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors les fruits utilisés sont boycottés !");
+        }
     }//GEN-LAST:event_jButtonAjoutFruitActionPerformed
 
     
