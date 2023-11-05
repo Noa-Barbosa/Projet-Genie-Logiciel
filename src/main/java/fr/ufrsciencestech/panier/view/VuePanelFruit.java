@@ -41,13 +41,8 @@ public class VuePanelFruit extends javax.swing.JPanel {
             FruitSimple fruit = (FruitSimple)this.mProduit;
             this.contFruit.setText(fruit.getTypeFruitSimple().toString());
         }
-        if(p.getTypeProduit().equals(TypeProduit.JusCerise)){
-            JusCerise fruit = (JusCerise)this.mProduit;
-            this.contFruit.setText(fruit.getTypeProduit().toString());
-        }
-        if(p.getTypeProduit().equals(TypeProduit.JusBanane)){
-            JusBanane fruit = (JusBanane)this.mProduit;
-            this.contFruit.setText(fruit.getTypeProduit().toString());
+        else{
+            this.contFruit.setText(this.mProduit.getTypeProduit().toString());
         }
         this.contOrigine.setText(this.mProduit.getOrigine() + " ");
         this.contQuantite.setText(Integer.toString(this.mQuantite) + " ");

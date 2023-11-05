@@ -171,6 +171,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         panelBoutonsAjouts.add(jButtonAjouterJus);
 
         jButtonAjoutSaladeMacedoine.setText("Ajouter salade/macédoine");
+        jButtonAjoutSaladeMacedoine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjoutSaladeMacedoineActionPerformed(evt);
+            }
+        });
         panelBoutonsAjouts.add(jButtonAjoutSaladeMacedoine);
 
         jLabelOrigineBoycotte.setText("Origine a boycotter :");
@@ -216,6 +221,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
     private void jComboBoxBoycotteOrigineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxBoycotteOrigineActionPerformed
+
+    private void jButtonAjoutSaladeMacedoineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutSaladeMacedoineActionPerformed
+        VueAjoutSaladesFruit vas = new VueAjoutSaladesFruit( this, this.getControleur());
+        vas.setVisible(true);
+    }//GEN-LAST:event_jButtonAjoutSaladeMacedoineActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
