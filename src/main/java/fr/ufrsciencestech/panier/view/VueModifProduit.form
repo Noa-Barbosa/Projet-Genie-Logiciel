@@ -33,38 +33,23 @@
         <Property name="rows" type="int" value="2"/>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanelInfosFruits">
+        <Container class="javax.swing.JPanel" name="jPanelInfosProduits">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabelTypeFruits">
+            <Component class="javax.swing.JLabel" name="jLabelPrixProduits">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Type des fruits : "/>
+                <Property name="text" type="java.lang.String" value="Prix des produits : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxTypeFruit">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
+            <Component class="javax.swing.JTextField" name="jTextFieldPrixProduits">
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelPrixFruits">
+            <Component class="javax.swing.JLabel" name="jLabelOrigineProduits">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Prix des fruits : "/>
+                <Property name="text" type="java.lang.String" value="Origine des produits : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldPrixFruits">
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabelOrigineFruits">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Origine des fruits : "/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxOrigineFruits">
+            <Component class="javax.swing.JComboBox" name="jComboBoxOrigineProduits">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -82,7 +67,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabelQuantite">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Quantit&#xe9; de fruits &#xe0; modifier : "/>
+                <Property name="text" type="java.lang.String" value="Quantit&#xe9; de produits &#xe0; modifier : "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="jSpinnerQuantite">

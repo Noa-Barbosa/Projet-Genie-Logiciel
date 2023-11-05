@@ -5,6 +5,7 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
@@ -21,7 +22,7 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
     private Panier mPanier;
     private VuePanier mVP;
     private Controleur mControleur;
-    private int quantite;
+    private int mQuantite;
 
     /**
      * Creates new form VueAjoutFruit
@@ -32,7 +33,7 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
         this.mVP = vuePanier;
         this.mControleur = controleur;
         this.jSpinnerQteFruitSimple.setModel(new SpinnerNumberModel(0, 0, mPanier.quantiteRestante(), 1));
-        this.quantite = 0;
+        this.mQuantite = 0;
                 
         initDatas();
     }
@@ -134,28 +135,33 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
 
     private void jSpinnerQteFruitSimpleStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerQteFruitSimpleStateChanged
         // TODO add your handling code here:
-        this.quantite = (Integer)this.jSpinnerQteFruitSimple.getModel().getValue();
+        this.mQuantite = (Integer)this.jSpinnerQteFruitSimple.getModel().getValue();
     }//GEN-LAST:event_jSpinnerQteFruitSimpleStateChanged
 
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
         // TODO add your handling code here:
         if(this.jTextFieldPrixValide()){
             try{
-                for(int i = 0; i < this.quantite; i++){
+                for(int i = 0; i < this.mQuantite; i++){
                     double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
                     TypeFruitSimple tfs = (TypeFruitSimple) this.jComboBoxTypeFruitSimple.getSelectedItem();
                     OrigineProduit op = (OrigineProduit) this.jComboBoxOrigineFruitSimple.getSelectedItem();
-                    FruitSimple fs = new FruitSimple(prix, op, tfs);
-                    this.mVP.getControleur().ajoutProduit(fs);
+                    
+                    
+                    ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
+                    try{
+                        this.mVP.getControleur().ajoutProduit(cf.getFruitFactory().creerFruitSimple(prix, op, tfs));
+                    }catch (Exception e){
+                        System.err.println(e);
+                    }
                 }
-
             }catch(Exception e){
                 System.err.println(e);
             }
             this.dispose();
             this.pack();
         }else{
-            System.err.println("Vous devez renseigner le prix du fruit correctement !");
+            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors le fruit est boycotté !");
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 

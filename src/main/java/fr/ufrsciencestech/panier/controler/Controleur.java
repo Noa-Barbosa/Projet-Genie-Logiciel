@@ -43,4 +43,6 @@ public interface Controleur extends ActionListener{
     public void retraitProduit(Produit p);
     
     public void boycotteOrigine(OrigineProduit o);
+    
+    public void produitModif(Produit pInit, Produit pModif);
 }
