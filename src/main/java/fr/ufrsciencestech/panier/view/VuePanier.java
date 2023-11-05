@@ -163,20 +163,28 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         jButtonAjouterJus.setText("Ajouter jus");
         jButtonAjouterJus.setPreferredSize(null);
+        jButtonAjouterJus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterJusActionPerformed(evt);
+            }
+        });
         panelBoutonsAjouts.add(jButtonAjouterJus);
 
         jButtonAjoutSaladeMacedoine.setText("Ajouter salade/macédoine");
-        jButtonAjoutSaladeMacedoine.setPreferredSize(null);
         panelBoutonsAjouts.add(jButtonAjoutSaladeMacedoine);
 
         jLabelOrigineBoycotte.setText("Origine a boycotter :");
-        jLabelOrigineBoycotte.setPreferredSize(null);
         panelBoutonsAjouts.add(jLabelOrigineBoycotte);
 
         jComboBoxBoycotteOrigine.setPreferredSize(null);
         jComboBoxBoycotteOrigine.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxBoycotteOrigineItemStateChanged(evt);
+            }
+        });
+        jComboBoxBoycotteOrigine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBoycotteOrigineActionPerformed(evt);
             }
         });
         panelBoutonsAjouts.add(jComboBoxBoycotteOrigine);
@@ -196,13 +204,18 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
     private void jComboBoxBoycotteOrigineItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineItemStateChanged
         // TODO add your handling code here:
-        /*for(Produit prod : this.mPanier.getProduits()){
-            if(prod.getOrigine() == this.getBoycotte()){
-                this.mControleur.retraitProduit(prod);
-            }
-        }
-        this.remplirListe();*/
+        this.mControleur.boycotteOrigine(this.getBoycotte());
+        this.remplirListe();
     }//GEN-LAST:event_jComboBoxBoycotteOrigineItemStateChanged
+
+    private void jButtonAjouterJusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterJusActionPerformed
+        VueAjoutJus vaj = new VueAjoutJus(this.getPanier(), this, this.getControleur());
+        vaj.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterJusActionPerformed
+
+    private void jComboBoxBoycotteOrigineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxBoycotteOrigineActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,6 +13,7 @@ import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.Produit;
 import fr.ufrsciencestech.panier.model.SaladeFruits;
 import fr.ufrsciencestech.panier.model.FruitFactory;
+import fr.ufrsciencestech.panier.model.JusBanane;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
 import fr.ufrsciencestech.panier.model.exception.PanierVideException;
 import fr.ufrsciencestech.panier.view.VuePanelFruit;
@@ -74,5 +75,18 @@ public class ControleurFruit extends ControleurAbstract {
     
     public FruitFactory getFruitFactory(){
         return this.mFruitFactory;
+    }
+
+    public void ajoutJus(double prixJus, OrigineProduit origineJus, TypeProduit typeJus, double prixFruit, OrigineProduit origineFruit, TypeFruitSimple typeFruit) throws PanierPleinException {
+        FruitSimple fruitSimple = this.mFruitFactory.creerFruitSimple(prixFruit, origineFruit, typeFruit);
+        if(typeJus.equals(TypeProduit.JusBanane)){
+            JusBanane jusBanane = this.mFruitFactory.creerJusBanane(prixJus, origineJus, fruitSimple);
+            this.ajoutProduit(jusBanane);
+        }
+        else{
+            JusCerise jusCerise = this.mFruitFactory.creerJusCerise(prixJus, origineJus, fruitSimple);
+            this.ajoutProduit(jusCerise);
+        }
+        
     }
 }
