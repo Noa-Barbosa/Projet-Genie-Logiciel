@@ -10,6 +10,8 @@ import java.util.Observable;
 
 import fr.ufrsciencestech.panier.controler.*;
 import fr.ufrsciencestech.panier.model.*;
+import static fr.ufrsciencestech.panier.model.TypeProduit.JusBanane;
+import static fr.ufrsciencestech.panier.model.TypeProduit.JusCerise;
 
 /**
  *
@@ -35,8 +37,18 @@ public class VuePanelFruit extends javax.swing.JPanel {
     }
     
     void initDatas(Produit p){
-        FruitSimple fruit = (FruitSimple)this.mProduit;
-        this.contFruit.setText(fruit.getTypeFruitSimple().toString());
+        if(p.getTypeProduit().equals(TypeProduit.FruitSimple)){
+            FruitSimple fruit = (FruitSimple)this.mProduit;
+            this.contFruit.setText(fruit.getTypeFruitSimple().toString());
+        }
+        if(p.getTypeProduit().equals(TypeProduit.JusCerise)){
+            JusCerise fruit = (JusCerise)this.mProduit;
+            this.contFruit.setText(fruit.getTypeProduit().toString());
+        }
+        if(p.getTypeProduit().equals(TypeProduit.JusBanane)){
+            JusBanane fruit = (JusBanane)this.mProduit;
+            this.contFruit.setText(fruit.getTypeProduit().toString());
+        }
         this.contOrigine.setText(this.mProduit.getOrigine() + " ");
         this.contQuantite.setText(Integer.toString(this.mQuantite) + " ");
         this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
@@ -66,7 +78,7 @@ public class VuePanelFruit extends javax.swing.JPanel {
         labelPrixTotal = new javax.swing.JLabel();
         contPrixTotal = new javax.swing.JLabel();
 
-        labelFruit.setText("Fruit : ");
+        labelFruit.setText("Produit :");
         add(labelFruit);
         add(contFruit);
 
@@ -114,10 +126,27 @@ public class VuePanelFruit extends javax.swing.JPanel {
     private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
         // TODO add your handling code here:
         ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
-        FruitSimple fs = (FruitSimple) this.mProduit;
+        Produit produitAjout;
+        switch(mProduit.getTypeProduit()){
+            case FruitSimple:
+                produitAjout = (FruitSimple) this.mProduit;
+                break;
+            case SaladeFruits:
+                produitAjout = (SaladeFruits) this.mProduit;
+                break;
+            case JusCerise:
+                produitAjout = (JusCerise) this.mProduit;
+                break;
+            case JusBanane:
+                produitAjout = (JusBanane) this.mProduit;
+                break;
+            default:
+                throw new AssertionError(mProduit.getTypeProduit().name());      
+        }
+        
         
         try{
-            this.mVP.getControleur().ajoutProduit(cf.getFruitFactory().creerFruitSimple(fs.getPrix(), fs.getOrigine(), fs.getTypeFruitSimple()));
+            this.mVP.getControleur().ajoutProduit(produitAjout);
         }catch (Exception e){
             System.err.println(e);
         }
