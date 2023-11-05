@@ -140,15 +140,15 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
 
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
         // TODO add your handling code here:
-        if(this.jTextFieldPrixValide()){
+        double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
+        TypeFruitSimple tfs = (TypeFruitSimple) this.jComboBoxTypeFruitSimple.getSelectedItem();
+        OrigineProduit op = (OrigineProduit) this.jComboBoxOrigineFruitSimple.getSelectedItem();
+        
+        ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
+        
+        if(this.jTextFieldPrixValide() && this.mVP.getBoycotte() != op){
             try{
                 for(int i = 0; i < this.mQuantite; i++){
-                    double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
-                    TypeFruitSimple tfs = (TypeFruitSimple) this.jComboBoxTypeFruitSimple.getSelectedItem();
-                    OrigineProduit op = (OrigineProduit) this.jComboBoxOrigineFruitSimple.getSelectedItem();
-                    
-                    
-                    ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
                     try{
                         this.mVP.getControleur().ajoutProduit(cf.getFruitFactory().creerFruitSimple(prix, op, tfs));
                     }catch (Exception e){
