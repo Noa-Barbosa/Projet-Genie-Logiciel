@@ -130,13 +130,16 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
         // TODO add your handling code here:
         if(this.jTextFieldPrixValide()){
-            for(int i = 0; i < this.mQuantite; i++){
-                Produit prodModif = this.mProduit;
-                prodModif.setPrix(Double.parseDouble(this.jTextFieldPrixProduits.getText()));
-                prodModif.setOrigine((OrigineProduit)this.jComboBoxOrigineProduits.getSelectedItem());
-                //modifie le produit partout dans le panier
-                this.mControleur.produitModif(this.mProduit, prodModif);
-            }
+            int quantiteAModif = (int)this.jSpinnerQuantite.getValue();
+            double prixModif = Double.parseDouble(this.jTextFieldPrixProduits.getText());
+            OrigineProduit origineModif = (OrigineProduit)this.jComboBoxOrigineProduits.getSelectedItem();
+            
+            Produit prodInit = this.mProduit;
+            Produit prodModif = this.mProduit;
+            prodModif.setPrix(prixModif);
+            prodModif.setOrigine(origineModif);
+            
+            this.mControleur.produitModif(prodInit, prodModif, quantiteAModif);
             
             this.dispose();
             this.pack();

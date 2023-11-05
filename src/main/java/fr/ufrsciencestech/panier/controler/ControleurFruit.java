@@ -64,20 +64,8 @@ public class ControleurFruit extends ControleurAbstract {
     }
     
     @Override
-    public void produitModif(Produit pInit, Produit pModif) {
-        for(Produit produit : this.p.getProduits()){
-            if(pInit.equals(produit)){
-                /*pInit.setOrigine(pModif.getOrigine());
-                pInit.setPrix(pModif.getPrix());
-                pInit.setTypeProduit(pModif.getTypeProduit());*/
-                try{
-                    this.p.retraitProduit(pInit);
-                    this.p.ajoutProduit(pModif);
-                }catch(Exception e){
-                    System.err.println(e);
-                }
-            }
-        }
+    public void produitModif(Produit pInit, Produit pModif, int quantiteAModif) {
+        this.p.produitModif(pInit, pModif, quantiteAModif);
     }
     
     public void setFruitFactory(FruitFactory ff){
