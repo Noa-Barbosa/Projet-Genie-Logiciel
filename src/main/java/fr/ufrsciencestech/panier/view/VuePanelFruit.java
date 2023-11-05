@@ -18,27 +18,29 @@ import fr.ufrsciencestech.panier.model.*;
 public class VuePanelFruit extends javax.swing.JPanel {
     private Produit mProduit;
     private VuePanier mVP;
-    private int quantite;
+    private Controleur mControleur;
+    private int mQuantite;
     
     /**
      * Creates new form VuePanelFruit
      */
-    public VuePanelFruit(Produit p, VuePanier vp, int qte) {
+    public VuePanelFruit(Produit p, VuePanier vp, int qte, Controleur controleur) {
         initComponents();
         this.mProduit = p;
         this.mVP = vp;
-        this.quantite = qte;
+        this.mQuantite = qte;
+        this.mControleur = controleur;
        
-        initPanel(this.mProduit);
+        initDatas(this.mProduit);
     }
     
-    void initPanel(Produit p){
+    void initDatas(Produit p){
         FruitSimple fruit = (FruitSimple)this.mProduit;
         this.contFruit.setText(fruit.getTypeFruitSimple().toString());
         this.contOrigine.setText(this.mProduit.getOrigine() + " ");
-        this.contQuantite.setText(Integer.toString(this.quantite) + " ");
+        this.contQuantite.setText(Integer.toString(this.mQuantite) + " ");
         this.contPrixUnit.setText(this.mProduit.getPrix() + "€ ");
-        this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * this.quantite) + "€ ");   
+        this.contPrixTotal.setText(Double.toString(this.mProduit.getPrix() * this.mQuantite) + "€ ");   
     }
 
     /**
@@ -111,8 +113,11 @@ public class VuePanelFruit extends javax.swing.JPanel {
 
     private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
         // TODO add your handling code here:
+        ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
+        FruitSimple fs = (FruitSimple) this.mProduit;
+        
         try{
-            this.mVP.getControleur().ajoutProduit(this.mProduit);
+            this.mVP.getControleur().ajoutProduit(cf.getFruitFactory().creerFruitSimple(fs.getPrix(), fs.getOrigine(), fs.getTypeFruitSimple()));
         }catch (Exception e){
             System.err.println(e);
         }
@@ -129,6 +134,8 @@ public class VuePanelFruit extends javax.swing.JPanel {
 
     private void modifQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifQteFruitActionPerformed
         // TODO add your handling code here:
+        VueModifProduit vmf = new VueModifProduit(this.mProduit, this.mQuantite, this.mVP, this.mControleur);
+        vmf.setVisible(true);
     }//GEN-LAST:event_modifQteFruitActionPerformed
 
 
@@ -158,18 +165,18 @@ public class VuePanelFruit extends javax.swing.JPanel {
     }
     
     public int getQuantite(){
-        return this.quantite;
+        return this.mQuantite;
     }
     
-    public void setmProduit(Produit mProduit) {
+    public void setProduit(Produit mProduit) {
         this.mProduit = mProduit;
     }
 
-    public void setmVP(VuePanier mVP) {
+    public void setVP(VuePanier mVP) {
         this.mVP = mVP;
     }
     
     public void setQuantite(int qte){
-        this.quantite = qte;
+        this.mQuantite = qte;
     }
 }

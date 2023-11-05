@@ -4,45 +4,60 @@
  */
 package fr.ufrsciencestech.panier.view;
 
+import fr.ufrsciencestech.panier.controler.Controleur;
 import fr.ufrsciencestech.panier.model.Produit;
 import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
+import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
 
 /**
  *
  * @author pt454976
  */
-public class VueModifFruit extends javax.swing.JFrame {
+public class VueModifProduit extends javax.swing.JFrame implements VueG{
     private Produit mProduit;
+    private Controleur mControleur;
+    private VuePanier mVP;
     private int mQuantite;
 
     /**
      * Creates new form VueModifFruit
      */
-    public VueModifFruit(Produit produit, int quantite) {
+    public VueModifProduit(Produit produit, int quantite, VuePanier vp, Controleur controleur) {
         initComponents();
         this.mProduit = produit;
         this.mQuantite = quantite;
+        this.mControleur = controleur;
+        this.mVP = vp;
         
         initDatas();
     }
     
     void initDatas(){
-        DefaultComboBoxModel<TypeFruitSimple> modelTypeFruit = new DefaultComboBoxModel<>(TypeFruitSimple.values());
-        this.jComboBoxTypeFruit.setModel((ComboBoxModel)modelTypeFruit);
-        FruitSimple fruit = (FruitSimple)this.mProduit;
-        this.jComboBoxTypeFruit.setSelectedItem(fruit.getTypeFruitSimple());
+        
+        this.mVP.getPanier().addObserver(this);
         
         DefaultComboBoxModel<OrigineProduit> modelOrigineProduit = new DefaultComboBoxModel<>(OrigineProduit.values());
-        this.jComboBoxOrigineFruits.setModel((ComboBoxModel)modelOrigineProduit);
-        this.jComboBoxOrigineFruits.setSelectedItem(this.mProduit.getOrigine());
+        this.jComboBoxOrigineProduits.setModel((ComboBoxModel)modelOrigineProduit);
+        this.jComboBoxOrigineProduits.setSelectedItem(this.mProduit.getOrigine());
         
-        this.jTextFieldPrixFruits.setText(Double.toString(this.mProduit.getPrix()));
+        this.jTextFieldPrixProduits.setText(Double.toString(this.mProduit.getPrix()));
         
         this.jSpinnerQuantite.setModel(new SpinnerNumberModel(1, 0, this.mQuantite, 1));
+    }
+    
+    boolean jTextFieldPrixValide(){
+        try{
+            String text = this.jTextFieldPrixProduits.getText();
+            double prix = Double.parseDouble(text);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**
@@ -55,13 +70,11 @@ public class VueModifFruit extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelTop = new javax.swing.JPanel();
-        jPanelInfosFruits = new javax.swing.JPanel();
-        jLabelTypeFruits = new javax.swing.JLabel();
-        jComboBoxTypeFruit = new javax.swing.JComboBox<>();
-        jLabelPrixFruits = new javax.swing.JLabel();
-        jTextFieldPrixFruits = new javax.swing.JTextField();
-        jLabelOrigineFruits = new javax.swing.JLabel();
-        jComboBoxOrigineFruits = new javax.swing.JComboBox<>();
+        jPanelInfosProduits = new javax.swing.JPanel();
+        jLabelPrixProduits = new javax.swing.JLabel();
+        jTextFieldPrixProduits = new javax.swing.JTextField();
+        jLabelOrigineProduits = new javax.swing.JLabel();
+        jComboBoxOrigineProduits = new javax.swing.JComboBox<>();
         jPanelQuantite = new javax.swing.JPanel();
         jLabelQuantite = new javax.swing.JLabel();
         jSpinnerQuantite = new javax.swing.JSpinner();
@@ -74,23 +87,18 @@ public class VueModifFruit extends javax.swing.JFrame {
 
         jPanelTop.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabelTypeFruits.setText("Type des fruits : ");
-        jPanelInfosFruits.add(jLabelTypeFruits);
+        jLabelPrixProduits.setText("Prix des produits : ");
+        jPanelInfosProduits.add(jLabelPrixProduits);
+        jPanelInfosProduits.add(jTextFieldPrixProduits);
 
-        jPanelInfosFruits.add(jComboBoxTypeFruit);
+        jLabelOrigineProduits.setText("Origine des produits : ");
+        jPanelInfosProduits.add(jLabelOrigineProduits);
 
-        jLabelPrixFruits.setText("Prix des fruits : ");
-        jPanelInfosFruits.add(jLabelPrixFruits);
-        jPanelInfosFruits.add(jTextFieldPrixFruits);
+        jPanelInfosProduits.add(jComboBoxOrigineProduits);
 
-        jLabelOrigineFruits.setText("Origine des fruits : ");
-        jPanelInfosFruits.add(jLabelOrigineFruits);
+        jPanelTop.add(jPanelInfosProduits);
 
-        jPanelInfosFruits.add(jComboBoxOrigineFruits);
-
-        jPanelTop.add(jPanelInfosFruits);
-
-        jLabelQuantite.setText("Quantité de fruits à modifier : ");
+        jLabelQuantite.setText("Quantité de produits à modifier : ");
         jPanelQuantite.add(jLabelQuantite);
         jPanelQuantite.add(jSpinnerQuantite);
 
@@ -121,7 +129,21 @@ public class VueModifFruit extends javax.swing.JFrame {
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
         // TODO add your handling code here:
-        
+        if(this.jTextFieldPrixValide()){
+            for(int i = 0; i < this.mQuantite; i++){
+                Produit prodModif = this.mProduit;
+                prodModif.setPrix(Double.parseDouble(this.jTextFieldPrixProduits.getText()));
+                prodModif.setOrigine((OrigineProduit)this.jComboBoxOrigineProduits.getSelectedItem());
+                //modifie le produit partout dans le panier
+                this.mControleur.produitModif(this.mProduit, prodModif);
+            }
+            
+            this.dispose();
+            this.pack();
+        }
+        else{
+            System.err.println("Prix non valide !");
+        }
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
@@ -134,20 +156,29 @@ public class VueModifFruit extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonValider;
-    private javax.swing.JComboBox<String> jComboBoxOrigineFruits;
-    private javax.swing.JComboBox<String> jComboBoxTypeFruit;
-    private javax.swing.JLabel jLabelOrigineFruits;
-    private javax.swing.JLabel jLabelPrixFruits;
+    private javax.swing.JComboBox<String> jComboBoxOrigineProduits;
+    private javax.swing.JLabel jLabelOrigineProduits;
+    private javax.swing.JLabel jLabelPrixProduits;
     private javax.swing.JLabel jLabelQuantite;
-    private javax.swing.JLabel jLabelTypeFruits;
     private javax.swing.JPanel jPanelBottom;
-    private javax.swing.JPanel jPanelInfosFruits;
+    private javax.swing.JPanel jPanelInfosProduits;
     private javax.swing.JPanel jPanelQuantite;
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JSpinner jSpinnerQuantite;
-    private javax.swing.JTextField jTextFieldPrixFruits;
+    private javax.swing.JTextField jTextFieldPrixProduits;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void update(Observable m, Object o){
+        //this.mPanier= (Panier)o;
+        this.mVP.remplirListe();
+    }
+
+    @Override
+    public void addControleur(Controleur c) {
+        this.mControleur=c;
+    }
+    
     public Produit getProduit(){
         return this.mProduit;
     }
