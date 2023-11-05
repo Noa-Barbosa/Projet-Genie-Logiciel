@@ -153,18 +153,18 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
 
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
         // TODO add your handling code here:
-        if(this.jTextFieldPrixValide()){
-            try{
-                
-                double prixJus = Double.parseDouble(this.jTextFieldPrixJus.getText());
-                OrigineProduit origineJus = (OrigineProduit) this.jComboBoxOrigineJus.getSelectedItem();
-                TypeProduit typeJus = (TypeProduit) this.jComboBoxTypeJus.getSelectedItem();
-                
-                double prixFruit = Double.parseDouble(this.jTextFieldPrixFruit.getText());                
-                OrigineProduit origineFruit = (OrigineProduit) this.jComboBoxOrigineFruit.getSelectedItem();
-                TypeFruitSimple typeFruit = (TypeFruitSimple) this.jComboBoxTypeFruit.getSelectedItem();
+        double prixJus = Double.parseDouble(this.jTextFieldPrixJus.getText());
+        OrigineProduit origineJus = (OrigineProduit) this.jComboBoxOrigineJus.getSelectedItem();
+        TypeProduit typeJus = (TypeProduit) this.jComboBoxTypeJus.getSelectedItem();
 
-                ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
+        double prixFruit = Double.parseDouble(this.jTextFieldPrixFruit.getText());                
+        OrigineProduit origineFruit = (OrigineProduit) this.jComboBoxOrigineFruit.getSelectedItem();
+        TypeFruitSimple typeFruit = (TypeFruitSimple) this.jComboBoxTypeFruit.getSelectedItem();
+
+        ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
+        
+        if(this.jTextFieldPrixValide() && this.mVP.getBoycotte() != origineJus && this.mVP.getBoycotte() != origineFruit){
+            try{
                 try{
                     cf.ajoutJus(prixJus,origineJus,typeJus,prixFruit,origineFruit,typeFruit);
                 }catch (Exception e){
@@ -177,7 +177,7 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
             this.dispose();
             this.pack();
         }else{
-            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors le fruit est boycotté !");
+            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors les fruits décorés ou les jus sont boycottés !");
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
