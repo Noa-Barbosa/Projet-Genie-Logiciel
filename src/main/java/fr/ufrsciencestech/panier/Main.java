@@ -6,65 +6,66 @@ import fr.ufrsciencestech.panier.model.FruitSimple;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
-import fr.ufrsciencestech.panier.model.TypeProduit;
 import fr.ufrsciencestech.panier.view.VueConsole;
 import fr.ufrsciencestech.panier.view.VueG;
-import fr.ufrsciencestech.panier.view.VueGSwing;
 import fr.ufrsciencestech.panier.view.VuePanier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Hello world!
+ * Main de l'application
  *
  */
 public class Main 
 {
+    /**
+     * Vue principale de l'application
+     */
     private VueG vueg;
+    /**
+     * Controleur de l'application
+     */
     private Controleur controleur;
 
+    /**
+     * Assesseur du controleur
+     * @return le controleur
+     */
     public Controleur getControleur() {
         return controleur;
     }
 
+    /**
+     * Mutateur du controleur
+     * @param controleur le nouveau controleur
+     */
     public void setControleur(ControleurFruit controleur) {
         this.controleur = controleur;
     }
     
+    /**
+     * Assesseur de la vue principale
+     * @return la vue principale
+     */
     public VueG getVueg() {
         return vueg; 
     }
+    
+    /**
+     * Mutateur de la vue principale
+     * @param vueg la nouvelle vue
+     */
     public void setVueg(VueG vueg) {
         this.vueg = vueg; 
     }
     
-    public static void main (String[] args){ 
-        
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VueGSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VueGSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VueGSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VueGSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+    /**
+     * Main de l'application,
+     * utilise spring pour creer le controleur et la vue principale
+     * met en place le pattern mvc avec addObserver
+     * @param args 
+     */
+    public static void main (String[] args){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
@@ -79,6 +80,7 @@ public class Main
                 p.addObserver(testMVC.getVueg());        
                 p.addObserver(vuec);         
                 testMVC.getVueg().addControleur(testMVC.getControleur());
+                //ajoute des produit de base dans le panier
                 try{
                     p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
                     p.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeFruitSimple.Cerise));
@@ -93,23 +95,6 @@ public class Main
                 }
             }
         });
-        /*Ecrire ici vos tests
-        System.out.println("premier test Orange");
-        Orange o1 = new Orange(3, "Argentine");
-        System.out.println(o1);
-        System.out.println("Test setter");
-        o1.setPrix(50);
-        o1.setOrigine("Finlande");
-        System.out.println(o1);
-
-        System.out.println("premier test Poire");
-        Poire p1 = new Poire(55, "Martinique");
-        System.out.println(p1);
-        System.out.println("Test setter");
-        p1.setPrix(100);
-        p1.setOrigine("Danemark");
-        System.out.println(p1);
-        */
         
    }
 }

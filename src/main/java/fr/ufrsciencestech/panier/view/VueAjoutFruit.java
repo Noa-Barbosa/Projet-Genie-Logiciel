@@ -5,39 +5,50 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
-import fr.ufrsciencestech.panier.controler.ControleurFruit;
-import fr.ufrsciencestech.panier.model.FruitSimple;
-import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.FruitFactory;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
-import java.util.Observable;
 
 import javax.swing.*;
 
 /**
- *
+ * Vue pour ajouter un fruit dans le panier
  * @author pt454976
  */
-public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
-    private Panier mPanier;
+public class VueAjoutFruit extends javax.swing.JFrame{
+    /**
+     * Vue parente
+     */
     private VuePanier mVP;
+    /**
+     * Controleur de la vue
+     */
     private Controleur mControleur;
+    
+    /**
+    * Quantite de fruit a rajouter
+    */
     private int mQuantite;
 
     /**
-     * Creates new form VueAjoutFruit
+     * Construteur de la vue
+     * @param vuePanier le parent
+     * @param controleur le controleur
      */
-    public VueAjoutFruit(Panier panier, VuePanier vuePanier, Controleur controleur) {
+    public VueAjoutFruit(VuePanier vuePanier, Controleur controleur) {
         initComponents();
-        this.mPanier = panier;
         this.mVP = vuePanier;
         this.mControleur = controleur;
-        this.jSpinnerQteFruitSimple.setModel(new SpinnerNumberModel(0, 0, mPanier.quantiteRestante(), 1));
+        this.jSpinnerQteFruitSimple.setModel(new SpinnerNumberModel(0, 0, this.mVP.getQuantiteRestante(), 1));
         this.mQuantite = 0;
                 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initDatas();
     }
     
+    /**
+     * Initialise les models des combos box a partir des enumerations
+     */
     void initDatas(){
         DefaultComboBoxModel<OrigineProduit> modelOrigine = new DefaultComboBoxModel<>(OrigineProduit.values());
         this.jComboBoxOrigineFruitSimple.setModel((ComboBoxModel) modelOrigine);
@@ -46,6 +57,10 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
         this.jComboBoxTypeFruitSimple.setModel((ComboBoxModel) modelType);
     }
     
+    /**
+     * Verifie que le prix est valide
+     * @return 
+     */
     boolean jTextFieldPrixValide(){
         try{
             String text = this.jTextFieldPrixFruitSimple.getText();
@@ -80,6 +95,9 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
         jButtonAnnulerFruitSimple = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ajout fruit");
+        setPreferredSize(new java.awt.Dimension(500, 120));
+        setSize(new java.awt.Dimension(500, 120));
 
         labelTypeFruitSimple.setText("Type du fruit : ");
         panelTypeOrigineFruitSimple.add(labelTypeFruitSimple);
@@ -133,24 +151,29 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evenement sur le spinner pour modifer la quantite
+     * @param evt 
+     */
     private void jSpinnerQteFruitSimpleStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerQteFruitSimpleStateChanged
         // TODO add your handling code here:
         this.mQuantite = (Integer)this.jSpinnerQteFruitSimple.getModel().getValue();
     }//GEN-LAST:event_jSpinnerQteFruitSimpleStateChanged
 
+    /**
+     * Appuie sur le bouton de validation, recupere les donnees pour creer le fruit et l'ajouter au panier
+     * @param evt 
+     */
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
-        // TODO add your handling code here:
-        if(this.jTextFieldPrixValide()){
+        double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
+        TypeFruitSimple tfs = (TypeFruitSimple) this.jComboBoxTypeFruitSimple.getSelectedItem();
+        OrigineProduit op = (OrigineProduit) this.jComboBoxOrigineFruitSimple.getSelectedItem();
+                
+        if(this.jTextFieldPrixValide() && this.mVP.getBoycotte() != op){
             try{
                 for(int i = 0; i < this.mQuantite; i++){
-                    double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
-                    TypeFruitSimple tfs = (TypeFruitSimple) this.jComboBoxTypeFruitSimple.getSelectedItem();
-                    OrigineProduit op = (OrigineProduit) this.jComboBoxOrigineFruitSimple.getSelectedItem();
-                    
-                    
-                    ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
                     try{
-                        this.mVP.getControleur().ajoutProduit(cf.getFruitFactory().creerFruitSimple(prix, op, tfs));
+                        this.mVP.getControleur().ajoutProduit(FruitFactory.creerFruitSimple(prix, op, tfs));
                     }catch (Exception e){
                         System.err.println(e);
                     }
@@ -165,8 +188,11 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
+    /**
+     * Bouton d'annulation, ferme la vue
+     * @param evt 
+     */
     private void jButtonAnnulerFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerFruitSimpleActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.pack();
     }//GEN-LAST:event_jButtonAnnulerFruitSimpleActionPerformed
@@ -188,34 +214,5 @@ public class VueAjoutFruit extends javax.swing.JFrame implements VueG{
     private javax.swing.JPanel panelTypeOrigineFruitSimple;
     // End of variables declaration//GEN-END:variables
 
-    public Panier getPanier(){
-        return this.mPanier;
-    }
-    
-    public VuePanier getVuePanier(){
-        return this.mVP;
-    }
-    
-    public void setPanier(Panier panier){
-        this.mPanier = panier;
-    }
-    
-    public void setVuePanier(VuePanier vuePanier){
-        this.mVP = vuePanier;
-    }
-    
-    public Controleur getControleur(){
-        return this.mControleur;
-    }
-    
-    @Override
-    public void addControleur(Controleur c){
-        this.mControleur=c;
-    }
-    
-    @Override
-    public void update(Observable m, Object o){
-        this.mPanier= (Panier)o;
-        this.mVP.remplirListe();
-    }
+   
 }

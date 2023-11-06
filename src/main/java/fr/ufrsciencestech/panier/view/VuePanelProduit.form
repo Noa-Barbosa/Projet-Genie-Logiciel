@@ -18,7 +18,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelFruit">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fruit : "/>
+        <Property name="text" type="java.lang.String" value="Produit :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contFruit">

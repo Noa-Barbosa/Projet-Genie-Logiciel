@@ -156,6 +156,10 @@ public class Panier extends Observable{
       }
     }
     
+    /**
+     * Retire la premiere occurence du produit
+     * @param p produit
+     */
     public void retraitProduit(Produit p) {
         this.produits.remove(p);
         notifyUpdate();
@@ -224,16 +228,22 @@ public class Panier extends Observable{
     }  
     
     /**
-     * Modifie le premier objet en paramètre par les attributs du deuxième objet en paramètre
+     * Modifie le premier produit en paramètre par un nouveau prix et une nouvelle origine
+     * (ne modifie que la première occurence du produit dans la liste)
      * @param init
-     * @param modif 
+     * @param pModif
+     * @param quantiteAModif
      */
-    public void produitModif(Produit init, Produit modif){           
+    public void produitModif(Produit init, Produit pModif, int quantiteAModif){           
+        int compteur = 0;
+        
         for(Produit produit : this.getProduits()){
-            if(init.equals(produit)){
-                init.setOrigine(modif.getOrigine());
-                init.setPrix(modif.getPrix());
-                init.setTypeProduit(modif.getTypeProduit());
+            if(compteur == quantiteAModif){
+                break;
+            }else if(init.equals(produit)){
+                produit.setOrigine(pModif.getOrigine());
+                produit.setPrix(pModif.getPrix());
+                compteur++;
             }
         }
         notifyUpdate();

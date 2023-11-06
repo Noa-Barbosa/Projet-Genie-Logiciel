@@ -5,43 +5,41 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
-import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 
 /**
- *
+ * Vue principale de l'application
+ * Liste les produits du panier et afficher les boutons pour les autres vues
  * @author pt454976
  */
 public class VuePanier extends javax.swing.JFrame implements VueG {
-    private Panier mPanier;
+    /**
+     * Controleur de la vue
+     */
     private Controleur mControleur;
+    /**
+     * Place restante dans le panier
+     */
+    private int quantiteRestante;
     
     /**
-     * Creates new form VuePanier
+     * Constructeur de la vue
      */
     public VuePanier() {
         initComponents();
         this.setTitle("Panier");  
         this.setVisible(true);
         
-        this.remplirBoycotteOrigine();
+        this.initDatas();
     }
     
-    public VuePanier(Controleur c, Panier p){
-        initComponents();
-        this.setTitle("Panier");
-        this.setVisible(true);
-        
-        this.mControleur= c;
-        this.mPanier= p;
-        this.remplirBoycotteOrigine();
-    }
-    
-    void remplirBoycotteOrigine(){
+    /**
+     * Initialise le model de la combobox pour boycotter une origine
+     */
+    void initDatas(){
         ArrayList<String> lst = new ArrayList<>();
         lst.add("Aucune");
         for(OrigineProduit origine : OrigineProduit.values()){
@@ -54,6 +52,10 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         this.jComboBoxBoycotteOrigine.setModel(modelType);
     }
     
+    /**
+     * Recuperer l'origine boycotter
+     * @return l'origine
+     */
     OrigineProduit getBoycotte(){
         String selectedString = (String)this.jComboBoxBoycotteOrigine.getSelectedItem();
         
@@ -68,7 +70,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         }
     }
     
-    void remplirListe(){
+    /**
+     * Creer des VuePanelProduit pour chacun des produits dans le panier
+     * @param p le panier recuperer par le update
+     */
+    void remplirListe(Panier p){
         double prixTotalPanier = 0;
         
         //retire tout les éléments du gridLayout
@@ -77,11 +83,11 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         this.panelListeFruits.repaint();
         
         ArrayList<Produit> produitsAjoutes = new ArrayList<>();
-        for(Produit produit : this.mPanier.getProduits()){
+        for(Produit produit : p.getProduits()){
             if(!layoutContientProduit(produit, produitsAjoutes)){
-                int quantite = compteQteFruits(produit, this.mPanier);
+                int quantite = compteQteProduits(produit, p);
              
-                VuePanelFruit vf = new VuePanelFruit(produit, this, quantite, this.mControleur);
+                VuePanelProduit vf = new VuePanelProduit(produit, this, quantite, this.mControleur);
                 
                 this.panelListeFruits.add(vf);
                 produitsAjoutes.add(produit);
@@ -93,6 +99,12 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         this.contPrixTotalPanier.setText(Double.toString(prixTotalPanier) + "€ ");
     }
     
+    /**
+     * Verifie si la liste de produits contient le produit en parametre
+     * @param prodTest le produit a chercher
+     * @param produits la liste des produits
+     * @return 
+     */
     boolean layoutContientProduit(Produit prodTest, ArrayList<Produit> produits){
         for(Produit produit : produits){
             if(prodTest.equals(produit)){
@@ -102,7 +114,13 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         return false;
     }
     
-    int compteQteFruits(Produit prodTest, Panier panier){
+    /**
+     * Compte le nombre de produit identique dans le panier pour afficher les bonnes quantites
+     * @param prodTest le produit a tester
+     * @param panier le panier
+     * @return la quantite de produit
+     */
+    int compteQteProduits(Produit prodTest, Panier panier){
         int compteur = 0;
         for(Produit produit : panier.getProduits()){
             if(produit.equals(prodTest)) compteur++;
@@ -133,6 +151,7 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         jComboBoxBoycotteOrigine = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setSize(new java.awt.Dimension(800, 600));
 
         panelVuePanier.setLayout(new java.awt.BorderLayout());
@@ -163,14 +182,22 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
         jButtonAjouterJus.setText("Ajouter jus");
         jButtonAjouterJus.setPreferredSize(null);
+        jButtonAjouterJus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterJusActionPerformed(evt);
+            }
+        });
         panelBoutonsAjouts.add(jButtonAjouterJus);
 
         jButtonAjoutSaladeMacedoine.setText("Ajouter salade/macédoine");
-        jButtonAjoutSaladeMacedoine.setPreferredSize(null);
+        jButtonAjoutSaladeMacedoine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjoutSaladeMacedoineActionPerformed(evt);
+            }
+        });
         panelBoutonsAjouts.add(jButtonAjoutSaladeMacedoine);
 
         jLabelOrigineBoycotte.setText("Origine a boycotter :");
-        jLabelOrigineBoycotte.setPreferredSize(null);
         panelBoutonsAjouts.add(jLabelOrigineBoycotte);
 
         jComboBoxBoycotteOrigine.setPreferredSize(null);
@@ -188,21 +215,40 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Bouton ajout fruit, ouvre la vue d'ajout de fruit
+     * @param evt 
+     */
     private void jButtonAjouterFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterFruitActionPerformed
-        // TODO add your handling code here:
-        VueAjoutFruit vag = new VueAjoutFruit(this.getPanier(), this, this.getControleur());
+        VueAjoutFruit vag = new VueAjoutFruit(this, this.getControleur());
         vag.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterFruitActionPerformed
 
+    /**
+     * Quand on choisit un element de la combobox boycotte, on boycotte les produits de l'origine choisie
+     * @param evt 
+     */
     private void jComboBoxBoycotteOrigineItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineItemStateChanged
-        // TODO add your handling code here:
-        /*for(Produit prod : this.mPanier.getProduits()){
-            if(prod.getOrigine() == this.getBoycotte()){
-                this.mControleur.retraitProduit(prod);
-            }
-        }
-        this.remplirListe();*/
+        this.mControleur.boycotteOrigine(this.getBoycotte());
     }//GEN-LAST:event_jComboBoxBoycotteOrigineItemStateChanged
+
+    /**
+     * Bouton ajout jus, ouvre la vue d'ajout d'un jus
+     * @param evt 
+     */
+    private void jButtonAjouterJusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterJusActionPerformed
+        VueAjoutJus vaj = new VueAjoutJus(this, this.getControleur());
+        vaj.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterJusActionPerformed
+
+    /**
+     * Bouton ajout salade, ouvre la vue d'ajout de salade
+     * @param evt 
+     */
+    private void jButtonAjoutSaladeMacedoineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutSaladeMacedoineActionPerformed
+        VueAjoutSaladesFruit vas = new VueAjoutSaladesFruit( this, this.getControleur());
+        vas.setVisible(true);
+    }//GEN-LAST:event_jButtonAjoutSaladeMacedoineActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -222,24 +268,29 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
 
     @Override
     public void update(Observable m, Object o){
-        this.mPanier= (Panier)o;
-        this.remplirListe();
+        Panier p= (Panier)o;
+        this.quantiteRestante=p.quantiteRestante();
+        this.remplirListe(p);
     }
 
     @Override
     public void addControleur(Controleur c) {
         this.mControleur=c;
     }
-    
-    public void setPanier(Panier p){
-        this.mPanier = p;
-    }
-    
-    public Panier getPanier() {
-        return mPanier;
-    }
 
+    /**
+     * Assesseur du controleur de la vue
+     * @return le controleur
+     */
     public Controleur getControleur() {
         return mControleur;
+    }
+
+    /**
+     * Assesseur de la place restante dans le panier
+     * @return la place restante
+     */
+    public int getQuantiteRestante() {
+        return this.quantiteRestante;
     }
 }

@@ -5,27 +5,46 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.model.FruitFactory;
 import fr.ufrsciencestech.panier.model.Produit;
 import fr.ufrsciencestech.panier.model.FruitSimple;
+import fr.ufrsciencestech.panier.model.JusBanane;
+import fr.ufrsciencestech.panier.model.JusCerise;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
-import fr.ufrsciencestech.panier.model.Panier;
-import fr.ufrsciencestech.panier.model.TypeFruitSimple;
+import fr.ufrsciencestech.panier.model.SaladeFruits;
+import static fr.ufrsciencestech.panier.model.TypeProduit.JusBanane;
+import static fr.ufrsciencestech.panier.model.TypeProduit.JusCerise;
+import static fr.ufrsciencestech.panier.model.TypeProduit.SaladeFruits;
 import javax.swing.*;
-import java.awt.*;
-import java.util.Observable;
 
 /**
- *
+ * Vue pour modifier un produit
  * @author pt454976
  */
-public class VueModifProduit extends javax.swing.JFrame implements VueG{
+public class VueModifProduit extends javax.swing.JFrame{
+    /**
+     * Le produit a modifier
+     */
     private Produit mProduit;
+    /**
+     * Le controleur
+     */
     private Controleur mControleur;
+    /**
+     * Vue parente
+     */
     private VuePanier mVP;
+    /**
+     * Quantite de produit a modifier
+     */
     private int mQuantite;
 
     /**
-     * Creates new form VueModifFruit
+     * Constructeur
+     * @param produit le produit a modifier
+     * @param quantite la quantite de produit a modifier
+     * @param vp le parent
+     * @param controleur le controleur
      */
     public VueModifProduit(Produit produit, int quantite, VuePanier vp, Controleur controleur) {
         initComponents();
@@ -34,13 +53,15 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
         this.mControleur = controleur;
         this.mVP = vp;
         
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initDatas();
     }
     
+    /**
+     * Initialise les models des comboboxs et spinners
+     */
     void initDatas(){
-        
-        this.mVP.getPanier().addObserver(this);
-        
+                
         DefaultComboBoxModel<OrigineProduit> modelOrigineProduit = new DefaultComboBoxModel<>(OrigineProduit.values());
         this.jComboBoxOrigineProduits.setModel((ComboBoxModel)modelOrigineProduit);
         this.jComboBoxOrigineProduits.setSelectedItem(this.mProduit.getOrigine());
@@ -50,6 +71,10 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
         this.jSpinnerQuantite.setModel(new SpinnerNumberModel(1, 0, this.mQuantite, 1));
     }
     
+    /**
+     * Verifie le prix
+     * @return 
+     */
     boolean jTextFieldPrixValide(){
         try{
             String text = this.jTextFieldPrixProduits.getText();
@@ -83,6 +108,8 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
         jButtonAnnuler = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Modification");
+        setPreferredSize(new java.awt.Dimension(400, 150));
         getContentPane().setLayout(new java.awt.GridLayout(2, 1));
 
         jPanelTop.setLayout(new java.awt.GridLayout(2, 1));
@@ -127,16 +154,45 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Bouton de validation,
+     * recupere les donnees de la vue et modifie le produit dans le panier
+     * @param evt 
+     */
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
-        // TODO add your handling code here:
         if(this.jTextFieldPrixValide()){
-            for(int i = 0; i < this.mQuantite; i++){
-                Produit prodModif = this.mProduit;
-                prodModif.setPrix(Double.parseDouble(this.jTextFieldPrixProduits.getText()));
-                prodModif.setOrigine((OrigineProduit)this.jComboBoxOrigineProduits.getSelectedItem());
-                //modifie le produit partout dans le panier
-                this.mControleur.produitModif(this.mProduit, prodModif);
-            }
+            int quantiteAModif = (int)this.jSpinnerQuantite.getValue();
+            double prixModif = Double.parseDouble(this.jTextFieldPrixProduits.getText());
+            OrigineProduit origineModif = (OrigineProduit)this.jComboBoxOrigineProduits.getSelectedItem();
+            
+            Produit prodInit;
+            Produit prodModif;
+            switch(this.mProduit.getTypeProduit()){
+                case FruitSimple:
+                    FruitSimple fruit = (FruitSimple) this.mProduit;
+                    prodInit = FruitFactory.creerFruitSimple(fruit.getPrix(), fruit.getOrigine(), fruit.getTypeFruitSimple());
+                    prodModif = FruitFactory.creerFruitSimple(prixModif,origineModif,fruit.getTypeFruitSimple());
+                    break;
+                case SaladeFruits:
+                    SaladeFruits salade = (SaladeFruits) this.mProduit;
+                    prodInit = FruitFactory.creerSaladeFruits(salade.getPrix(), salade.getOrigine());
+                    prodModif = FruitFactory.creerSaladeFruits(prixModif,origineModif);
+                    break;
+                case JusCerise:
+                    JusCerise jusC = (JusCerise) this.mProduit;
+                    prodInit = FruitFactory.creerJusCerise(jusC.getPrix(),jusC.getOrigine(),jusC.getFruit());
+                    prodModif = FruitFactory.creerJusCerise(prixModif,origineModif,jusC.getFruit());
+                    break;
+                case JusBanane:
+                    JusBanane jusB = (JusBanane) this.mProduit;
+                    prodInit = FruitFactory.creerJusCerise(jusB.getPrix(),jusB.getOrigine(),jusB.getFruit());
+                    prodModif = FruitFactory.creerJusBanane(prixModif,origineModif,jusB.getFruit());
+                    break;
+                default:
+                    throw new AssertionError(this.mProduit.getTypeProduit().name());
+                
+            }            
+            this.mControleur.produitModif(prodInit, prodModif, quantiteAModif);
             
             this.dispose();
             this.pack();
@@ -146,8 +202,11 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
         }
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
+    /**
+     * Bouton d'annulation, ferme la vue
+     * @param evt 
+     */
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.pack();
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
@@ -167,17 +226,6 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
     private javax.swing.JSpinner jSpinnerQuantite;
     private javax.swing.JTextField jTextFieldPrixProduits;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void update(Observable m, Object o){
-        //this.mPanier= (Panier)o;
-        this.mVP.remplirListe();
-    }
-
-    @Override
-    public void addControleur(Controleur c) {
-        this.mControleur=c;
-    }
     
     public Produit getProduit(){
         return this.mProduit;

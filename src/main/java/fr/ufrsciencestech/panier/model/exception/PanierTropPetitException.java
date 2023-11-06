@@ -8,7 +8,7 @@ public class PanierTropPetitException extends Exception {
     
     public PanierTropPetitException()
     {
-	super("Ajout impossible car le panier est plein !");
+	super("Ajout impossible car le panier est trop petit !");
     }
 
 }

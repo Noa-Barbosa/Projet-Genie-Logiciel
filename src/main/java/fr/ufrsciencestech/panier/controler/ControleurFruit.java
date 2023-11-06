@@ -9,44 +9,16 @@ import fr.ufrsciencestech.panier.model.JusCerise;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 import fr.ufrsciencestech.panier.model.TypeProduit;
-import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.Produit;
-import fr.ufrsciencestech.panier.model.SaladeFruits;
 import fr.ufrsciencestech.panier.model.FruitFactory;
+import fr.ufrsciencestech.panier.model.JusBanane;
 import fr.ufrsciencestech.panier.model.exception.PanierPleinException;
-import fr.ufrsciencestech.panier.model.exception.PanierVideException;
-import fr.ufrsciencestech.panier.view.VuePanelFruit;
-import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Controleur de la partie fruit de l'application
  * @author nb654417
  */
 public class ControleurFruit extends ControleurAbstract {
-    private FruitFactory mFruitFactory = new FruitFactory();
-    
-    @Override
-    public void actionPerformed(ActionEvent e){   //Invoked when an action occurs
-        try {
-            switch(e.getActionCommand()){
-                case("+"):
-                    FruitSimple fruit = new FruitSimple(5,OrigineProduit.France,TypeFruitSimple.Banane);
-                    SaladeFruits salade = new SaladeFruits(5,OrigineProduit.Danemark);
-                    JusCerise jus = new JusCerise(6,OrigineProduit.Allemagne,fruit);
-                    JusCerise jusJus = new JusCerise(5,OrigineProduit.Danemark,jus);
-                    p.ajoutProduit(jusJus);
-                    break;
-                case("-"):
-                    p.retraitLastProduit(); 
-                    break;
-            }
-        } 
-        catch (PanierPleinException | PanierVideException ex) {
-            Logger.getLogger(ControleurFruit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     @Override
     public void ajoutProduit(Produit p) throws PanierPleinException{
@@ -64,27 +36,30 @@ public class ControleurFruit extends ControleurAbstract {
     }
     
     @Override
-    public void produitModif(Produit pInit, Produit pModif) {
-        for(Produit produit : this.p.getProduits()){
-            if(pInit.equals(produit)){
-                /*pInit.setOrigine(pModif.getOrigine());
-                pInit.setPrix(pModif.getPrix());
-                pInit.setTypeProduit(pModif.getTypeProduit());*/
-                try{
-                    this.p.retraitProduit(pInit);
-                    this.p.ajoutProduit(pModif);
-                }catch(Exception e){
-                    System.err.println(e);
-                }
-            }
+    public void produitModif(Produit pInit, Produit pModif, int quantiteAModif) {
+        this.p.produitModif(pInit, pModif, quantiteAModif);
+    }
+
+    /**
+     * Creer un jus selon les parametres indiques et l'ajoute au panier
+     * @param prixJus
+     * @param origineJus
+     * @param typeJus
+     * @param prixFruit
+     * @param origineFruit
+     * @param typeFruit
+     * @throws PanierPleinException 
+     */
+    public void ajoutJus(double prixJus, OrigineProduit origineJus, TypeProduit typeJus, double prixFruit, OrigineProduit origineFruit, TypeFruitSimple typeFruit) throws PanierPleinException {
+        FruitSimple fruitSimple = FruitFactory.creerFruitSimple(prixFruit, origineFruit, typeFruit);
+        if(typeJus.equals(TypeProduit.JusBanane)){
+            JusBanane jusBanane = FruitFactory.creerJusBanane(prixJus, origineJus, fruitSimple);
+            this.ajoutProduit(jusBanane);
         }
-    }
-    
-    public void setFruitFactory(FruitFactory ff){
-        this.mFruitFactory = ff;
-    }
-    
-    public FruitFactory getFruitFactory(){
-        return this.mFruitFactory;
+        else{
+            JusCerise jusCerise = FruitFactory.creerJusCerise(prixJus, origineJus, fruitSimple);
+            this.ajoutProduit(jusCerise);
+        }
+        
     }
 }

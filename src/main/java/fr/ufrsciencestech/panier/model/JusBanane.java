@@ -29,35 +29,6 @@ public class JusBanane extends JusAbstract{
     }
 
     @Override
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
-
-    @Override
-    public OrigineProduit getOrigine() {
-        return this.origine;
-    }
-
-    @Override
-    public void setOrigine(OrigineProduit origine) {
-        this.origine=origine;
-    }
-
-    @Override
-    public TypeProduit getTypeProduit() {
-        return this.typeProduit;
-    }
-
-    @Override
-    public void setTypeProduit(TypeProduit typeProduit) {
-        this.typeProduit=TypeProduit.JusBanane;
-    }
-    
-    public Fruit getFruit(){
-        return this.fruit;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if(o.getClass().equals(this.getClass())){
             JusBanane j = (JusBanane) o;
