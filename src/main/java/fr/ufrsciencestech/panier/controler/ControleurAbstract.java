@@ -6,7 +6,6 @@ package fr.ufrsciencestech.panier.controler;
 
 import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.view.VueG;
-import java.awt.event.ActionEvent;
 
 /**
  * Classe abstraite definissant un controleur
@@ -23,9 +22,6 @@ public abstract class ControleurAbstract implements Controleur{
      * Vue de l'application
      */
     VueG vg;
-    
-    @Override
-    public abstract void actionPerformed(ActionEvent e);
 
     @Override
     public void setModele(Panier p){

@@ -8,41 +8,58 @@ import fr.ufrsciencestech.panier.controler.Controleur;
 import fr.ufrsciencestech.panier.controler.ControleurFruit;
 import fr.ufrsciencestech.panier.model.FruitFactory;
 import fr.ufrsciencestech.panier.model.FruitSimple;
-import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.SaladeFruits;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
-import fr.ufrsciencestech.panier.model.TypeProduit;
 import java.util.ArrayList;
-import java.util.Observable;
 
 import javax.swing.*;
 
 /**
- *
+ * Vue pour ajouter une salde de fruits
  * @author pt454976
  */
-public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
+public class VueAjoutSaladesFruit extends javax.swing.JFrame{
+    /**
+     * Vue parente
+     */
     private VuePanier mVP;
+    /**
+     * Le controleur de la vue
+     */
     private Controleur mControleur;
+    /**
+     * Liste des fruits de la salade a ajouter
+     */
     private ArrayList<FruitSimple> fruits = new ArrayList<FruitSimple>();
 
     /**
-     * Creates new form VueAjoutFruit
+     * Constructeur de la vue
+     * @param vuePanier le parent
+     * @param controleur le controleur
      */
     public VueAjoutSaladesFruit(VuePanier vuePanier, Controleur controleur) {
         initComponents();
         this.mVP = vuePanier;
         this.mControleur = controleur;
-                
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);    
         initDatas();
     }
     
+    /**
+     * Initialise le model de la combobox a partir de l'enum
+     */
     void initDatas(){
         DefaultComboBoxModel<OrigineProduit> modelOrigineSalade = new DefaultComboBoxModel<>(OrigineProduit.values());
         this.jComboBoxOrigineSalade.setModel((ComboBoxModel) modelOrigineSalade);
     }
     
+    /**
+     * Verifie le prix
+     * @param textField
+     * @return 
+     */
     boolean jTextFieldPrixValide(JTextField textField){
         try{
             String text = textField.getText();
@@ -77,6 +94,9 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
         jButtonAnnulerFruitSimple = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ajout salade");
+        setPreferredSize(new java.awt.Dimension(500, 250));
+        setSize(new java.awt.Dimension(500, 250));
 
         labelPrixSalade.setText("Prix salade : ");
         panelTypeOrigineFruitSimple.add(labelPrixSalade);
@@ -131,8 +151,11 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Bouton de validation, recupere les donnees pour creer la salade et l'ajouter au panier
+     * @param evt 
+     */
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
-        // TODO add your handling code here:
         double prixJus = Double.parseDouble(this.jTextFieldPrixSalade.getText());
         OrigineProduit origineJus = (OrigineProduit) this.jComboBoxOrigineSalade.getSelectedItem();
         SaladeFruits salade = new SaladeFruits(prixJus,origineJus);
@@ -161,12 +184,20 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
+    /**
+     * Bouton d'annulation, ferme la vue
+     * @param evt 
+     */
     private void jButtonAnnulerFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerFruitSimpleActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.pack();
     }//GEN-LAST:event_jButtonAnnulerFruitSimpleActionPerformed
 
+    /**
+     * Bouton d'ajout de fruit,
+     * ouvre une pop-up pour creer un nouveau fruit et l'ajouter a la liste de fruits
+     * @param evt 
+     */
     private void jButtonAjoutFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutFruitActionPerformed
         JTextField prixFruitTextField = new JTextField();
         JComboBox<String> origineFruitComboBox = new JComboBox<String>();
@@ -190,8 +221,7 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
             OrigineProduit origineProduit = (OrigineProduit) origineFruitComboBox.getSelectedItem();
             double prix = Double.parseDouble(prixFruitTextField.getText());
             
-            FruitFactory fruitFactory = new FruitFactory();
-            FruitSimple fruitSimple = fruitFactory.creerFruitSimple(prix,origineProduit, typeFruit);
+            FruitSimple fruitSimple = FruitFactory.creerFruitSimple(prix,origineProduit, typeFruit);
             
             fruits.add(fruitSimple);
             
@@ -222,25 +252,4 @@ public class VueAjoutSaladesFruit extends javax.swing.JFrame implements VueG{
     private javax.swing.JPanel panelTypeOrigineFruitSimple;
     // End of variables declaration//GEN-END:variables
     
-    public VuePanier getVuePanier(){
-        return this.mVP;
-    }
-    
-    public void setVuePanier(VuePanier vuePanier){
-        this.mVP = vuePanier;
-    }
-    
-    public Controleur getControleur(){
-        return this.mControleur;
-    }
-    
-    @Override
-    public void addControleur(Controleur c){
-        this.mControleur=c;
-    }
-    
-    @Override
-    public void update(Observable m, Object o){
-        //this.mVP.remplirListe();
-    }
 }

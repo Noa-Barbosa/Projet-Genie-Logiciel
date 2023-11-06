@@ -13,22 +13,11 @@ public abstract class JusAbstract extends FruitAbstract{
      * Fruit decore par le jus
      */
     protected Fruit fruit;
-    @Override
-    public abstract double getPrix();
-    @Override
-    public abstract void setPrix(double prix);
-    @Override
-    public abstract OrigineProduit getOrigine();
-    @Override
-    public abstract void setOrigine(OrigineProduit origine);
-    @Override
-    public abstract TypeProduit getTypeProduit();
-    @Override
-    public abstract void setTypeProduit(TypeProduit typeProduit);
-    @Override
-    public abstract boolean equals(Object o);
-    @Override
-    public abstract String toString();
-    @Override
-    public abstract boolean isSeedless();
+    /**
+     * Assesseur du fruit decore
+     * @return le fruit decore par le jus
+     */
+    public Fruit getFruit(){
+        return this.fruit;
+    };
 }

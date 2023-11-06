@@ -6,36 +6,44 @@ package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
 import fr.ufrsciencestech.panier.controler.ControleurFruit;
-import fr.ufrsciencestech.panier.model.FruitSimple;
-import fr.ufrsciencestech.panier.model.Panier;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 import fr.ufrsciencestech.panier.model.TypeProduit;
-import java.util.Observable;
 
 import javax.swing.*;
 
 /**
- *
+ * Vue pour ajouter un jus
  * @author pt454976
  */
-public class VueAjoutJus extends javax.swing.JFrame implements VueG{
-    private Panier mPanier;
+public class VueAjoutJus extends javax.swing.JFrame{
+    /**
+     * Vue parente
+     */
     private VuePanier mVP;
+    /**
+     * Controleur de la vue
+     */
     private Controleur mControleur;
 
     /**
-     * Creates new form VueAjoutFruit
+     * Constructeur de la vue
+     * @param vuePanier le parent
+     * @param controleur le controleur
      */
-    public VueAjoutJus(Panier panier, VuePanier vuePanier, Controleur controleur) {
+    public VueAjoutJus(VuePanier vuePanier, Controleur controleur) {
         initComponents();
-        this.mPanier = panier;
         this.mVP = vuePanier;
         this.mControleur = controleur;
-                
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         initDatas();
     }
     
+    /**
+     * Initialise les models des combos box a partir des enumerations
+     */
     void initDatas(){
         DefaultComboBoxModel<OrigineProduit> modelOrigineJus = new DefaultComboBoxModel<>(OrigineProduit.values());
             DefaultComboBoxModel<OrigineProduit> modelOrigineFruit = new DefaultComboBoxModel<>(OrigineProduit.values());
@@ -52,6 +60,10 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
 
     }
     
+    /**
+     * Verifie le prix
+     * @return 
+     */
     boolean jTextFieldPrixValide(){
         try{
             String text = this.jTextFieldPrixJus.getText();
@@ -90,6 +102,9 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
         jButtonAnnulerFruitSimple = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ajout jus");
+        setPreferredSize(new java.awt.Dimension(750, 200));
+        setSize(new java.awt.Dimension(750, 200));
 
         labelPrixJus.setText("Prix du jus : ");
         panelTypeOrigineFruitSimple.add(labelPrixJus);
@@ -151,8 +166,11 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Bouton de validation, recupere les donnees pour creer le jus et l'ajouter au panier
+     * @param evt 
+     */
     private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
-        // TODO add your handling code here:
         double prixJus = Double.parseDouble(this.jTextFieldPrixJus.getText());
         OrigineProduit origineJus = (OrigineProduit) this.jComboBoxOrigineJus.getSelectedItem();
         TypeProduit typeJus = (TypeProduit) this.jComboBoxTypeJus.getSelectedItem();
@@ -181,8 +199,11 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
         }
     }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
+    /**
+     * Bouton d'annulation, ferme la vue
+     * @param evt 
+     */
     private void jButtonAnnulerFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerFruitSimpleActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         this.pack();
     }//GEN-LAST:event_jButtonAnnulerFruitSimpleActionPerformed
@@ -207,35 +228,5 @@ public class VueAjoutJus extends javax.swing.JFrame implements VueG{
     private javax.swing.JPanel panelPrixQteFruitSimple;
     private javax.swing.JPanel panelTypeOrigineFruitSimple;
     // End of variables declaration//GEN-END:variables
-
-    public Panier getPanier(){
-        return this.mPanier;
-    }
-    
-    public VuePanier getVuePanier(){
-        return this.mVP;
-    }
-    
-    public void setPanier(Panier panier){
-        this.mPanier = panier;
-    }
-    
-    public void setVuePanier(VuePanier vuePanier){
-        this.mVP = vuePanier;
-    }
-    
-    public Controleur getControleur(){
-        return this.mControleur;
-    }
-    
-    @Override
-    public void addControleur(Controleur c){
-        this.mControleur=c;
-    }
-    
-    @Override
-    public void update(Observable m, Object o){
-        this.mPanier= (Panier)o;
-        this.mVP.remplirListe();
-    }
+       
 }

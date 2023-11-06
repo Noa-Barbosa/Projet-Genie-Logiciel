@@ -4,40 +4,55 @@
  */
 package fr.ufrsciencestech.panier.view;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Observable;
-
 import fr.ufrsciencestech.panier.controler.*;
 import fr.ufrsciencestech.panier.model.*;
 import static fr.ufrsciencestech.panier.model.TypeProduit.JusBanane;
 import static fr.ufrsciencestech.panier.model.TypeProduit.JusCerise;
 
 /**
- *
+ * Vue pour afficher un produit
  * @author pt454976
  */
-public class VuePanelFruit extends javax.swing.JPanel {
+public class VuePanelProduit extends javax.swing.JPanel {
+    /**
+     * Le produit affiche
+     */
     private Produit mProduit;
+    /**
+     * Vue parente
+     */
     private VuePanier mVP;
+    /**
+     * Le controleur
+     */
     private Controleur mControleur;
+    /**
+     * Quantite de produit dans le panier
+     */
     private int mQuantite;
     
     /**
-     * Creates new form VuePanelFruit
+     * Constructeur de la vue
+     * @param p le produit a afficher
+     * @param vp le parent
+     * @param qte la quantite de produit
+     * @param controleur le controleur
      */
-    public VuePanelFruit(Produit p, VuePanier vp, int qte, Controleur controleur) {
+    public VuePanelProduit(Produit p, VuePanier vp, int qte, Controleur controleur) {
         initComponents();
         this.mProduit = p;
         this.mVP = vp;
         this.mQuantite = qte;
         this.mControleur = controleur;
        
-        initDatas(this.mProduit);
+        initDatas();
     }
     
-    void initDatas(Produit p){
-        if(p.getTypeProduit().equals(TypeProduit.FruitSimple)){
+    /**
+     * Initialise les labels de la vue avec les donnes du produit
+     */
+    void initDatas(){
+        if(this.mProduit.getTypeProduit().equals(TypeProduit.FruitSimple)){
             FruitSimple fruit = (FruitSimple)this.mProduit;
             this.contFruit.setText(fruit.getTypeFruitSimple().toString());
         }
@@ -118,9 +133,11 @@ public class VuePanelFruit extends javax.swing.JPanel {
         add(contPrixTotal);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Bouton d'ajout de produit
+     * @param evt 
+     */
     private void ajoutQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutQteFruitActionPerformed
-        // TODO add your handling code here:
-        ControleurFruit cf = (ControleurFruit)this.mVP.getControleur();
         Produit produitAjout;
         switch(mProduit.getTypeProduit()){
             case FruitSimple:
@@ -147,8 +164,11 @@ public class VuePanelFruit extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ajoutQteFruitActionPerformed
 
+    /**
+     * Bouton de suppression d'un produit
+     * @param evt 
+     */
     private void retireQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retireQteFruitActionPerformed
-        // TODO add your handling code here:
         try{
             this.mVP.getControleur().retraitProduit(this.mProduit);
         }catch (Exception e){
@@ -156,8 +176,11 @@ public class VuePanelFruit extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_retireQteFruitActionPerformed
 
+    /**
+     * Bouton de modification d'un produit
+     * @param evt 
+     */
     private void modifQteFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifQteFruitActionPerformed
-        // TODO add your handling code here:
         VueModifProduit vmf = new VueModifProduit(this.mProduit, this.mQuantite, this.mVP, this.mControleur);
         vmf.setVisible(true);
     }//GEN-LAST:event_modifQteFruitActionPerformed
@@ -179,28 +202,4 @@ public class VuePanelFruit extends javax.swing.JPanel {
     private javax.swing.JButton retireQteFruit;
     // End of variables declaration//GEN-END:variables
 
-
-    public Produit getProduit() {
-        return this.mProduit;    
-    }
-    
-    public VuePanier getVuePanier() {
-        return this.mVP;
-    }
-    
-    public int getQuantite(){
-        return this.mQuantite;
-    }
-    
-    public void setProduit(Produit mProduit) {
-        this.mProduit = mProduit;
-    }
-
-    public void setVP(VuePanier mVP) {
-        this.mVP = mVP;
-    }
-    
-    public void setQuantite(int qte){
-        this.mQuantite = qte;
-    }
 }

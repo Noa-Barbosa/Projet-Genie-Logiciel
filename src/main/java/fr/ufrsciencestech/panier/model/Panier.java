@@ -156,6 +156,10 @@ public class Panier extends Observable{
       }
     }
     
+    /**
+     * Retire la premiere occurence du produit
+     * @param p produit
+     */
     public void retraitProduit(Produit p) {
         this.produits.remove(p);
         notifyUpdate();
@@ -227,8 +231,8 @@ public class Panier extends Observable{
      * Modifie le premier produit en paramètre par un nouveau prix et une nouvelle origine
      * (ne modifie que la première occurence du produit dans la liste)
      * @param init
-     * @param nouveauPrix
-     * @param nouvelleOrigine
+     * @param pModif
+     * @param quantiteAModif
      */
     public void produitModif(Produit init, Produit pModif, int quantiteAModif){           
         int compteur = 0;

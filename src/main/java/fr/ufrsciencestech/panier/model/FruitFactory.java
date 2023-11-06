@@ -5,11 +5,6 @@
  */
 package fr.ufrsciencestech.panier.model;
 
-import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Banane;
-import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Cerise;
-import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Orange;
-import static fr.ufrsciencestech.panier.model.TypeFruitSimple.Poire;
-
 /**
  *
  * @author Anthony

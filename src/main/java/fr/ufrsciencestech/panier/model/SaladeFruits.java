@@ -43,26 +43,6 @@ public class SaladeFruits extends FruitAbstract {
         return true;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    /**
-     * 
-     * @return La somme des prix de tous les fruits de la salade 
-     */
-    @Override
-    public double getPrix() {
-        return this.prix;
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     * 
-     * @return Un String de toutes les origines des fruits de la salade. Sous la forme "origine, origine, origine" 
-     */
-    @Override
-    public OrigineProduit getOrigine() {
-        return this.origine;
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
  
     /**
      * Ajoute un fruit dans la salade
@@ -105,26 +85,6 @@ public class SaladeFruits extends FruitAbstract {
             ret+=fruit.toString()+"\n";
         }
         return ret;
-    }
-
-    @Override
-    public void setPrix(double prix) {
-        this.prix=prix; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setOrigine(OrigineProduit origine) {
-        this.origine=origine;// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    @Override
-    public TypeProduit getTypeProduit(){
-        return this.typeProduit;
-    }
-    
-    @Override
-    public void setTypeProduit(TypeProduit typeProduit){
-        this.typeProduit  = typeProduit;
     }
     
     @Override
