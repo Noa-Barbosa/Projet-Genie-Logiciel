@@ -187,11 +187,6 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
                 jComboBoxBoycotteOrigineItemStateChanged(evt);
             }
         });
-        jComboBoxBoycotteOrigine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxBoycotteOrigineActionPerformed(evt);
-            }
-        });
         panelBoutonsAjouts.add(jComboBoxBoycotteOrigine);
 
         panelVuePanier.add(panelBoutonsAjouts, java.awt.BorderLayout.EAST);
@@ -217,10 +212,6 @@ public class VuePanier extends javax.swing.JFrame implements VueG {
         VueAjoutJus vaj = new VueAjoutJus(this.getPanier(), this, this.getControleur());
         vaj.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterJusActionPerformed
-
-    private void jComboBoxBoycotteOrigineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxBoycotteOrigineActionPerformed
 
     private void jButtonAjoutSaladeMacedoineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutSaladeMacedoineActionPerformed
         VueAjoutSaladesFruit vas = new VueAjoutSaladesFruit( this, this.getControleur());
