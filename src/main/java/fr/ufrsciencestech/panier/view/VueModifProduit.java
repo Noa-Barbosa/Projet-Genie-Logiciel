@@ -5,11 +5,18 @@
 package fr.ufrsciencestech.panier.view;
 
 import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.model.FruitFactory;
 import fr.ufrsciencestech.panier.model.Produit;
 import fr.ufrsciencestech.panier.model.FruitSimple;
+import fr.ufrsciencestech.panier.model.JusBanane;
+import fr.ufrsciencestech.panier.model.JusCerise;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
 import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.model.SaladeFruits;
 import fr.ufrsciencestech.panier.model.TypeFruitSimple;
+import static fr.ufrsciencestech.panier.model.TypeProduit.JusBanane;
+import static fr.ufrsciencestech.panier.model.TypeProduit.JusCerise;
+import static fr.ufrsciencestech.panier.model.TypeProduit.SaladeFruits;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
@@ -38,9 +45,7 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
     }
     
     void initDatas(){
-        
-        this.mVP.getPanier().addObserver(this);
-        
+                
         DefaultComboBoxModel<OrigineProduit> modelOrigineProduit = new DefaultComboBoxModel<>(OrigineProduit.values());
         this.jComboBoxOrigineProduits.setModel((ComboBoxModel)modelOrigineProduit);
         this.jComboBoxOrigineProduits.setSelectedItem(this.mProduit.getOrigine());
@@ -134,11 +139,33 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
             double prixModif = Double.parseDouble(this.jTextFieldPrixProduits.getText());
             OrigineProduit origineModif = (OrigineProduit)this.jComboBoxOrigineProduits.getSelectedItem();
             
-            Produit prodInit = this.mProduit;
-            Produit prodModif = this.mProduit;
-            prodModif.setPrix(prixModif);
-            prodModif.setOrigine(origineModif);
-            
+            Produit prodInit;
+            Produit prodModif;
+            switch(this.mProduit.getTypeProduit()){
+                case FruitSimple:
+                    FruitSimple fruit = (FruitSimple) this.mProduit;
+                    prodInit = FruitFactory.creerFruitSimple(fruit.getPrix(), fruit.getOrigine(), fruit.getTypeFruitSimple());
+                    prodModif = FruitFactory.creerFruitSimple(prixModif,origineModif,fruit.getTypeFruitSimple());
+                    break;
+                case SaladeFruits:
+                    SaladeFruits salade = (SaladeFruits) this.mProduit;
+                    prodInit = FruitFactory.creerSaladeFruits(salade.getPrix(), salade.getOrigine());
+                    prodModif = FruitFactory.creerSaladeFruits(prixModif,origineModif);
+                    break;
+                case JusCerise:
+                    JusCerise jusC = (JusCerise) this.mProduit;
+                    prodInit = FruitFactory.creerJusCerise(jusC.getPrix(),jusC.getOrigine(),jusC.getFruit());
+                    prodModif = FruitFactory.creerJusCerise(prixModif,origineModif,jusC.getFruit());
+                    break;
+                case JusBanane:
+                    JusBanane jusB = (JusBanane) this.mProduit;
+                    prodInit = FruitFactory.creerJusCerise(jusB.getPrix(),jusB.getOrigine(),jusB.getFruit());
+                    prodModif = FruitFactory.creerJusBanane(prixModif,origineModif,jusB.getFruit());
+                    break;
+                default:
+                    throw new AssertionError(this.mProduit.getTypeProduit().name());
+                
+            }            
             this.mControleur.produitModif(prodInit, prodModif, quantiteAModif);
             
             this.dispose();
@@ -174,7 +201,7 @@ public class VueModifProduit extends javax.swing.JFrame implements VueG{
     @Override
     public void update(Observable m, Object o){
         //this.mPanier= (Panier)o;
-        this.mVP.remplirListe();
+        //this.mVP.remplirListe();
     }
 
     @Override
