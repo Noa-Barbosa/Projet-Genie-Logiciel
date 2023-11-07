@@ -18,21 +18,21 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelFruit">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fruit : "/>
+        <Property name="text" type="java.lang.String" value="Produit :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contFruit">
     </Component>
     <Component class="javax.swing.JLabel" name="labelOrigine">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Origine : "/>
+        <Property name="text" type="java.lang.String" value="|&#xa0;Origine : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contOrigine">
     </Component>
     <Component class="javax.swing.JLabel" name="labelQuantite">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Qte : "/>
+        <Property name="text" type="java.lang.String" value="|&#xa0;Qte : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contQuantite">
@@ -41,16 +41,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="+"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutQteFruitActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="retireQteFruit">
       <Properties>
         <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retireQteFruitActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="modifQteFruit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Edit"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modifQteFruitActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelPrixUnit">
       <Properties>
@@ -61,7 +70,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPrixTotal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Prix total : "/>
+        <Property name="text" type="java.lang.String" value="|&#xa0;Prix total : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="contPrixTotal">

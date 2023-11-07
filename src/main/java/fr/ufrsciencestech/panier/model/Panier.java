@@ -114,12 +114,19 @@ public class Panier extends Observable{
     
     /**
      * predicat indiquant que le panier est plein ( si la contenance est égale à la contenanceMax)
-     * @return un booleen, vrai si la liste pleinne et sinon faux
+     * @return un booleen, vrai si la liste pleine et sinon faux
      */
     public boolean estPlein(){
 	return this.produits.size() == this.contenanceMax;
     }
 
+    /**
+     * indique la quantité restante de produits que l'on peut mettre dans le panier
+     * @return un entier, la soustraction de la contenance max du panier avec sa taille
+     */
+    public int quantiteRestante(){
+        return this.getContenanceMax() - this.getTaillePanier();
+    }
     
     /**
      * ajoute le produit o a la fin du panier si celui-ci n'est pas plein
@@ -155,6 +162,10 @@ public class Panier extends Observable{
       }
     }
     
+    /**
+     * Retire la premiere occurence du produit
+     * @param p produit
+     */
     public void retraitProduit(Produit p) {
         this.produits.remove(p);
         notifyUpdate();
@@ -221,6 +232,28 @@ public class Panier extends Observable{
         
         notifyUpdate();
     }  
+    
+    /**
+     * Modifie le premier produit en paramètre par un nouveau prix et une nouvelle origine
+     * (ne modifie que la première occurence du produit dans la liste)
+     * @param init
+     * @param pModif
+     * @param quantiteAModif
+     */
+    public void produitModif(Produit init, Produit pModif, int quantiteAModif){           
+        int compteur = 0;
+        
+        for(Produit produit : this.getProduits()){
+            if(compteur == quantiteAModif){
+                break;
+            }else if(init.equals(produit)){
+                produit.setOrigine(pModif.getOrigine());
+                produit.setPrix(pModif.getPrix());
+                compteur++;
+            }
+        }
+        notifyUpdate();
+    }
         
     /**
      * predicat pour tester si 2 paniers sont equivalents : s'ils contiennent exactement les memes produits

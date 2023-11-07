@@ -4,37 +4,71 @@
  */
 package fr.ufrsciencestech.panier.view;
 
-import fr.ufrsciencestech.panier.model.Panier;
+import fr.ufrsciencestech.panier.controler.Controleur;
+import fr.ufrsciencestech.panier.model.FruitFactory;
 import fr.ufrsciencestech.panier.model.OrigineProduit;
-import fr.ufrsciencestech.panier.model.TypeProduit;
+import fr.ufrsciencestech.panier.model.TypeFruitSimple;
 
 import javax.swing.*;
 
 /**
- *
- * @author Utilisateur
+ * Vue pour ajouter un fruit dans le panier
+ * @author pt454976
  */
-public class VueAjoutFruit extends javax.swing.JFrame {
+public class VueAjoutFruit extends javax.swing.JFrame{
+    /**
+     * Vue parente
+     */
+    private VuePanier mVP;
+    /**
+     * Controleur de la vue
+     */
+    private Controleur mControleur;
     
-    Panier mPanier;
+    /**
+    * Quantite de fruit a rajouter
+    */
+    private int mQuantite;
 
     /**
-     * Creates new form VueAjoutFruit
+     * Construteur de la vue
+     * @param vuePanier le parent
+     * @param controleur le controleur
      */
-    public VueAjoutFruit() {
+    public VueAjoutFruit(VuePanier vuePanier, Controleur controleur) {
         initComponents();
-        
-        this.mPanier = new Panier(10);
-        
+        this.mVP = vuePanier;
+        this.mControleur = controleur;
+        this.jSpinnerQteFruitSimple.setModel(new SpinnerNumberModel(0, 0, this.mVP.getQuantiteRestante(), 1));
+        this.mQuantite = 0;
+                
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initDatas();
     }
     
+    /**
+     * Initialise les models des combos box a partir des enumerations
+     */
     void initDatas(){
         DefaultComboBoxModel<OrigineProduit> modelOrigine = new DefaultComboBoxModel<>(OrigineProduit.values());
         this.jComboBoxOrigineFruitSimple.setModel((ComboBoxModel) modelOrigine);
         
-        DefaultComboBoxModel<TypeProduit> modelType = new DefaultComboBoxModel<>(TypeProduit.values());
+        DefaultComboBoxModel<TypeFruitSimple> modelType = new DefaultComboBoxModel<>(TypeFruitSimple.values());
         this.jComboBoxTypeFruitSimple.setModel((ComboBoxModel) modelType);
+    }
+    
+    /**
+     * Verifie que le prix est valide
+     * @return 
+     */
+    boolean jTextFieldPrixValide(){
+        try{
+            String text = this.jTextFieldPrixFruitSimple.getText();
+            double prix = Double.parseDouble(text);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**
@@ -61,7 +95,9 @@ public class VueAjoutFruit extends javax.swing.JFrame {
         jButtonAnnulerFruitSimple = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(3, 1));
+        setTitle("Ajout fruit");
+        setPreferredSize(new java.awt.Dimension(500, 120));
+        setSize(new java.awt.Dimension(500, 120));
 
         labelTypeFruitSimple.setText("Type du fruit : ");
         panelTypeOrigineFruitSimple.add(labelTypeFruitSimple);
@@ -73,7 +109,7 @@ public class VueAjoutFruit extends javax.swing.JFrame {
 
         panelTypeOrigineFruitSimple.add(jComboBoxOrigineFruitSimple);
 
-        getContentPane().add(panelTypeOrigineFruitSimple);
+        getContentPane().add(panelTypeOrigineFruitSimple, java.awt.BorderLayout.NORTH);
 
         labelPrixFruitSimple.setText("Prix du fruit : ");
         panelPrixQteFruitSimple.add(labelPrixFruitSimple);
@@ -85,56 +121,83 @@ public class VueAjoutFruit extends javax.swing.JFrame {
         panelPrixQteFruitSimple.add(labelQteFruitSimple);
 
         jSpinnerQteFruitSimple.setPreferredSize(new java.awt.Dimension(40, 30));
+        jSpinnerQteFruitSimple.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinnerQteFruitSimpleStateChanged(evt);
+            }
+        });
         panelPrixQteFruitSimple.add(jSpinnerQteFruitSimple);
 
-        getContentPane().add(panelPrixQteFruitSimple);
+        getContentPane().add(panelPrixQteFruitSimple, java.awt.BorderLayout.CENTER);
 
         jButtonValiderFruitSimple.setText("Valider");
+        jButtonValiderFruitSimple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonValiderFruitSimpleActionPerformed(evt);
+            }
+        });
         panelBoutonsValiderAnnuler.add(jButtonValiderFruitSimple);
 
         jButtonAnnulerFruitSimple.setText("Annuler");
+        jButtonAnnulerFruitSimple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerFruitSimpleActionPerformed(evt);
+            }
+        });
         panelBoutonsValiderAnnuler.add(jButtonAnnulerFruitSimple);
 
-        getContentPane().add(panelBoutonsValiderAnnuler);
+        getContentPane().add(panelBoutonsValiderAnnuler, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * Evenement sur le spinner pour modifer la quantite
+     * @param evt 
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void jSpinnerQteFruitSimpleStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerQteFruitSimpleStateChanged
+        // TODO add your handling code here:
+        this.mQuantite = (Integer)this.jSpinnerQteFruitSimple.getModel().getValue();
+    }//GEN-LAST:event_jSpinnerQteFruitSimpleStateChanged
+
+    /**
+     * Appuie sur le bouton de validation, recupere les donnees pour creer le fruit et l'ajouter au panier
+     * @param evt 
+     */
+    private void jButtonValiderFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderFruitSimpleActionPerformed
+        double prix = Double.parseDouble(this.jTextFieldPrixFruitSimple.getText());
+        TypeFruitSimple tfs = (TypeFruitSimple) this.jComboBoxTypeFruitSimple.getSelectedItem();
+        OrigineProduit op = (OrigineProduit) this.jComboBoxOrigineFruitSimple.getSelectedItem();
+                
+        if(this.jTextFieldPrixValide() && this.mVP.getBoycotte() != op){
+            try{
+                for(int i = 0; i < this.mQuantite; i++){
+                    try{
+                        this.mVP.getControleur().ajoutProduit(FruitFactory.creerFruitSimple(prix, op, tfs));
+                    }catch (Exception e){
+                        System.err.println(e);
+                    }
                 }
+            }catch(Exception e){
+                System.err.println(e);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VueAjoutFruit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VueAjoutFruit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VueAjoutFruit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VueAjoutFruit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            this.dispose();
+            this.pack();
+        }else{
+            System.err.println("Vous devez renseigner le prix du fruit correctement !\nOu alors le fruit est boycotté !");
         }
-        //</editor-fold>
+    }//GEN-LAST:event_jButtonValiderFruitSimpleActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VueAjoutFruit().setVisible(true);
-            }
-        });
-    }
+    /**
+     * Bouton d'annulation, ferme la vue
+     * @param evt 
+     */
+    private void jButtonAnnulerFruitSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerFruitSimpleActionPerformed
+        this.dispose();
+        this.pack();
+    }//GEN-LAST:event_jButtonAnnulerFruitSimpleActionPerformed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnulerFruitSimple;
     private javax.swing.JButton jButtonValiderFruitSimple;
@@ -150,4 +213,6 @@ public class VueAjoutFruit extends javax.swing.JFrame {
     private javax.swing.JPanel panelPrixQteFruitSimple;
     private javax.swing.JPanel panelTypeOrigineFruitSimple;
     // End of variables declaration//GEN-END:variables
+
+   
 }

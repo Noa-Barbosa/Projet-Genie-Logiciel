@@ -24,17 +24,29 @@ public abstract class FruitAbstract implements Fruit{
      */
     protected TypeProduit typeProduit;
     @Override
-    public abstract double getPrix();
+    public double getPrix(){
+        return this.prix;
+    }
     @Override
-    public abstract void setPrix(double prix);
+    public void setPrix(double prix){
+        this.prix=prix;
+    }
     @Override
-    public abstract OrigineProduit getOrigine();
+    public OrigineProduit getOrigine(){
+        return this.origine;
+    }
     @Override
-    public abstract void setOrigine(OrigineProduit origine);
+    public void setOrigine(OrigineProduit origine){
+        this.origine=origine;
+    }
     @Override
-    public abstract TypeProduit getTypeProduit();
+    public TypeProduit getTypeProduit(){
+        return this.typeProduit;
+    }
     @Override
-    public abstract void setTypeProduit(TypeProduit typeProduit);
+    public void setTypeProduit(TypeProduit typeProduit){
+        this.typeProduit=typeProduit;
+    }
     @Override
     public abstract boolean equals(Object o);
     @Override

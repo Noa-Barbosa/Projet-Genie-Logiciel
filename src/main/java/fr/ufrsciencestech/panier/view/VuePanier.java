@@ -4,55 +4,92 @@
  */
 package fr.ufrsciencestech.panier.view;
 
+import fr.ufrsciencestech.panier.controler.Controleur;
 import fr.ufrsciencestech.panier.model.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 
 /**
- *
+ * Vue principale de l'application
+ * Liste les produits du panier et afficher les boutons pour les autres vues
  * @author pt454976
  */
-public class VuePanier extends javax.swing.JFrame implements Observer {
-    Panier mPanier;
+public class VuePanier extends javax.swing.JFrame implements VueG {
+    /**
+     * Controleur de la vue
+     */
+    private Controleur mControleur;
+    /**
+     * Place restante dans le panier
+     */
+    private int quantiteRestante;
     
     /**
-     * Creates new form VuePanier
+     * Constructeur de la vue
      */
     public VuePanier() {
         initComponents();
-        this.setTitle("Panier");
+        this.setTitle("Panier");  
+        this.setVisible(true);
         
-        try{
-            this.mPanier = new Panier(10);
-            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.0, OrigineProduit.Espagne, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Cerise));
-            this.mPanier.ajoutProduit(new FruitSimple(2.5, OrigineProduit.France, TypeProduit.Banane));
-            this.mPanier.ajoutProduit(new FruitSimple(2.0, OrigineProduit.Allemagne, TypeProduit.Banane));
-            this.mPanier.ajoutProduit(new FruitSimple(1.5, OrigineProduit.France, TypeProduit.Orange));
-        }catch(Exception e){
-            System.err.println(e);
-        }
-        
-        remplirListe();
+        this.initDatas();
     }
     
-    void remplirListe(){
+    /**
+     * Initialise le model de la combobox pour boycotter une origine
+     */
+    void initDatas(){
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add("Aucune");
+        for(OrigineProduit origine : OrigineProduit.values()){
+            lst.add(origine.toString());
+        }
+        DefaultComboBoxModel<String> modelType = new DefaultComboBoxModel<>();
+        for(String str : lst){
+            modelType.addElement(str);
+        }
+        this.jComboBoxBoycotteOrigine.setModel(modelType);
+    }
+    
+    /**
+     * Recuperer l'origine boycotter
+     * @return l'origine
+     */
+    OrigineProduit getBoycotte(){
+        String selectedString = (String)this.jComboBoxBoycotteOrigine.getSelectedItem();
+        
+        if(selectedString.equals("Aucune")) return null;
+        else{
+            try{
+                return OrigineProduit.valueOf(selectedString);
+            }catch(IllegalArgumentException e){
+                System.err.println(e);
+                return null;
+            }
+        }
+    }
+    
+    /**
+     * Creer des VuePanelProduit pour chacun des produits dans le panier
+     * @param p le panier recuperer par le update
+     */
+    void remplirListe(Panier p){
         double prixTotalPanier = 0;
         
+        //retire tout les éléments du gridLayout
         this.panelListeFruits.removeAll();
         this.panelListeFruits.revalidate();
         this.panelListeFruits.repaint();
         
         ArrayList<Produit> produitsAjoutes = new ArrayList<>();
-        for(Produit produit : this.mPanier.getProduits()){
+        for(Produit produit : p.getProduits()){
             if(!layoutContientProduit(produit, produitsAjoutes)){
-                int quantite = compteQteFruits(produit, this.mPanier);
-                this.panelListeFruits.add(new VuePanelFruit(produit, this, quantite));
+                int quantite = compteQteProduits(produit, p);
+             
+                VuePanelProduit vf = new VuePanelProduit(produit, this, quantite, this.mControleur);
+                
+                this.panelListeFruits.add(vf);
                 produitsAjoutes.add(produit);
                 prixTotalPanier += quantite * produit.getPrix();
                 
@@ -62,6 +99,12 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
         this.contPrixTotalPanier.setText(Double.toString(prixTotalPanier) + "€ ");
     }
     
+    /**
+     * Verifie si la liste de produits contient le produit en parametre
+     * @param prodTest le produit a chercher
+     * @param produits la liste des produits
+     * @return 
+     */
     boolean layoutContientProduit(Produit prodTest, ArrayList<Produit> produits){
         for(Produit produit : produits){
             if(prodTest.equals(produit)){
@@ -71,7 +114,13 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
         return false;
     }
     
-    int compteQteFruits(Produit prodTest, Panier panier){
+    /**
+     * Compte le nombre de produit identique dans le panier pour afficher les bonnes quantites
+     * @param prodTest le produit a tester
+     * @param panier le panier
+     * @return la quantite de produit
+     */
+    int compteQteProduits(Produit prodTest, Panier panier){
         int compteur = 0;
         for(Produit produit : panier.getProduits()){
             if(produit.equals(prodTest)) compteur++;
@@ -88,70 +137,160 @@ public class VuePanier extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelVuePanier = new javax.swing.JPanel();
+        panelPanier = new javax.swing.JPanel();
         panelListeFruits = new javax.swing.JPanel();
         panelPrixTotalPanier = new javax.swing.JPanel();
         labelPrixTotalPanier = new javax.swing.JLabel();
         contPrixTotalPanier = new javax.swing.JLabel();
+        panelBoutonsAjouts = new javax.swing.JPanel();
+        jButtonAjouterFruit = new javax.swing.JButton();
+        jButtonAjouterJus = new javax.swing.JButton();
+        jButtonAjoutSaladeMacedoine = new javax.swing.JButton();
+        jLabelOrigineBoycotte = new javax.swing.JLabel();
+        jComboBoxBoycotteOrigine = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setSize(new java.awt.Dimension(800, 600));
 
+        panelVuePanier.setLayout(new java.awt.BorderLayout());
+
+        panelPanier.setLayout(new java.awt.BorderLayout());
+
         panelListeFruits.setLayout(new java.awt.GridLayout(0, 1));
-        getContentPane().add(panelListeFruits, java.awt.BorderLayout.CENTER);
+        panelPanier.add(panelListeFruits, java.awt.BorderLayout.CENTER);
 
         labelPrixTotalPanier.setText("Prix total du panier : ");
         panelPrixTotalPanier.add(labelPrixTotalPanier);
         panelPrixTotalPanier.add(contPrixTotalPanier);
 
-        getContentPane().add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
+        panelPanier.add(panelPrixTotalPanier, java.awt.BorderLayout.SOUTH);
+
+        panelVuePanier.add(panelPanier, java.awt.BorderLayout.CENTER);
+
+        panelBoutonsAjouts.setLayout(new java.awt.GridLayout(5, 1));
+
+        jButtonAjouterFruit.setText("Ajouter fruit");
+        jButtonAjouterFruit.setPreferredSize(null);
+        jButtonAjouterFruit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterFruitActionPerformed(evt);
+            }
+        });
+        panelBoutonsAjouts.add(jButtonAjouterFruit);
+
+        jButtonAjouterJus.setText("Ajouter jus");
+        jButtonAjouterJus.setPreferredSize(null);
+        jButtonAjouterJus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterJusActionPerformed(evt);
+            }
+        });
+        panelBoutonsAjouts.add(jButtonAjouterJus);
+
+        jButtonAjoutSaladeMacedoine.setText("Ajouter salade/macédoine");
+        jButtonAjoutSaladeMacedoine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjoutSaladeMacedoineActionPerformed(evt);
+            }
+        });
+        panelBoutonsAjouts.add(jButtonAjoutSaladeMacedoine);
+
+        jLabelOrigineBoycotte.setText("Origine a boycotter :");
+        panelBoutonsAjouts.add(jLabelOrigineBoycotte);
+
+        jComboBoxBoycotteOrigine.setPreferredSize(null);
+        jComboBoxBoycotteOrigine.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxBoycotteOrigineItemStateChanged(evt);
+            }
+        });
+        panelBoutonsAjouts.add(jComboBoxBoycotteOrigine);
+
+        panelVuePanier.add(panelBoutonsAjouts, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(panelVuePanier, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * Bouton ajout fruit, ouvre la vue d'ajout de fruit
+     * @param evt 
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VuePanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonAjouterFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterFruitActionPerformed
+        VueAjoutFruit vag = new VueAjoutFruit(this, this.getControleur());
+        vag.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterFruitActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VuePanier().setVisible(true);
-            }
-        });
-    }
+    /**
+     * Quand on choisit un element de la combobox boycotte, on boycotte les produits de l'origine choisie
+     * @param evt 
+     */
+    private void jComboBoxBoycotteOrigineItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxBoycotteOrigineItemStateChanged
+        this.mControleur.boycotteOrigine(this.getBoycotte());
+    }//GEN-LAST:event_jComboBoxBoycotteOrigineItemStateChanged
+
+    /**
+     * Bouton ajout jus, ouvre la vue d'ajout d'un jus
+     * @param evt 
+     */
+    private void jButtonAjouterJusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterJusActionPerformed
+        VueAjoutJus vaj = new VueAjoutJus(this, this.getControleur());
+        vaj.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterJusActionPerformed
+
+    /**
+     * Bouton ajout salade, ouvre la vue d'ajout de salade
+     * @param evt 
+     */
+    private void jButtonAjoutSaladeMacedoineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutSaladeMacedoineActionPerformed
+        VueAjoutSaladesFruit vas = new VueAjoutSaladesFruit( this, this.getControleur());
+        vas.setVisible(true);
+    }//GEN-LAST:event_jButtonAjoutSaladeMacedoineActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel contPrixTotalPanier;
+    private javax.swing.JButton jButtonAjoutSaladeMacedoine;
+    private javax.swing.JButton jButtonAjouterFruit;
+    private javax.swing.JButton jButtonAjouterJus;
+    private javax.swing.JComboBox<String> jComboBoxBoycotteOrigine;
+    private javax.swing.JLabel jLabelOrigineBoycotte;
     private javax.swing.JLabel labelPrixTotalPanier;
+    private javax.swing.JPanel panelBoutonsAjouts;
     private javax.swing.JPanel panelListeFruits;
+    private javax.swing.JPanel panelPanier;
     private javax.swing.JPanel panelPrixTotalPanier;
+    private javax.swing.JPanel panelVuePanier;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void update(Observable m, Object o){
-        this.remplirListe();
+        Panier p= (Panier)o;
+        this.quantiteRestante=p.quantiteRestante();
+        this.remplirListe(p);
+    }
+
+    @Override
+    public void addControleur(Controleur c) {
+        this.mControleur=c;
+    }
+
+    /**
+     * Assesseur du controleur de la vue
+     * @return le controleur
+     */
+    public Controleur getControleur() {
+        return mControleur;
+    }
+
+    /**
+     * Assesseur de la place restante dans le panier
+     * @return la place restante
+     */
+    public int getQuantiteRestante() {
+        return this.quantiteRestante;
     }
 }

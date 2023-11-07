@@ -8,41 +8,31 @@ package fr.ufrsciencestech.panier.model;
  * Un fruit basique : Orange,Cerise...
  * @author noaba
  */
-public class FruitSimple extends FruitAbstract{    
-    public FruitSimple(double prix, OrigineProduit origine, TypeProduit type){
+public class FruitSimple extends FruitAbstract{   
+    /**
+     * Type de fruit
+     */
+    private TypeFruitSimple typeFruit;
+    
+    /**
+     * Constructeur avec parametre
+     * @param prix le prix
+     * @param origine l'origine
+     * @param type le type
+     */
+    public FruitSimple(double prix, OrigineProduit origine, TypeFruitSimple type){
         this.prix=prix;
         this.origine=origine;
-        this.typeProduit=type;
+        this.typeProduit=TypeProduit.FruitSimple;
+        this.typeFruit=type;
     }
     
-    @Override
-    public double getPrix() {
-        return this.prix;
-    }
-
-    @Override
-    public void setPrix(double prix) {
-        this.prix=prix;
-    }
-
-    @Override
-    public OrigineProduit getOrigine() {
-        return this.origine;
-    }
-
-    @Override
-    public void setOrigine(OrigineProduit origine) {
-        this.origine=origine;
-    }
-    
-    @Override
-    public TypeProduit getTypeProduit(){
-        return this.typeProduit;
-    }
-    
-    @Override
-    public void setTypeProduit(TypeProduit typeProduit){
-        this.typeProduit = typeProduit;
+    /**
+     * Assesseur du type du fruit
+     * @return le type du fruit
+     */
+    public TypeFruitSimple getTypeFruitSimple(){
+        return this.typeFruit;
     }
     
     @Override
@@ -61,7 +51,7 @@ public class FruitSimple extends FruitAbstract{
 
     @Override
     public boolean isSeedless(){
-        switch (typeProduit) {
+        switch (typeFruit) {
             case Orange : 
                 return false;
             case Banane:
@@ -77,7 +67,7 @@ public class FruitSimple extends FruitAbstract{
 
     @Override
     public String toString() {
-        return "Type : "+ this.typeProduit + "Prix : " + this.prix + " Origine : " +this.origine;   
+        return "Type : "+ this.typeFruit + "Prix : " + this.prix + " Origine : " +this.origine;   
     }
     
 }
