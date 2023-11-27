@@ -57,6 +57,9 @@ public class Panier extends Observable{
      * @return retourne un objet de type Produit
      */
     public Produit getProduit(int i){
+        if(i>=this.getProduits().size() && i>-1){
+            return null;
+        }
 	return this.produits.get(i);
     }
     
@@ -66,8 +69,11 @@ public class Panier extends Observable{
      * @param p L'objet Produit à ajouter dans la liste
      */
     public void setProduit(int i, Produit p){  
-        this.produits.set(i, p);
-        notifyUpdate();
+        if(i<this.getProduits().size() && i>-1){
+            this.produits.set(i, p);
+            notifyUpdate();
+        }
+        
     }
     
     /**
